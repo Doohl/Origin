@@ -1,0 +1,279 @@
+# depslib dependency file v1.0
+1324529832 source:c:\c++\projects\libtcodtesting\main.cpp
+	"libtcod.hpp"
+	"Game.h"
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\libtcod.hpp
+	"libtcod.h"
+	"list.hpp"
+	"color.hpp"
+	"console.hpp"
+	"image.hpp"
+	"sys.hpp"
+	"mersenne.hpp"
+	"mouse.hpp"
+	"bresenham.hpp"
+	"noise.hpp"
+	"fov.hpp"
+	"path.hpp"
+	"lex.hpp"
+	"parser.hpp"
+	"tree.hpp"
+	"bsp.hpp"
+	"heightmap.hpp"
+	"zip.hpp"
+	"namegen.hpp"
+
+1266299308 c:\c++\libraries\libtcod-1.5.0\include\libtcod.h
+	<wchar.h>
+	"SDL/SDL.h"
+	"list.h"
+	"color.h"
+	"console.h"
+	"image.h"
+	"sys.h"
+	"mersenne.h"
+	"mouse.h"
+	"bresenham.h"
+	"noise.h"
+	"fov.h"
+	"path.h"
+	"lex.h"
+	"parser.h"
+	"tree.h"
+	"bsp.h"
+	"heightmap.h"
+	"zip.h"
+	"namegen.h"
+	"txtfield.h"
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\list.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\color.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\console.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\image.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\sys.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\mersenne.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\mouse.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\bresenham.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\noise.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\fov.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\path.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\lex.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\parser.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\tree.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\bsp.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\heightmap.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\zip.h
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\namegen.h
+
+1266272652 c:\c++\libraries\libtcod-1.5.0\include\txtfield.h
+	"libtcod.h"
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\list.hpp
+	<string.h>
+	<stdlib.h>
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\color.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\console.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\image.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\sys.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\mersenne.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\mouse.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\bresenham.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\noise.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\fov.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\path.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\lex.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\parser.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\tree.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\bsp.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\heightmap.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\zip.hpp
+
+1265613144 c:\c++\libraries\libtcod-1.5.0\include\namegen.hpp
+
+1339744015 source:c:\c++\projects\libtcodtesting\game.cpp
+	"Game.h"
+	"Entity.h"
+	"Mob.h"
+	"Item.h"
+	"Map.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+
+1339708640 c:\c++\projects\libtcodtesting\game.h
+	"Map.h"
+	"libtcod.hpp"
+	"Player.h"
+
+1336350833 c:\c++\projects\libtcodtesting\map.h
+	"libtcod.hpp"
+	"Entity.h"
+	"Turf.h"
+	<vector>
+
+1336885990 c:\c++\projects\libtcodtesting\entity.h
+	"EntityData.h"
+	"libtcod.hpp"
+	<string>
+
+1336935306 source:c:\c++\projects\libtcodtesting\map.cpp
+	"Map.h"
+	"Entity.h"
+	"Game.h"
+	<vector>
+	<iostream>
+
+1325289133 source:c:\c++\projects\libtcodtesting\entity.cpp
+	"Game.h"
+	"Entity.h"
+
+1336885341 c:\c++\projects\libtcodtesting\entitydata.h
+
+1339633141 c:\c++\projects\libtcodtesting\turf.h
+	"Entity.h"
+	"TurfData.h"
+	"Mob.h"
+	"Item.h"
+	<vector>
+
+1337543476 source:c:\c++\projects\libtcodtesting\turf.cpp
+	"Turf.h"
+	"Map.h"
+	<iostream>
+	<algorithm>
+
+1336350361 c:\c++\projects\libtcodtesting\mob.h
+	"Entity.h"
+	"MobData.h"
+	<vector>
+
+1339718885 source:c:\c++\projects\libtcodtesting\mob.cpp
+	"Mob.h"
+	"Turf.h"
+	"Map.h"
+	"Game.h"
+	"Player.h"
+	"Helper.h"
+	<iostream>
+	<algorithm>
+	<cmath>
+
+1340042831 source:c:\c++\projects\libtcodtesting\player.cpp
+	"Player.h"
+	"Turf.h"
+	"Map.h"
+	"Game.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+	<sstream>
+
+1340042108 c:\c++\projects\libtcodtesting\player.h
+	"Mob.h"
+	"Entity.h"
+	"Item.h"
+	<vector>
+
+1342917315 source:c:\c++\projects\libtcodtesting\helper.cpp
+	"Helper.h"
+	<iostream>
+
+1340000395 c:\c++\projects\libtcodtesting\helper.h
+	"Libtcod.hpp"
+	<string>
+	<vector>
+	<sstream>
+	<cstdarg>
+	<ctype.h>
+
+1325554167 c:\c++\projects\libtcodtesting\helper.cpp
+	"Helper.h"
+	<iostream>
+
+1336275077 source:c:\c++\projects\libtcodtesting\mobai.cpp
+	"Mob.h"
+	"Game.h"
+	"Helper.h"
+	"Turf.h"
+	<iostream>
+
+1339633141 c:\c++\projects\libtcodtesting\turfdata.h
+
+1336274614 c:\c++\projects\libtcodtesting\mobdata.h
+
+1339977932 source:c:\c++\projects\libtcodtesting\item.cpp
+	"Item.h"
+	"Helper.h"
+	<algorithm>
+	<vector>
+	<iostream>
+
+1342921583 c:\c++\projects\libtcodtesting\item.h
+	"Entity.h"
+	"ItemData.h"
+	<vector>
+
+1336953796 c:\c++\projects\libtcodtesting\itemdata.h
+	<string>
+	"libtcod.hpp"
+
+1339716618 source:c:\c++\projects\libtcodtesting\itemdefs.cpp
+	"Item.h"
+
+1342917402 source:c:\c++\projects\libtcodtesting\game_ui.cpp
+	"Game.h"
+	"Entity.h"
+	"Mob.h"
+	"Item.h"
+	"Map.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+
+1336368204 source:c:\c++\projects\libtcodtesting\mobdefs.cpp
+	"Mob.h"
+
+1340003627 source:c:\c++\projects\libtcodtesting\controls.cpp
+	"Game.h"
+	"Entity.h"
+	"Mob.h"
+	"Item.h"
+	"Map.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+
