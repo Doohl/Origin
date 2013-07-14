@@ -1,6 +1,6 @@
 Origin
 ======
-- By Doohl.
+By Doohl.
 
 Origin is a relatively ambitious, yet massively unfinished C++ project. It started off as a simple concept for an open world sandbox survival roguelike loosely based off of an idea I had for a novel. This idea has since fleshed out considerably to the point where the game could be the actual manifestation of the story.
 
@@ -8,10 +8,10 @@ It is unknown whether I will ever find the time or drive to continue work on Ori
 
 You may use the following to contact me:
 
-doohl409 - skype
-vageyenaman@gmail.com - email
-Doohl - steam
+- doohl409 - skype
+- vageyenaman@gmail.com - email
+- Doohl - steam
 
 I sometimes lurk these channels:
-irc.rizon.net @ #tgstation, #coderbus, #adminbus
+- irc.rizon.net @ #tgstation, #coderbus, #adminbus
 
