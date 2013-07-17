@@ -1,0 +1,46 @@
+<!--
+This file contains all the melee weapons in the game.
+
+Related groups:
+	weapon - A commonly used weapon.
+	metal - Made of metallic substances. Conducts heat, electricity, and is magnetic.
+	exoticweapon - Exotic weapons that are rarely found.
+-->
+<item>
+	<id>i_shortsword</id>
+	<name>Short Sword</name>
+	<desc>A small blade great for close-quarters melee.</desc>
+	<groups>weapon;metal</groups>
+	<symbol>/</symbol>
+	<color>255,255,255</color>
+	<rarity>1</rarity>
+	<weight>10</weight>
+	<volume>8</volume>
+	<value>50</value>
+	<pliancy>20</pliancy>
+	<speed>50</speed>
+	<damage>
+		<blunt>0</blunt>
+		<cut>10</cut>
+		<pierce>0</pierce>
+	</damage>
+</item>
+<item>
+	<id>i_flail</id>
+	<name>Flail</name>
+	<desc>A large, spiked metal sphere attached by chain to a long wooden stick.</desc>
+	<groups>weapon;metal</groups>
+	<symbol>/</symbol>
+	<color>255,255,255</color>
+	<rarity>3</rarity>
+	<weight>12</weight>
+	<volume>15</volume>
+	<value>80</value>
+	<pliancy>0</pliancy>
+	<speed>80</speed>
+	<damage>
+		<blunt>10</blunt>
+		<cut>10</cut>
+		<pierce>0</pierce>
+	</damage>
+</item>
