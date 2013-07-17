@@ -101,19 +101,20 @@ int Item::GetDescAdd(TCODConsole* window, int lines) {
 
     int returnlines = lines;
 
-    window->setForegroundColor(TCODColor(210, 210, 210));
-    window->setBackgroundColor(TCODColor(114, 114, 114));
+    window->setDefaultForeground(TCODColor(210, 210, 210));
+    window->setDefaultBackground(TCODColor(114, 114, 114));
+    window->setAlignment(TCOD_LEFT);
 
     if(isClothing()) { // clothing-specific statistics
-        window->printLeft(1, returnlines, TCOD_BKGND_SET, "Maximum Volume: %i",  max_volume);
+        window->print(1, returnlines, "Maximum Volume: %i",  max_volume);
         returnlines++;
     }
     if(isWeapon()) {   // weapon-specific statistics
-        window->printLeft(1, returnlines, TCOD_BKGND_SET, "Blunt: %i  |  Cut:  %i  |  Pierce: %i",  blunt_damage, cut_damage, pierce_damage);
+        window->print(1, returnlines, "Blunt: %i  |  Cut:  %i  |  Pierce: %i",  blunt_damage, cut_damage, pierce_damage);
         returnlines++;
     }
     if(isClothing() || isWeapon()) { // statistics applicable only to weapons and clothing
-        window->printLeft(1, returnlines, TCOD_BKGND_SET, "Pliancy Bonus: %i",  pliancy);
+        window->print(1, returnlines, "Pliancy Bonus: %i",  pliancy);
         returnlines++;
     }
 

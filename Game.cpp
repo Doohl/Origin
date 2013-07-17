@@ -157,9 +157,9 @@ void Game::Start() {
     Test = "Lol!";
 
     // Initialize TCOD
-    TCODConsole::initRoot(VIEW_WIDTH, VIEW_HEIGHT, "Jade's World", false);
+    TCODConsole::initRoot(VIEW_WIDTH, VIEW_HEIGHT, "Origin: Tales of Anarchy", false);
     TCODSystem::setFps(15);
-    TCODConsole::setKeyboardRepeat(100, 30);
+    TCODConsole::setKeyboardRepeat(30, 5);
 
     DrawHud(true);
 
@@ -219,10 +219,10 @@ void Game::GameLoop() {
         if( GameMap.Field->isInFov(turfchosen->x, turfchosen->y) && (x >= 0 && y >= 0) && (x < VIEW_WIDTH && y < VIEW_HEIGHT) ) {
 
             if(fade != 1.0f) {
-                TCODConsole::root->setForegroundColor(TCODColor::lerp(TCODColor::darkGrey, turfchosen->color, fade));
+                TCODConsole::root->setDefaultForeground(TCODColor::lerp(TCODColor::darkGrey, turfchosen->color, fade));
             }
             else {
-                TCODConsole::root->setForegroundColor(turfchosen->color);
+                TCODConsole::root->setDefaultForeground(turfchosen->color);
             }
 
             if(turfchosen->c_symbol > 0) {
@@ -241,10 +241,10 @@ void Game::GameLoop() {
 
 
                 if(fade != 1.0f) {
-                    TCODConsole::root->setForegroundColor(TCODColor::lerp(TCODColor::darkGrey, entity->color, fade));
+                    TCODConsole::root->setDefaultForeground(TCODColor::lerp(TCODColor::darkGrey, entity->color, fade));
                 }
                 else {
-                    TCODConsole::root->setForegroundColor(entity->color);
+                    TCODConsole::root->setDefaultForeground(entity->color);
                 }
 
                 if((x >= 0 && y >= 0) && (x < VIEW_WIDTH && y < VIEW_HEIGHT)) {
@@ -295,8 +295,9 @@ void Game::UpdateLogic(float time) {
     // Updates all the game logic: one game turn has passed!
 
     // Clear the screen
-    TCODConsole::root->setBackgroundColor(TCODColor::black);
-    TCODConsole::root->setForegroundColor(TCODColor::black);
+    TCODConsole::root->setBackgroundFlag(TCOD_BKGND_SET);
+    TCODConsole::root->setDefaultBackground(TCODColor::black);
+    TCODConsole::root->setDefaultForeground(TCODColor::black);
     TCODConsole::root->clear();
 
     // Get all the mobs to update

@@ -27,17 +27,17 @@ void Mob::AI(Game* game) {
                 /* Can't see the target. Just ignore it. */
                 } else {
                     target = NULL;
-                    Step(game->RandomGen->getInt(-1,1), game->RandomGen->getInt(-1,1));
+                    Step(game->RandomGen->get(-1,1), game->RandomGen->get(-1,1));
                 }
 
             // the target is being deleted:
             } else {
                 target = NULL;
-                Step(game->RandomGen->getInt(-1,1), game->RandomGen->getInt(-1,1));
+                Step(game->RandomGen->get(-1,1), game->RandomGen->get(-1,1));
             }
 
         } else {
-            Step(game->RandomGen->getInt(-1,1), game->RandomGen->getInt(-1,1));
+            Step(game->RandomGen->get(-1,1), game->RandomGen->get(-1,1));
         }
     }
 }

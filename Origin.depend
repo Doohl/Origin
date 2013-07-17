@@ -277,3 +277,612 @@
 	<vector>
 	<iostream>
 
+1340003627 source:c:\origin\controls.cpp
+	"Game.h"
+	"Entity.h"
+	"Mob.h"
+	"Item.h"
+	"Map.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+
+1339708640 c:\origin\game.h
+	"Map.h"
+	"libtcod.hpp"
+	"Player.h"
+
+1374036827 c:\origin\map.h
+	"libtcod.hpp"
+	"Entity.h"
+	"Turf.h"
+	<vector>
+
+1336885990 c:\origin\entity.h
+	"EntityData.h"
+	"libtcod.hpp"
+	<string>
+
+1336885341 c:\origin\entitydata.h
+
+1339633141 c:\origin\turf.h
+	"Entity.h"
+	"TurfData.h"
+	"Mob.h"
+	"Item.h"
+	<vector>
+
+1339633141 c:\origin\turfdata.h
+
+1336350361 c:\origin\mob.h
+	"Entity.h"
+	"MobData.h"
+	<vector>
+
+1336274614 c:\origin\mobdata.h
+
+1342921583 c:\origin\item.h
+	"Entity.h"
+	"ItemData.h"
+	<vector>
+
+1336953796 c:\origin\itemdata.h
+	<string>
+	"libtcod.hpp"
+
+1340042108 c:\origin\player.h
+	"Mob.h"
+	"Entity.h"
+	"Item.h"
+	<vector>
+
+1373798329 c:\origin\helper.h
+	"Libtcod.hpp"
+	<string>
+	<vector>
+	<sstream>
+	<cstdarg>
+	<ctype.h>
+
+1325289133 source:c:\origin\entity.cpp
+	"Game.h"
+	"Entity.h"
+
+1374031456 source:c:\origin\game.cpp
+	"Game.h"
+	"Entity.h"
+	"Mob.h"
+	"Item.h"
+	"Map.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+
+1374037043 source:c:\origin\game_ui.cpp
+	"Game.h"
+	"Entity.h"
+	"Mob.h"
+	"Item.h"
+	"Map.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+
+1374022922 source:c:\origin\helper.cpp
+	"Helper.h"
+	<iostream>
+
+1374027076 source:c:\origin\item.cpp
+	"Item.h"
+	"Helper.h"
+	<algorithm>
+	<vector>
+	<iostream>
+
+1339716618 source:c:\origin\itemdefs.cpp
+	"Item.h"
+
+1374035605 source:c:\origin\map.cpp
+	"Map.h"
+	"Entity.h"
+	"Game.h"
+	<vector>
+	<iostream>
+
+1374027284 source:c:\origin\mob.cpp
+	"Mob.h"
+	"Turf.h"
+	"Map.h"
+	"Game.h"
+	"Player.h"
+	"Helper.h"
+	<iostream>
+	<algorithm>
+	<cmath>
+
+1374027312 source:c:\origin\mobai.cpp
+	"Mob.h"
+	"Game.h"
+	"Helper.h"
+	"Turf.h"
+	<iostream>
+
+1373877179 source:c:\origin\mobdefs.cpp
+	"Mob.h"
+
+1374027324 source:c:\origin\player.cpp
+	"Player.h"
+	"Turf.h"
+	"Map.h"
+	"Game.h"
+	"Helper.h"
+	<vector>
+	<iostream>
+	<sstream>
+
+1337543476 source:c:\origin\turf.cpp
+	"Turf.h"
+	"Map.h"
+	<iostream>
+	<algorithm>
+
+1374031034 source:c:\origin\main.cpp
+	"libtcod.hpp"
+	"Game.h"
+	"tinyxml.h"
+	<iostream>
+
+1373780854 source:c:\origin\tinyxml.cpp
+	"tinyxml.h"
+	<new>
+	<stddef.h>
+	<cstddef>
+
+1373781020 c:\origin\tinyxml.h
+	<ctype.h>
+	<limits.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	<cctype>
+	<climits>
+	<cstdio>
+	<cstdlib>
+	<cstring>
+	<cstdarg>
+	<android/log.h>
+	<assert.h>
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\libtcod.hpp
+	"libtcod.h"
+	"list.hpp"
+	"color.hpp"
+	"console.hpp"
+	"image.hpp"
+	"sys.hpp"
+	"mersenne.hpp"
+	"mouse.hpp"
+	"bresenham.hpp"
+	"noise.hpp"
+	"fov.hpp"
+	"path.hpp"
+	"lex.hpp"
+	"parser.hpp"
+	"tree.hpp"
+	"bsp.hpp"
+	"heightmap.hpp"
+	"zip.hpp"
+	"namegen.hpp"
+	"txtfield.hpp"
+
+1346296256 c:\c++\libraries\libtcod-1.5.1\include\libtcod.h
+	<wchar.h>
+	"SDL/SDL.h"
+	"list.h"
+	"color.h"
+	"console.h"
+	"image.h"
+	"mouse.h"
+	"sys.h"
+	"mersenne.h"
+	"bresenham.h"
+	"noise.h"
+	"fov.h"
+	"path.h"
+	"lex.h"
+	"parser.h"
+	"tree.h"
+	"bsp.h"
+	"heightmap.h"
+	"zip.h"
+	"namegen.h"
+	"txtfield.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\list.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\color.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\console.h
+	"console_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\console_types.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\image.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\mouse.h
+	"mouse_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\mouse_types.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\sys.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\mersenne.h
+	"mersenne_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\mersenne_types.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\bresenham.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\noise.h
+	"noise_defaults.h"
+
+1317872908 c:\c++\libraries\libtcod-1.5.1\include\noise_defaults.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\fov.h
+	"fov_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\fov_types.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\path.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\lex.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\parser.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\tree.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\bsp.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\heightmap.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\zip.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\namegen.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\txtfield.h
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\list.hpp
+	<string.h>
+	<stdlib.h>
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\color.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\console.hpp
+	"console_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\image.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\sys.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\mersenne.hpp
+	"mersenne_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\mouse.hpp
+	"mouse_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\bresenham.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\noise.hpp
+	"noise_defaults.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\fov.hpp
+	"fov_types.h"
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\path.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\lex.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\parser.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\tree.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\bsp.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\heightmap.hpp
+
+1346296078 c:\c++\libraries\libtcod-1.5.1\include\zip.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\namegen.hpp
+
+1346296084 c:\c++\libraries\libtcod-1.5.1\include\txtfield.hpp
+	"color.hpp"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\libtcod.hpp
+	"libtcod.h"
+	"list.hpp"
+	"color.hpp"
+	"console.hpp"
+	"image.hpp"
+	"sys.hpp"
+	"mersenne.hpp"
+	"mouse.hpp"
+	"bresenham.hpp"
+	"noise.hpp"
+	"fov.hpp"
+	"path.hpp"
+	"lex.hpp"
+	"parser.hpp"
+	"tree.hpp"
+	"bsp.hpp"
+	"heightmap.hpp"
+	"zip.hpp"
+	"namegen.hpp"
+	"txtfield.hpp"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\libtcod.h
+	<wchar.h>
+	"SDL/SDL.h"
+	"list.h"
+	"color.h"
+	"console.h"
+	"image.h"
+	"mouse.h"
+	"sys.h"
+	"mersenne.h"
+	"bresenham.h"
+	"noise.h"
+	"fov.h"
+	"path.h"
+	"lex.h"
+	"parser.h"
+	"tree.h"
+	"bsp.h"
+	"heightmap.h"
+	"zip.h"
+	"namegen.h"
+	"txtfield.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\list.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\color.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\console.h
+	"console_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\console_types.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\image.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\mouse.h
+	"mouse_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\mouse_types.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\sys.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\mersenne.h
+	"mersenne_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\mersenne_types.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\bresenham.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\noise.h
+	"noise_defaults.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\noise_defaults.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\fov.h
+	"fov_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\fov_types.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\path.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\lex.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\parser.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\tree.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\bsp.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\heightmap.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\zip.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\namegen.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\txtfield.h
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\list.hpp
+	<string.h>
+	<stdlib.h>
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\color.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\console.hpp
+	"console_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\image.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\sys.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\mersenne.hpp
+	"mersenne_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\mouse.hpp
+	"mouse_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\bresenham.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\noise.hpp
+	"noise_defaults.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\fov.hpp
+	"fov_types.h"
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\path.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\lex.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\parser.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\tree.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\bsp.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\heightmap.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\zip.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\namegen.hpp
+
+1366576286 c:\c++\libraries\libtcod-nightly\include\txtfield.hpp
+	"color.hpp"
+
+1366576286 c:\origin\depend\libtcod\include\libtcod.hpp
+	"libtcod.h"
+	"list.hpp"
+	"color.hpp"
+	"console.hpp"
+	"image.hpp"
+	"sys.hpp"
+	"mersenne.hpp"
+	"mouse.hpp"
+	"bresenham.hpp"
+	"noise.hpp"
+	"fov.hpp"
+	"path.hpp"
+	"lex.hpp"
+	"parser.hpp"
+	"tree.hpp"
+	"bsp.hpp"
+	"heightmap.hpp"
+	"zip.hpp"
+	"namegen.hpp"
+	"txtfield.hpp"
+
+1366576286 c:\origin\depend\libtcod\include\libtcod.h
+	<wchar.h>
+	"SDL/SDL.h"
+	"list.h"
+	"color.h"
+	"console.h"
+	"image.h"
+	"mouse.h"
+	"sys.h"
+	"mersenne.h"
+	"bresenham.h"
+	"noise.h"
+	"fov.h"
+	"path.h"
+	"lex.h"
+	"parser.h"
+	"tree.h"
+	"bsp.h"
+	"heightmap.h"
+	"zip.h"
+	"namegen.h"
+	"txtfield.h"
+
+1366576286 c:\origin\depend\libtcod\include\list.h
+
+1366576286 c:\origin\depend\libtcod\include\color.h
+
+1366576286 c:\origin\depend\libtcod\include\console.h
+	"console_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\console_types.h
+
+1366576286 c:\origin\depend\libtcod\include\image.h
+
+1366576286 c:\origin\depend\libtcod\include\mouse.h
+	"mouse_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\mouse_types.h
+
+1366576286 c:\origin\depend\libtcod\include\sys.h
+
+1366576286 c:\origin\depend\libtcod\include\mersenne.h
+	"mersenne_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\mersenne_types.h
+
+1366576286 c:\origin\depend\libtcod\include\bresenham.h
+
+1366576286 c:\origin\depend\libtcod\include\noise.h
+	"noise_defaults.h"
+
+1366576286 c:\origin\depend\libtcod\include\noise_defaults.h
+
+1366576286 c:\origin\depend\libtcod\include\fov.h
+	"fov_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\fov_types.h
+
+1366576286 c:\origin\depend\libtcod\include\path.h
+
+1366576286 c:\origin\depend\libtcod\include\lex.h
+
+1366576286 c:\origin\depend\libtcod\include\parser.h
+
+1366576286 c:\origin\depend\libtcod\include\tree.h
+
+1366576286 c:\origin\depend\libtcod\include\bsp.h
+
+1366576286 c:\origin\depend\libtcod\include\heightmap.h
+
+1366576286 c:\origin\depend\libtcod\include\zip.h
+
+1366576286 c:\origin\depend\libtcod\include\namegen.h
+
+1366576286 c:\origin\depend\libtcod\include\txtfield.h
+
+1366576286 c:\origin\depend\libtcod\include\list.hpp
+	<string.h>
+	<stdlib.h>
+
+1366576286 c:\origin\depend\libtcod\include\color.hpp
+
+1366576286 c:\origin\depend\libtcod\include\console.hpp
+	"console_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\image.hpp
+
+1366576286 c:\origin\depend\libtcod\include\sys.hpp
+
+1366576286 c:\origin\depend\libtcod\include\mersenne.hpp
+	"mersenne_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\mouse.hpp
+	"mouse_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\bresenham.hpp
+
+1366576286 c:\origin\depend\libtcod\include\noise.hpp
+	"noise_defaults.h"
+
+1366576286 c:\origin\depend\libtcod\include\fov.hpp
+	"fov_types.h"
+
+1366576286 c:\origin\depend\libtcod\include\path.hpp
+
+1366576286 c:\origin\depend\libtcod\include\lex.hpp
+
+1366576286 c:\origin\depend\libtcod\include\parser.hpp
+
+1366576286 c:\origin\depend\libtcod\include\tree.hpp
+
+1366576286 c:\origin\depend\libtcod\include\bsp.hpp
+
+1366576286 c:\origin\depend\libtcod\include\heightmap.hpp
+
+1366576286 c:\origin\depend\libtcod\include\zip.hpp
+
+1366576286 c:\origin\depend\libtcod\include\namegen.hpp
+
+1366576286 c:\origin\depend\libtcod\include\txtfield.hpp
+	"color.hpp"
+

@@ -55,7 +55,7 @@ void InitMobs() {
     MOB("skeleton", 'S', TCODColor::white, 15, 80.0f,
         "A walking human skeleton. It looks very fragile and not very fast.",
         mfb(m_sees)|mfb(m_hostile),
-        "", "", 50,
+        "Player", "", 50,
         m_skeleton);
 
 }

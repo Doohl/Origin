@@ -21,6 +21,9 @@ class Helper {
         /* Turns a string into an integer */
         static int str2int(std::string str);
 
+        /* Turns a string into a float */
+        static float str2float(std::string str);
+
         /* Determines if the string is a proper name (first letter is capital) */
         static bool proper(std::string name);
 

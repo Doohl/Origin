@@ -35,6 +35,12 @@ int Helper::str2int(std::string str) {
     return returnint;
 }
 
+float Helper::str2float(std::string str) {
+    float returnfloat;
+    std::istringstream(str) >> returnfloat;
+    return returnfloat;
+}
+
 bool Helper::proper(std::string name) {
     char c = name[0];
     return isupper(c);

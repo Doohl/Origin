@@ -8,30 +8,30 @@
 		<Option virtualFolders="Entities\;Entities\Mobs\;Entities\Turfs\;Entities\Items\;" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\Libtcodtesting" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="C:\C++\Libraries\libtcod-1.5.0" />
-				<Option object_output="obj\Debug\" />
+				<Option output="bin/Debug/Libtcodtesting" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="C:/C++/Libraries/libtcod-1.5.0" />
+				<Option object_output="obj/Debug/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="C:\C++\Libraries\libtcod-1.5.0\include" />
+					<Add directory="C:/C++/Libraries/libtcod-1.5.0/include" />
 				</Compiler>
 				<Linker>
 					<Add library="C:\C++\Libraries\libtcod-1.5.0\lib\libtcod-mingw.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\Libtcodtesting" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="C:\C++\Libraries\libtcod-1.5.0" />
-				<Option object_output="obj\Release\" />
-				<Option type="0" />
+				<Option output="bin/Release/Libtcodtesting" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="C:/C++/Libraries/libtcod-1.5.0" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add directory="C:\C++\Libraries\libtcod-1.5.0\include" />
+					<Add directory="C:/C++/Libraries/libtcod-1.5.0/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -45,14 +45,14 @@
 		</Compiler>
 		<Unit filename="Controls.cpp" />
 		<Unit filename="Entity.cpp">
-			<Option virtualFolder="Entities\" />
+			<Option virtualFolder="Entities/" />
 		</Unit>
 		<Unit filename="Entity.h">
-			<Option virtualFolder="Entities\" />
+			<Option virtualFolder="Entities/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="EntityData.h">
-			<Option virtualFolder="Entities\" />
+			<Option virtualFolder="Entities/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Game.cpp" />
@@ -65,58 +65,62 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Item.cpp">
-			<Option virtualFolder="Entities\Items\" />
+			<Option virtualFolder="Entities/Items/" />
 		</Unit>
 		<Unit filename="Item.h">
-			<Option virtualFolder="Entities\Items\" />
+			<Option virtualFolder="Entities/Items/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="ItemData.h">
-			<Option virtualFolder="Entities\Items\" />
+			<Option virtualFolder="Entities/Items/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="ItemDefs.cpp">
-			<Option virtualFolder="Entities\Items\" />
+			<Option virtualFolder="Entities/Items/" />
 		</Unit>
 		<Unit filename="Map.cpp" />
 		<Unit filename="Map.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Mob.cpp">
-			<Option virtualFolder="Entities\Mobs\" />
+			<Option virtualFolder="Entities/Mobs/" />
 		</Unit>
 		<Unit filename="Mob.h">
-			<Option virtualFolder="Entities\Mobs\" />
+			<Option virtualFolder="Entities/Mobs/" />
 		</Unit>
 		<Unit filename="MobAI.cpp">
-			<Option virtualFolder="Entities\Mobs\" />
+			<Option virtualFolder="Entities/Mobs/" />
 		</Unit>
 		<Unit filename="MobData.h">
-			<Option virtualFolder="Entities\Mobs\" />
+			<Option virtualFolder="Entities/Mobs/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="MobDefs.cpp">
-			<Option virtualFolder="Entities\Mobs\" />
+			<Option virtualFolder="Entities/Mobs/" />
 		</Unit>
 		<Unit filename="Player.cpp">
-			<Option virtualFolder="Entities\" />
+			<Option virtualFolder="Entities/" />
 		</Unit>
 		<Unit filename="Player.h">
-			<Option virtualFolder="Entities\" />
+			<Option virtualFolder="Entities/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Turf.cpp">
-			<Option virtualFolder="Entities\Turfs\" />
+			<Option virtualFolder="Entities/Turfs/" />
 		</Unit>
 		<Unit filename="Turf.h">
-			<Option virtualFolder="Entities\Turfs\" />
+			<Option virtualFolder="Entities/Turfs/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="TurfData.h">
-			<Option virtualFolder="Entities\Turfs\" />
+			<Option virtualFolder="Entities/Turfs/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="tinyxml.cpp" />
+		<Unit filename="tinyxml.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />

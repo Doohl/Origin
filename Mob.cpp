@@ -107,7 +107,7 @@ void Mob::Step(int stepx, int stepy) {
 }
 
 void Mob::Attack(Mob* m, Game* game) {
-    int damage = strength + game->RandomGen->getInt(1, 3);
+    int damage = strength + game->RandomGen->get(1, 3);
     if(m != NULL) {
         m->HP -= damage;
     }
@@ -126,7 +126,6 @@ void Mob::Attack(Mob* m, Game* game) {
 }
 
 void Mob::DoLogic(Game* game) {
-
     /* If the mob doesn't have a combat target, look for one! */
     if(target == NULL) {
         if((hostile.size() > 0 || flags & mfb(m_hostile)) && aggrofield > 0) {

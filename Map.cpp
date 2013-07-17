@@ -148,7 +148,7 @@ void Map::SpawnTurf(int x, int y, Turf t) {
         if(x <= width && y <= height) {
 
             if(t.name == "grass") { // random grass tiles
-                t.c_symbol = special_chars[game->RandomGen->getInt(0,3)];
+                t.c_symbol = special_chars[game->RandomGen->get(0,3)];
             }
             t.map = this;
             t.x = x;

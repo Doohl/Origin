@@ -68,7 +68,7 @@ void Player::DoLogic(Game* game) {
 
 void Player::Attack(Mob* m, Game* game) {
 
-    int damage = strength + game->RandomGen->getInt(1, 3);
+    int damage = strength + game->RandomGen->get(1, 3);
     if(m != NULL) {
         m->HP -= damage;
     }

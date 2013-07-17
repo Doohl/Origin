@@ -1,82 +1,134 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Controls.cpp" open="1" top="0" tabpos="26">
-		<Cursor position="1749" topLine="24" />
+	<File name="Game_UI.cpp" open="1" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="Entity.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="151" topLine="0" />
+	<File name="ItemData.h" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="Entity.h" open="1" top="0" tabpos="6">
-		<Cursor position="1400" topLine="0" />
+	<File name="Map.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7415" topLine="216" />
+		</Cursor>
 	</File>
-	<File name="EntityData.h" open="1" top="0" tabpos="7">
-		<Cursor position="709" topLine="6" />
+	<File name="ItemDefs.cpp" open="1" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1873" topLine="8" />
+		</Cursor>
 	</File>
-	<File name="Game.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="4331" topLine="78" />
+	<File name="MobDefs.cpp" open="1" top="1" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1166" topLine="20" />
+		</Cursor>
 	</File>
-	<File name="Game.h" open="1" top="0" tabpos="9">
-		<Cursor position="451" topLine="6" />
+	<File name="Map.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1066" topLine="18" />
+		</Cursor>
 	</File>
-	<File name="Game_UI.cpp" open="1" top="0" tabpos="24">
-		<Cursor position="7117" topLine="252" />
+	<File name="Player.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="288" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="Helper.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="200" topLine="0" />
+	<File name="Player.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="412" topLine="47" />
+		</Cursor>
 	</File>
-	<File name="Helper.h" open="1" top="0" tabpos="15">
-		<Cursor position="1466" topLine="41" />
+	<File name="Turf.cpp" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1509" topLine="44" />
+		</Cursor>
 	</File>
-	<File name="Item.cpp" open="1" top="0" tabpos="22">
-		<Cursor position="710" topLine="0" />
+	<File name="Entity.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="Item.h" open="1" top="0" tabpos="18">
-		<Cursor position="1442" topLine="3" />
+	<File name="MobData.h" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="ItemData.h" open="1" top="0" tabpos="21">
-		<Cursor position="878" topLine="21" />
+	<File name="main.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="226" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="ItemDefs.cpp" open="1" top="0" tabpos="23">
-		<Cursor position="1494" topLine="0" />
+	<File name="Helper.h" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="663" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="Map.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="7715" topLine="0" />
+	<File name="Mob.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3734" topLine="120" />
+		</Cursor>
 	</File>
-	<File name="Map.h" open="1" top="0" tabpos="11">
-		<Cursor position="50" topLine="43" />
+	<File name="Helper.cpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1071" topLine="12" />
+		</Cursor>
 	</File>
-	<File name="Mob.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="2157" topLine="99" />
+	<File name="Game.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="135" topLine="285" />
+		</Cursor>
 	</File>
-	<File name="Mob.h" open="1" top="0" tabpos="3">
-		<Cursor position="2373" topLine="32" />
+	<File name="Item.cpp" open="1" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="MobAI.cpp" open="1" top="1" tabpos="17">
-		<Cursor position="209" topLine="0" />
+	<File name="Item.h" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="629" topLine="26" />
+		</Cursor>
 	</File>
-	<File name="MobData.h" open="1" top="0" tabpos="19">
-		<Cursor position="1668" topLine="44" />
+	<File name="Controls.cpp" open="1" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="135" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="MobDefs.cpp" open="1" top="0" tabpos="25">
-		<Cursor position="485" topLine="13" />
+	<File name="EntityData.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="Player.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="5242" topLine="236" />
+	<File name="Mob.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1801" topLine="40" />
+		</Cursor>
 	</File>
-	<File name="Player.h" open="1" top="0" tabpos="2">
-		<Cursor position="2546" topLine="45" />
+	<File name="Turf.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="Turf.cpp" open="1" top="0" tabpos="13">
-		<Cursor position="2020" topLine="22" />
+	<File name="MobAI.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1977" topLine="5" />
+		</Cursor>
 	</File>
-	<File name="Turf.h" open="1" top="0" tabpos="10">
-		<Cursor position="2006" topLine="40" />
+	<File name="Entity.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="TurfData.h" open="1" top="0" tabpos="20">
-		<Cursor position="259" topLine="0" />
+	<File name="Game.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="14">
-		<Cursor position="109" topLine="0" />
+	<File name="TurfData.h" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
