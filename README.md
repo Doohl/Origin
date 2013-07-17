@@ -15,3 +15,6 @@ You may use the following to contact me:
 I sometimes lurk these channels:
 - irc.rizon.net @ #tgstation, #coderbus, #adminbus
 
+Important note
+=====
+This project uses Libtcod (or, “The Doryen Library”) version 1.5.2. It has been known to be almost impossible to compile in more recent MinGW versions, so if you want to compile I recommend using an older version.
