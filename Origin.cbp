@@ -22,22 +22,6 @@
 					<Add library="depend\libtcod\lib\libtcod-mingw.a" />
 				</Linker>
 			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/OriginToA" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-O2" />
-					<Add option="-Wall" />
-					<Add option="-g" />
-					<Add directory="C:/C++/Libraries/libtcod-1.5.0/include" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-					<Add library="C:\C++\Libraries\libtcod-1.5.0\lib\libtcod-mingw.a" />
-				</Linker>
-			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
