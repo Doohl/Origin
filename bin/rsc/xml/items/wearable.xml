@@ -1,0 +1,86 @@
+<!--
+This file contains all the wearable items in the game. The markup content is automatically parsed into the respective data type.
+
+Related groups:
+	wearable - objects you can [W]ear
+	clothing - non-armor objects
+	wool - objects made of wool
+	cotton - objects made of cotton
+	polyester - objects made of polyester
+	silk - objects made of silk
+	fur - objects made of fur
+	leather - objects made of leather
+	plastic - objects made of plastic
+-->
+<item>
+	<id>i_shirt</id>
+	<name>Shirt</name>
+	<desc>A simple shirt made of light and flexible fabric.</desc>
+	<groups>wearable;clothing;cotton</groups>
+	<symbol>[</symbol>
+	<color>127,127,127</color>
+	<rarity>1</rarity>
+	<weight>1</weight>
+	<volume>3</volume>
+	<value>10</value>
+	<capacity>0</capacity>
+	<defence>
+		<blunt>0</blunt>
+		<cut>1</cut>
+		<pierce>1</pierce>
+	</defence>		
+</item>
+<item>
+	<id>i_pants</id>
+	<name>Pants</name>
+	<desc>Some simple pants that cover your legs.</desc>
+	<groups>wearable;clothing;cotton</groups>
+	<symbol>]</symbol>
+	<color>128,112,64</color>
+	<rarity>1</rarity>
+	<weight>1</weight>
+	<volume>3</volume>
+	<value>10</value>
+	<capacity>3</capacity>
+	<defence>
+		<blunt>1</blunt>
+		<cut>1</cut>
+		<pierce>0</pierce>
+	</defence>		
+</item>
+<item>
+	<id>i_shoes</id>
+	<name>Shoes</name>
+	<desc>A pair of basic, tight-fitting shoes that protect your feet a bit.</desc>
+	<groups>wearable;clothing;leather;cotton</groups>
+	<symbol>]</symbol>
+	<color>150,100,50</color>
+	<rarity>1</rarity>
+	<weight>1</weight>
+	<volume>3</volume>
+	<value>10</value>
+	<capacity>3</capacity>
+	<defence>
+		<blunt>0</blunt>
+		<cut>5</cut> <!-- Walking barefoot has a chance to deal 1 cut damage to feet randomly -->
+		<pierce>0</pierce>
+	</defence>		
+</item>
+<item>
+	<id>i_backpack</id>
+	<name>Backpack</name>
+	<desc>A basic container that goes on your back. It can be used to store a lot of things.</desc>
+	<groups>wearable;clothing;cotton;leather</groups>
+	<symbol>[</symbol>
+	<color>102,102,51</color>
+	<rarity>5</rarity>
+	<weight>5</weight>
+	<volume>40</volume>
+	<value>10</value>
+	<capacity>30</capacity>
+	<defence>
+		<blunt>0<blunt>
+		<cut>0</cut>
+		<pierce>0</pierce>
+	</defence>		
+</item>
