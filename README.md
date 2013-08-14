@@ -9,11 +9,12 @@ It is unknown whether I will ever find the time or drive to continue work on Ori
 You may use the following to contact me:
 
 - doohl409 - skype
-- vageyenaman@gmail.com - email
+- doohl@eterniaroleplay.com - email
 - Doohl - steam
 
 I sometimes lurk these channels:
-- irc.rizon.net @ #tgstation, #coderbus, #adminbus
+- irc.rizon.net @ #tgstation
+- quakenet @ #rgrd
 
 Important note
 =====
