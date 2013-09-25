@@ -9,7 +9,7 @@ It is unknown whether I will ever find the time or drive to continue work on Ori
 You may use the following to contact me:
 
 - doohl409 - skype
-- doohl@eterniaroleplay.com - email
+- vageyenaman@gmail.com - email
 - Doohl - steam
 
 I sometimes lurk these channels:
