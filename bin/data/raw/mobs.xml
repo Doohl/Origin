@@ -18,7 +18,7 @@ Related groups:
 -->
 <mob>
 	<id>m_player</id>
-	<name>Player</name>
+	<name>player</name>
 	<desc>Who's this handsome chap?</desc>
 	<groups>nonspawn;nologic;sees;hears;smells</groups>
 	<symbol>@</symbol>
@@ -38,7 +38,7 @@ Related groups:
 </mob>
 <mob>
 	<id>m_goat</id>
-	<name>Goat</name>
+	<name>goat</name>
 	<desc>Just your generic goat with long, pointy horns. You can milk this for some pretty unsavory milk.</desc>
 	<groups>sees;hears;smells;wildlife;praire;forest;mountain</groups>
 	<symbol>g</symbol>
@@ -60,7 +60,7 @@ Related groups:
 </mob>
 <mob>
 	<id>m_sheep</id>
-	<name>Sheep</name>
+	<name>sheep</name>
 	<desc>A soft, small little animal with wool growing all over. Its wool is a valuable tailoring material.</desc>
 	<groups>sees;hears;smells;wildlife;praire;forest;mountain</groups>
 	<symbol>s</symbol>
@@ -81,8 +81,8 @@ Related groups:
 	<attackspeed>150</attackspeed>
 </mob>
 <mob>
-	<id>m_myur</id>
-	<name>Myur</name>
+	<id>m_kelrah</id>
+	<name>kel'rah</name>
 	<desc>A green, bulky, furry animal that walks on all fours. It has an unusually long tail with a blue tip. It has three orange horns, with intricate designs on the rough material. Its paws conceal razor-sharp claws capable of inflicting serious damage upon prey.</desc>
 	<groups>sees;hears;smells;wildlife;forest;mountain</groups>
 	<symbol>M</symbol>
@@ -104,7 +104,7 @@ Related groups:
 </mob>
 <mob>
 	<id>m_skeleton</id>
-	<name>Skeleton</name>
+	<name>skeleton</name>
 	<desc>A walking human skeleton. It looks very fragile and not very fast.</desc>
 	<groups>sees;forest;undead</groups>
 	<symbol>S</symbol>

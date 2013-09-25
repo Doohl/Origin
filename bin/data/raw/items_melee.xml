@@ -8,7 +8,7 @@ Related groups:
 -->
 <item>22
 	<id>i_shortsword</id>
-	<name>Short Sword</name>
+	<name>short sword</name>
 	<desc>A small blade great for close-quarters melee.</desc>
 	<groups>weapon;metal</groups>
 	<symbol>/</symbol>
@@ -27,7 +27,7 @@ Related groups:
 </item>
 <item>
 	<id>i_flail</id>
-	<name>Flail</name>
+	<name>flail</name>
 	<desc>A large, spiked metal sphere attached by chain to a long wooden stick.</desc>
 	<groups>weapon;metal</groups>
 	<symbol>/</symbol>
@@ -44,3 +44,4 @@ Related groups:
 		<pierce>0</pierce>
 	</damage>
 </item>
+
