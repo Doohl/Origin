@@ -1,0 +1,13 @@
+# This is the resources file, where all read-only/raw data is tracked. It should not be modified unless additional resource xml files are added, or existing files are renamed.
+#
+# NOTE: The ! delimiter indicates that a new resource category is being defined. Resources categories are constant and are defined in the actual game code itself (Game.cpp, Game::ConstructResources)
+# NOTE: All data is implied to be located in "data\raw".
+
+# BEGIN DEFINING RESOURCE CATEGORIES
+
+!MOB_DATA
+	+mobs.xml
+ 
+!ITEM_DATA
+	+items_melee.xml
+	+items_wearable.xml
