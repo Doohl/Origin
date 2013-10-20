@@ -5,67 +5,61 @@
 #include <iostream>
 
 Item::Item() {
-    etype = item;
-    name = "";
-    id = "";
-    desc = "";
-    layer = 2;
+    init();
 }
 
-Item::Item(std::string n, std::string d, char s, TCODColor c, int it, int mod, int quant, int w, int vol, int v, int r, int b_dam, int c_dam, int p_dam, int pli, int stak) {
+void Item::init() {
     etype = item;
-    name = n;
-    symbol = s;
-    std::transform(n.begin(), n.end(), n.begin(), ::tolower); // transform n to lowercase, make that the id
-    id = n;
-    desc = d;
-    color = c;
-    item_type = it;
-    modifier = mod;
-    quantity = quant;
-    weight = w;
-    volume = vol;
-    value = v;
-    rarity = r;
-    blunt_damage = b_dam;
-    cut_damage = c_dam;
-    pierce_damage = p_dam;
-    blunt_defense = 0;
-    cut_defense = 0;
-    pierce_defense = 0;
-    max_volume = 0;
-
-    pliancy = pli;
-    stack = stak;
+    deleting = 0;
+    name = "NULL";
+    id = "NULL";
+    desc = "NULL";
     layer = 2;
+    modifier = 0;
+    quantity = 0;
+    weight = 0;
+    volume = 0;
+    value = 0;
+    rarity = 0;
+    blunt_damage = 0;
+    cut_damage = 0;
+    pierce_damage = 0;
+    pliancy = 0;
+    stack = 0;
+    max_volume = 0;
+    container = NULL;
+
+}
+
+void Item::init_vals(std::string pname, std::string pid, char psymbol, TCODColor pcolor, int pmodifier, int pquantity, int pweight,
+                       int pvolume, int pvalue, int prarity, int b_damage, int c_damage, int p_damage, int ppliancy, int pstack, int pmax_volume,
+                       std::string pdesc, std::string pgroups) {
+
+    name = pname;
+    id = pid;
+    symbol = psymbol;
+    color = pcolor;
+    desc = pdesc;
+    groups = Helper::Explode(';', pgroups);
+
+    modifier = pmodifier;
+    quantity = pquantity;
+    weight = pweight;
+    volume = pvolume;
+    value = pvalue;
+    rarity = prarity;
+
+    blunt_damage = b_damage;
+    cut_damage = c_damage;
+    pierce_damage = p_damage;
+    pliancy = ppliancy;
+
+    stack = pstack;
+    max_volume = pmax_volume;
 }
 
 Item::~Item() {
 }
-
-/* DEPRECATED
-void Item::StrInit(std::string prototype) {
-
-
-    Key:
-        [name:desc:symbol:modifier:weight:value:rarity:bluntdamage:cutdamage:piercedamage]
-
-
-    std::vector<std::string> parameters = Helper::Explode(':', prototype);
-    name = parameters[0];
-    desc = parameters[1];
-    symbol = parameters[2][0]; // the first character in the symbol string (Ss) turns into (S), (C) = (C)
-    modifier = Helper::str2int(parameters[3]);
-    weight = Helper::str2int(parameters[4]);
-    value = Helper::str2int(parameters[5]);
-    rarity = Helper::str2int(parameters[6]);
-
-    blunt_damage = Helper::str2int(parameters[7]);
-    cut_damage = Helper::str2int(parameters[8]);
-    pierce_damage = Helper::str2int(parameters[9]);
-
-}
-*/
 
 void Item::CopyTo(Item* i) {
     i->layer = layer;

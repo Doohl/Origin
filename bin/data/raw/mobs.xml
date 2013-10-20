@@ -26,9 +26,7 @@ Related groups:
 	<hp>100</hp>
 	<ether>10</ether>
 	<speed>100.0</speed>
-	<friendly>m_player</friendly>
-	<hostile></hostile>
-	<seerange></seerange>
+	<friendlies>m_player</friendlies>
 	<damage>
 		<blunt>0</blunt>
 		<cut>0</cut>
@@ -47,8 +45,7 @@ Related groups:
 	<hp>30</hp>
 	<ether>0</ether>
 	<speed>50.0</speed>
-	<friendly>m_sheep</friendly>
-	<hostile></hostile>
+	<friendlies>m_sheep</friendlies>
 	<seerange>30</seerange>
 	<damage>
 		<blunt>5</blunt>
@@ -69,8 +66,7 @@ Related groups:
 	<hp>15</hp>
 	<ether>0</ether>
 	<speed>50.0</speed>
-	<friendly>m_goat</friendly>
-	<hostile></hostile>
+	<friendlies>m_goat</friendlies>
 	<seerange>30</seerange>
 	<damage>
 		<blunt>5</blunt>
@@ -85,14 +81,12 @@ Related groups:
 	<name>kel'rah</name>
 	<desc>A green, bulky, furry animal that walks on all fours. It has an unusually long tail with a blue tip. It has three orange horns, with intricate designs on the rough material. Its paws conceal razor-sharp claws capable of inflicting serious damage upon prey.</desc>
 	<groups>sees;hears;smells;wildlife;forest;mountain</groups>
-	<symbol>M</symbol>
-	<infant>m</infant>
+	<symbol>K</symbol>
+	<infant>k</infant>
 	<color>51,204,10</color>
 	<hp>45</hp>
 	<ether>0</ether>
 	<speed>130.0</speed>
-	<friendly></friendly>
-	<hostile></hostile>
 	<seerange>45</seerange>
 	<damage>
 		<blunt>5</blunt>
@@ -112,8 +106,7 @@ Related groups:
 	<color>255,255,255</color>
 	<hp>45</hp>
 	<ether>0</ether>
-	<speed>50.0</speed>
-	<friendly></friendly>
+	<speed>80</speed>
 	<hostile>all_not_self</hostile>
 	<seerange>45</seerange>
 	<damage>

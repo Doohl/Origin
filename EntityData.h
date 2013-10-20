@@ -8,11 +8,12 @@
 
 /**  Graphical data tree:
 
+             area (areas)                       [layer: 0]
              turf (grass / floor / wall...)     [layer: 1]
     e_type - item (sword / shield...)           [layer: 2]
              mob (monsters / NPCs / Player)     [layer: 3] (player has a layer of 6)
-             area (areas)                       [layer: 0]
              effect (effects)                   [layer: 4] (can be subject to change on behavior)
+
 */
 
 /* ### ============== Entity data ============== ### */

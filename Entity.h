@@ -4,6 +4,7 @@
 #include "EntityData.h"
 #include "libtcod.hpp"
 #include <string>
+#include <vector>
 
 class Game;
 class Map;
@@ -18,6 +19,8 @@ class Entity {
         /* If enough energy, call this function */
         virtual void DoLogic(Game* game);
 
+        /* Initialize all the variables */
+        virtual void init();
 
         std::string name;   // The name of the entity
         std::string desc;   // The description of this entity
@@ -36,6 +39,7 @@ class Entity {
         char layer;         // display layer (higher layers will be displayed on top of lower layers)
 
         unsigned int flags; // bitfield dictating miscellaneous characteristics (EntityData.h)
+        std::vector<std::string> groups; // container of groups the entity pertains to
         bool deleting;      // true if stored in the game DeleteBuff list
 };
 

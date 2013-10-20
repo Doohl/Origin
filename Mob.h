@@ -7,6 +7,8 @@
 
 class Turf; // "Turf.h"
 
+#define HOSTILE_FLAG std::string("all_not_self")
+
 /*
     IMPORTANT! Please read:
 
@@ -17,8 +19,15 @@ class Turf; // "Turf.h"
 class Mob : public Entity {
     public:
         Mob();
-        Mob(std::string n, char s, TCODColor c, int maxhp, float sp, std::string description, unsigned int f, std::string hostiles, std::string friendlies, int a, int mobtype);
         ~Mob();
+
+        /* Initializes all starting / null values */
+        virtual void init();
+
+        /* Assigns all the values to this mob */
+        void init_vals(std::string pname, std::string pid, char psymbol, TCODColor pcolor, int pMax_HP, int pMax_Ether, float pspeed,
+                       std::string pdesc, std::string pgroups, std::string hostiles, std::string friendlies,
+                       int paggrofield);
 
         /* The code executed when mob has enough energy to "move" */
         virtual void DoLogic(Game* game);

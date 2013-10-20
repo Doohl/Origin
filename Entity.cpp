@@ -5,6 +5,9 @@ Entity::Entity() {
     c_symbol = 0;
 }
 
+void Entity::init() {
+}
+
 Entity::~Entity() {
 }
 

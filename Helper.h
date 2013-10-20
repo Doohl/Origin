@@ -5,14 +5,23 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <fstream>
 #include <cstdarg>
+#include <map>
 #include <ctype.h> // char functions
 
+#define TURF_PARSE long(1 << (0))
+#define ITEM_PARSE long(1 << (1))
+#define MOB_PARSE long(1 << (2))
+#define AREA_PARSE long(1 << (3))
+#define EFFECT_PARSE long(1 << (4))
 
 class Helper {
 
     public:
-        /* Split a string into vectors using a separator */
+
+       /** Type conversion functions */
+        /* Split a string into vectors using a separator (or, string->vector) */
         static std::vector<std::string> Explode(char separator, std::string str);
 
         /* Turns an integer variable into a string */
@@ -24,11 +33,19 @@ class Helper {
         /* Turns a string into a float */
         static float str2float(std::string str);
 
+        /* Returns the first char of input string */
+        static char str2char(std::string str);
+
+       /** Miscellaneous functions */
+
         /* Determines if the string is a proper name (first letter is capital) */
         static bool proper(std::string name);
 
         /* Returns a list of valid characters */
         static std::vector<char>GetCharacters();
+
+        /* Replaces all instances of 'from' with 'to' in 'str' */
+        static void replace_all(std::string& str, std::string from, std::string to);
 
         /* Looks in a vector for a particular thing. Works great with pointers */
         template <class T> static bool Find(std::vector<T> &Vector, T Find);
@@ -42,6 +59,13 @@ class Helper {
         /* Merge two vectors */
         template <class T> static std::vector<T> MergeVector(std::vector<T> VectorA, std::vector<T> VectorB);
 
+       /** IO / File functions */
+
+        /* Parses an XML file and returns a vector of maps representing deserialized values for different entities */
+        static std::vector< std::map< std::string, std::string > > SimpleXMLParse(const char* file, unsigned int parse_flags);
+
+        /* Parses a TXT file and returns a string vector of the file broken down by \n tokens */
+        static std::vector<std::string> SimpleParse(const char* file);
 };
 
 

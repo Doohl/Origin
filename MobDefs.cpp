@@ -1,14 +1,16 @@
 #include "Mob.h"
 
-Mob moblist[num_m_type];
+//Mob moblist[num_m_type];
 
 /* Initializes a mob in the moblist */
+/*
 void MOB(std::string name, char symbol, TCODColor color, int maxhp, float speed, std::string description,
           unsigned int flags, std::string hostiles, std::string friendlies,
           int aggrofield, int mobtype) {
 
     moblist[mobtype] = Mob(name, symbol, color, maxhp, speed, description, flags, hostiles, friendlies, aggrofield, mobtype);
 }
+
 
 void InitMobs() {
 
@@ -20,7 +22,7 @@ void InitMobs() {
         #flags
         #hostiles #friendlies #aggrofield
         #mobtype
-    */
+
 
     MOB("NULL", ' ', TCODColor::black, 0, 0.0f,
         "NULL",
@@ -59,3 +61,4 @@ void InitMobs() {
         m_skeleton);
 
 }
+*/

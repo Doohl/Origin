@@ -14,7 +14,7 @@ void Mob::AI(Game* game) {
     else {
         if(target != NULL) {
 
-            if(!target->deleting) {
+            if(!(target->deleting)) {
 
                 /* Make sure the target is still in view */
                 std::vector<Turf*> SeeTurfs = turf->map->View(x, y, aggrofield);

@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "ItemData.h"
 #include <vector>
+#include <map>
 
 class Turf; // "Turf.h"
 
@@ -24,7 +25,15 @@ class Item : public Entity {
         Item(std::string n, std::string d, char s, TCODColor c, int it, int mod, int quan, int w, int vol, int v, int r, int b_dam, int c_dam, int p_dam, int pli, int stak);
         ~Item();
 
-        /* Copy variables to another item */
+        /* Initializes all starting / null values */
+        virtual void init();
+
+        /* Assigns all the values to this Item */
+        void init_vals(std::string pname, std::string pid, char psymbol, TCODColor pcolor, int pmodifier, int pquantity, int pweight,
+                       int pvolume, int pvalue, int prarity, int b_damage, int c_damage, int p_damage, int ppliancy, int pstack, int pmax_volume,
+                       std::string pdesc, std::string pgroups);
+
+        /* Copy all members to another Item pointer */
         void CopyTo(Item* i);
 
         /* Initialize the item through text */
@@ -35,7 +44,7 @@ class Item : public Entity {
 
         int item_type;  // i_type enum value for this item (ie, i_wep_shortsword)
         int modifier;   // can be hunger modifier, effect modifier, etc
-        int quantity;   // how many uses are left. For shit like food and medicine
+        int quantity;   // how many uses are left. For shit like food and medicine, rechargeables, etc.
         int weight;     // the weight of this item (in kilograms)
         int volume;     // the volume of this item, how much space it takes up
         int value;      // arbitrary number for how valueable this item is
@@ -89,6 +98,7 @@ class Item : public Entity {
 };
 
 extern Item itemlist[num_i_type];
+extern std::map< std::string, Item > _globalitems;
 
 void InitItems();
 

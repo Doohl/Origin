@@ -8,9 +8,9 @@
 		<Option virtualFolders="Entities\;Entities\Mobs\;Entities\Turfs\;Entities\Items\;" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/OriginToA.exe" prefix_auto="1" extension_auto="0" />
-				<Option working_dir="bin/Debug" />
-				<Option object_output="obj/Debug/" />
+				<Option output="bin/OriginToA.exe" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="bin/" />
+				<Option object_output="obj/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -19,6 +19,8 @@
 				</Compiler>
 				<Linker>
 					<Add option="-lmingw32" />
+					<Add option="-static-libgcc" />
+					<Add option="-static-libstdc++" />
 					<Add library="depend\libtcod\lib\libtcod-mingw.a" />
 				</Linker>
 			</Target>

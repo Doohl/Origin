@@ -1,15 +1,17 @@
 #include "Item.h"
+#include "tinyxml.h"
 
+/*
 Item itemlist[num_i_type];
 
-/* Initializes a weapon or just a normal, mundane item */
+/* Initializes a weapon or just a normal, mundane item
 void ITEM(std::string n, std::string d, char s, TCODColor c, int it, int rarity, int weight, int volume, int value,
             int blunt_damage, int cut_damage, int pierce_damage, int pliancy) {
 
     itemlist[it] = Item(n, d, s, c, it, 0, 0, weight, volume, value, rarity, blunt_damage, cut_damage, pierce_damage, pliancy, 1);
 }
 
-/* Initializes a clothing in itemlist */
+/* Initializes a clothing in itemlist
 void CLOTHING(std::string n, std::string d, char s, TCODColor c, int it, int rarity, int weight, int volume, int value,
             int max_volume, int blunt_defense, int cut_defense, int pierce_defense, int pliancy) {
 
@@ -26,7 +28,7 @@ void CLOTHING(std::string n, std::string d, char s, TCODColor c, int it, int rar
 
 /* Called in Game.cpp:
         Initializes itemlist array; prototypes for preset objects
-*/
+
 
 void InitItems() {
 
@@ -36,7 +38,7 @@ void InitItems() {
         #name #desc #symbol
         #color #itemtype #rarity #weight #volume #value
         #bluntdam #cutdam #piercedam #pliancy
-    */
+
     ITEM("short sword", "A small blade great for close-quarters melee.", '/',
            TCODColor::white, i_shortsword, 5, 10, 15, 50,
            0, 10, 0, 3);
@@ -52,7 +54,7 @@ void InitItems() {
         #color #itemtype #rarity #weight #volume #value
         #max_volume
         #blunt_defense #cut_defense #pierce_defense #pliancy
-    */
+
     CLOTHING("t-shirt", "A simple t-shirt made of light fabric.", '[',
            TCODColor::darkGrey, i_tshirt, 1, 1, 3, 10,
            5,
@@ -68,3 +70,12 @@ void InitItems() {
            40,
            0, 0, 0, 0);
 }
+
+/* Parses the appropriate XML file and stores it in _globalitems
+void InitItemsXML() {
+
+    tinyxml2::XMLDocument doc;
+    doc.LoadFile("rsc/xml/items/melee.xml");
+
+
+}*/

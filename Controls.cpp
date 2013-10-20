@@ -180,13 +180,13 @@ void Game::HandleKeys(TCOD_key_t& key) {
             std::vector<Turf*> SpawnTurfs = GameMap.TurfRange(player.x, player.y, 1);
 
             for(unsigned int i = 0; i < SpawnTurfs.size(); i++) {
-                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, moblist[m_goat]);
+                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, Mobs["m_goat"]);
             }
         } else if(key.c == 's') { // spawn skeletons
             std::vector<Turf*> SpawnTurfs = GameMap.TurfRange(player.x, player.y, 1);
 
             for(unsigned int i = 0; i < SpawnTurfs.size(); i++) {
-                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, moblist[m_skeleton]);
+                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, Mobs["m_skeleton"]);
             }
 
         }

@@ -18,6 +18,7 @@ Player::Player() {
     etype = mob;
     steps = 0;
     speed = 100.0f;
+    deleting = 0;
     name = "Player";
     id = "player";
     symbol = '@';

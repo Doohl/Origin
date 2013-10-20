@@ -9,49 +9,50 @@
 #include <cmath>
 
 Mob::Mob() {
+    init();
+}
+
+void Mob::init() {
     layer = 3;
     etype = mob;
-    name = "";
-    id = "";
+    target = NULL;
+    deleting = 0;
+    name = "NULL";
+    id = "NULL";
     steps = 0;
     speed = 0.0f;
     tenergy = 0.0f;
     flags = 0;
     aggrofield = 0;
+    flags = 0;
     target = NULL;
     turf = NULL;
+    strength = 0;
+    intelligence = 0;
+    dexterity = 0;
+    perception = 0;
+    constitution = 0;
+    spirit = 0;
 }
 
-Mob::Mob(std::string n, char s, TCODColor c, int maxhp, float sp, std::string description, unsigned int f, std::string hostiles, std::string friendlies, int a, int mobtype) {
-    layer = 3;
-    etype = mob;
-    name = n;
-    std::transform(n.begin(), n.end(), n.begin(), ::tolower); // transform n to lowercase, make that the id
-    id = n;
-    symbol = s;
-    color = c;
-    Max_HP = maxhp;
-    HP = maxhp;
-    steps = 0;
-    speed = sp;
-    desc = description;
-    flags = f;
-    tenergy = 0.0f;
+void Mob::init_vals(std::string pname, std::string pid, char psymbol, TCODColor pcolor, int pMax_HP, int pMax_Ether, float pspeed, std::string pdesc, std::string pgroups, std::string hostiles, std::string friendlies, int paggrofield) {
+    name = pname;
+    id = pid;
+    symbol = psymbol;
+    color = pcolor;
+    Max_HP = pMax_HP;
+    HP = Max_HP;
+    Max_Ether = pMax_Ether;
+    speed = pspeed;
+    desc = pdesc;
+    groups = Helper::Explode(';', pgroups);
     hostile = Helper::Explode(';', hostiles);
     friendly = Helper::Explode(';', friendlies);
-
-    // Add itself to friendlies if it's not already in it
-    if(!Helper::Find(friendly, id)) {
+    if(!Helper::Find(friendly, id)) { // add self to friendlies
         friendly.push_back(id);
     }
 
-    aggrofield = a;
-    target = NULL;
-    strength = 0;
-    mob_type = mobtype;
-
-    turf = NULL;
-
+    aggrofield = paggrofield;
 }
 
 Mob::~Mob() {
@@ -135,7 +136,7 @@ void Mob::DoLogic(Game* game) {
 
             // Find the shortest distance, select the closest mob
             int leaststeps = 10000;
-            Mob* closestmob;
+            Mob* closestmob = NULL;
             for(int i = 0; i < SeeMobs.size(); i++) {
 
                 Mob* target = SeeMobs[i];
@@ -157,7 +158,8 @@ void Mob::DoLogic(Game* game) {
                 // If the path is smaller than the last, it's our new target! We also need to be able to path to it
                 if(steps < leaststeps && steps != 0) {
 
-                    if( Helper::Find(hostile, target->id) || (flags & mfb(m_hostile) && !Helper::Find(friendly, target->id)) ) { // if the current mob is hostile towards this mob
+                    // Check to see if the proper aggro conditions are met
+                    if( Helper::Find(hostile, target->id) || (Helper::Find(hostile, HOSTILE_FLAG)  && !Helper::Find(friendly, target->id)) ) { // if the current mob is hostile towards this mob
                         leaststeps = steps;
                         closestmob = target;
                     }

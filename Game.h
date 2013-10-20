@@ -22,9 +22,23 @@ enum GameState {
 #define INV_I_WIDTH     45
 #define INV_I_HEIGHT    30
 
+// The location of the resources.txt file
+#define RESOURCE_DEFINE "data/resources.txt"
+// The parent directory to search for resources
+#define PARENT_RESOURCE "data/raw/"
+
 #include "Map.h"
 #include "libtcod.hpp"
 #include "Player.h"
+#include <map>
+
+enum ResourceCategories {
+    NULL_DATA,
+    MOB_DATA,
+    ITEM_DATA,
+    TURF_DATA,
+    EFFECT_DATA
+};
 
 // Game class, the main object that handles all game logic and stores all entites
 class Game {
@@ -52,6 +66,14 @@ class Game {
         /* Debug Members: */
         std::string Test;
 
+    /** Resource Containers: **/
+
+        // Entity prototype data (associative containers: [ID] = ENTITY)
+        std::map< std::string, Entity > Entities;   // master container
+        std::map< std::string, Mob > Mobs;          // MOB_DATA container
+        std::map< std::string, Item > Items;        // ITEM_DATA container
+        std::map< std::string, Turf > Turfs;        // TURF_DATA container
+
     /** Player Members: **/             // see: Player.cpp and Controls.cpp
 
         /* Responds to keypresses */
@@ -73,6 +95,7 @@ class Game {
 
     private:
 
+    /** Internal Logic Members: **/
         /* Determines if the game should be exited this loop */
         bool IsExiting();
 
@@ -81,6 +104,21 @@ class Game {
 
         /* Called every time the player makes an action */
         void UpdateLogic(float time);
+
+    /** Internal Resource Members: **/
+        /* Load global resources from RESOURCE_DEFINE file */
+        void ConstructResources();
+
+        /* Construct entity prototypes via Helper::SimpleXMLParse */
+            // NOTE: prototypes are constructed from _resources
+        void ConstructPrototypes();
+
+        // Loaded resource locations
+        std::vector<std::string> _resources;
+            // contains both paths and categories, categories dictated by ! delimiter
+
+    /** Miscellaneous Members: **/
+
 
         GameState _gameState; // Enumerated game state
 
