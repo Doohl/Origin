@@ -69,7 +69,8 @@ void Item::CopyTo(Item* i) {
     i->id = id;
     i->symbol = symbol;
     i->color = color;
-    i->item_type = item_type;
+    i->groups = groups;
+
     i->modifier = modifier;
     i->quantity = quantity;
     i->weight = weight;
@@ -99,30 +100,16 @@ int Item::GetDescAdd(TCODConsole* window, int lines) {
     window->setDefaultBackground(TCODColor(114, 114, 114));
     window->setAlignment(TCOD_LEFT);
 
-    if(isClothing()) { // clothing-specific statistics
+    if(isWearable()) { // clothing-specific statistics
         window->print(1, returnlines, "Maximum Volume: %i",  max_volume);
         returnlines++;
     }
     if(isWeapon()) {   // weapon-specific statistics
         window->print(1, returnlines, "Blunt: %i  |  Cut:  %i  |  Pierce: %i",  blunt_damage, cut_damage, pierce_damage);
         returnlines++;
-    }
-    if(isClothing() || isWeapon()) { // statistics applicable only to weapons and clothing
         window->print(1, returnlines, "Pliancy Bonus: %i",  pliancy);
         returnlines++;
     }
 
     return returnlines;
-}
-
-bool Item::operator==(const Item &comparison) {
-
-    /* Compare variables */ // (Add identifying variables to this list)
-    return (layer == comparison.layer && etype == comparison.etype && name == comparison.name && id == comparison.id &&
-            symbol == comparison.symbol && color == comparison.color && item_type == comparison.item_type &&
-            modifier == comparison.modifier && quantity == comparison.quantity && weight == comparison.weight &&
-            volume == comparison.volume && value == comparison.value && rarity == comparison.rarity &&
-            blunt_damage == comparison.blunt_damage && cut_damage == comparison.cut_damage && pierce_damage == comparison.pierce_damage &&
-            blunt_defense == comparison.blunt_defense && cut_defense == comparison.cut_defense && pierce_defense == comparison.pierce_defense &&
-            max_volume == comparison.max_volume && pliancy == comparison.pliancy);
 }

@@ -11,3 +11,6 @@
 !ITEM_DATA
 	+items_melee.xml
 	+items_wearable.xml
+
+!TURF_DATA
+	+turfs.xml

@@ -45,7 +45,6 @@ void Mob::init_vals(std::string pname, std::string pid, char psymbol, TCODColor 
     Max_Ether = pMax_Ether;
     speed = pspeed;
     desc = pdesc;
-    groups = Helper::Explode(';', pgroups);
     hostile = Helper::Explode(';', hostiles);
     friendly = Helper::Explode(';', friendlies);
     if(!Helper::Find(friendly, id)) { // add self to friendlies
@@ -60,13 +59,13 @@ Mob::~Mob() {
 }
 
 void Mob::Deinitialize() {
-    if(turf != NULL && turf->map != NULL) {
+    if(turf != NULL && turf->map != NULL && turf->map->Field != NULL) {
         turf->RemoveContents(this, false);
         turf->RemoveMobs(this, false);
         turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
         turf = NULL;
     }
-    flags |= mfb(m_skipupdate); // stop this from updating
+    groups.push_back("nologic"); // stop this from updating
     deleting = true;
     x = -1;
     y = -1;
@@ -94,7 +93,7 @@ void Mob::Move(int newx, int newy) {
             turf->LayerContents(); // sort layers
 
             // Set the new turf's cell's properties
-            turf->map->Field->setProperties( turf->x, turf->y, (!(flags & mfb(m_opaque)) && (turf->flags & mfb(t_transparent))), false );
+            turf->map->Field->setProperties( turf->x, turf->y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->flags & mfb(t_transparent))), false );
         }
     }
 }
@@ -129,7 +128,7 @@ void Mob::Attack(Mob* m, Game* game) {
 void Mob::DoLogic(Game* game) {
     /* If the mob doesn't have a combat target, look for one! */
     if(target == NULL) {
-        if((hostile.size() > 0 || flags & mfb(m_hostile)) && aggrofield > 0) {
+        if(hostile.size() > 0 && aggrofield > 0) {
 
             std::vector<Turf*> SeeTurfs = turf->map->View(x, y, aggrofield);
             std::vector<Mob*> SeeMobs = turf->map->FilterMobs(SeeTurfs);
@@ -148,7 +147,7 @@ void Mob::DoLogic(Game* game) {
                 // First, set the cell undense so that we can path to it */
                 bool prevdense = turf->map->Field->isWalkable(t_x, t_y);
                 bool prevvis = turf->map->Field->isTransparent(t_x, t_y);
-                turf->map->Field->setProperties( t_x, t_y, (!(flags & mfb(m_opaque)) && (turf->map->grid[t_x][t_y].flags & mfb(t_transparent))), true );
+                turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->map->grid[t_x][t_y].flags & mfb(t_transparent))), true );
 
                 // Then calculate a path to it
                 TCODPath* Path = new TCODPath(turf->map->Field);
@@ -185,6 +184,7 @@ void Mob::CopyTo(Mob* m) {
     m->id = id;
     m->symbol = symbol;
     m->color = color;
+    m->groups = groups;
 
     m->Max_HP = Max_HP;
     m->HP = HP;
@@ -207,4 +207,3 @@ void Mob::CopyTo(Mob* m) {
     m->spirit = spirit;
     m->mob_type = mob_type;
 }
-

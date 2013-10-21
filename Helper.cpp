@@ -55,7 +55,7 @@ std::vector<char> Helper::GetCharacters() {
     std::vector<char> ReturnVec;
     char specialchars[21] = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', ';', '"', ',', '.', '\\', '|'};
 
-    for(char x = 'b'; x <= 'z'; x++) { // a and b reserved for hand slots
+    for(char x = 'a'; x <= 'z'; x++) { // a and b reserved for hand slots
         ReturnVec.push_back(x);
     }
     for(char x = 'A'; x <= 'Z'; x++) {
@@ -90,7 +90,6 @@ std::vector< std::map< std::string, std::string > > Helper::SimpleXMLParse(const
 
     while(elem) {
         std::map<std::string, std::string> entity;
-        std::cout << elem->FirstChildElement("id")->GetText() << std::endl;
 
         tinyxml2::XMLElement* child_elem = NULL;
 

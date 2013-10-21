@@ -27,7 +27,6 @@ Player::Player() {
     HP = 100;
     Ether = 0;
     Max_Ether = 0;
-    flags = mfb(m_sees)|mfb(m_hears)|mfb(m_smells);
 
     strength = 1;
     intelligence = 1;
@@ -82,8 +81,6 @@ void Player::Attack(Mob* m, Game* game) {
 
 void Player::Message(std::string txt, TCODColor fcolor, TCODColor bcolor) {
 
-    int maxlength = 48; // the maximum length of a line
-
     // Delete the first element of the buffer if it gets too long
     if(msgbuff.size() >= 200) {
         delete(msgbuff[0]);
@@ -92,10 +89,10 @@ void Player::Message(std::string txt, TCODColor fcolor, TCODColor bcolor) {
 
     // Split the string into words and add them seperately into the buffer
     size_t split;
-    while(txt.length() > maxlength) {
-        split = txt.find_last_of(' ', maxlength);
-        if(split > maxlength)
-            split = maxlength;
+    while(txt.length() > MAX_MESSAGE_HEIGHT) {
+        split = txt.find_last_of(' ', MAX_MESSAGE_HEIGHT);
+        if(split > MAX_MESSAGE_HEIGHT)
+            split = MAX_MESSAGE_HEIGHT;
 
         Msg* msg = new Msg();
         msg->message = txt.substr(0, split);
@@ -178,38 +175,26 @@ char Player::InvNextChar() {
 }
 
 void Player::InventoryAdd(Item* item) {
-    char NextChar = InvNextChar(); // find the next character to use
-    item->index = NextChar;
-
     inventory.push_back(item);
+    ResortInventory();
 }
 
 void Player::ResortInventory() {
     std::vector<char> AvailableSlots = Helper::GetCharacters(); // generate available slots (a to z, A to Z and 0 to 9)
-    std::vector<char> UnavailableSlots;
 
-    // Loop through all inventory slots: assign each item the next available slot
-    // Not the most efficient algorithm but it'll do for now i suppose.
+    // Loop through all inventory slots and assign them AvailableSlots[0] while removing said index from the vector.
+    std::cout << inventory.size() << std::endl;
+
     for(int i = 0; i < inventory.size(); i++) {
 
-        // Skip items that are held in hands, force them to be 'a' or 'b'
-        if(inventory[i] == righthand) {
-            inventory[i]->index = 'a';
-            continue;
-        }
-        if(inventory[i] == lefthand) {
-            inventory[i]->index = 'b';
-            continue;
-        }
-
-        for(int j = 0; j < AvailableSlots.size(); j++) {
-            if(!Helper::Find(UnavailableSlots, AvailableSlots[j])) {
-                char nextchar = AvailableSlots[i];
-                inventory[i]->index = nextchar;
-                UnavailableSlots.push_back( nextchar );
-            }
+        if(AvailableSlots.size() == 0) {
             break;
         }
+
+        char nextchar = AvailableSlots[0];
+        inventory[i]->index = nextchar;
+        std::cout << inventory[i]->index << std::endl;
+        AvailableSlots.erase(AvailableSlots.begin());
 
     }
 }
@@ -241,7 +226,7 @@ void Player::WornRemove(Item* item, bool dodel) {
 }
 
 void Player::Wear(Item* item) {
-    if(!item->isClothing()) {
+    if(!(item->isWearable())) {
         Message("You can't wear that!", TCODColor::white, TCODColor::black);
         return;
     }
@@ -262,7 +247,6 @@ void Player::Wear(Item* item) {
         wearmsg += "the ";
     }
     Message(wearmsg + item->name + ".", TCODColor::white, TCODColor::black);
-
 
     ResortInventory();
 }

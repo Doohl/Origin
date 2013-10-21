@@ -118,15 +118,15 @@ void Game::Start() {
             }
             else if ( smap[y][x] == 'g' ) {
                 GameMap.SpawnTurf(x, y, turflist[t_grass]);
-                GameMap.SpawnMob(x, y, Mobs["m_goat"]);
+                GameMap.SpawnMob(x, y, getMob("m_goat"));
             }
             else if ( smap[y][x] == 'M' ) {
                 GameMap.SpawnTurf(x, y, turflist[t_grass]);
-                GameMap.SpawnMob(x, y, Mobs["m_kelrah"]);
+                GameMap.SpawnMob(x, y, getMob("m_kelrah"));
             }
             else if ( smap[y][x] == 'S' ) {
                 GameMap.SpawnTurf(x, y, turflist[t_grass]);
-                GameMap.SpawnMob(x, y, Mobs["m_skeleton"]);
+                GameMap.SpawnMob(x, y, getMob("m_skeleton"));
             }
             else if ( smap[y][x] == '+' ) {
                 GameMap.SpawnTurf(x, y, turflist[t_window]);
@@ -141,15 +141,15 @@ void Game::Start() {
             }
             else if ( smap[y][x] == '/' ) {
                 GameMap.SpawnTurf(x, y, turflist[t_grass]);
-                GameMap.SpawnItem(x, y, Items["i_shortsword"]);
+                GameMap.SpawnItem(x, y, getItem("i_shortsword"));
             }
             else if ( smap[y][x] == '[' ) {
                 GameMap.SpawnTurf(x, y, turflist[t_grass]);
-                GameMap.SpawnItem(x, y, Items["i_backpack"]);
+                GameMap.SpawnItem(x, y, getItem("i_backpack"));
             }
             else if ( smap[y][x] == '?' ) {
                 GameMap.SpawnTurf(x, y, turflist[t_grass]);
-                GameMap.SpawnItem(x, y, Items["i_dildo"]);
+                GameMap.SpawnItem(x, y, getItem("i_flail"));
             }
             else {
                 GameMap.SpawnTurf(x, y, turflist[t_grass]);
@@ -211,9 +211,9 @@ void Game::GameLoop() {
         Turf* turfchosen = Turfs[i]; // select the turf
         // Calculate the scrolling offset
         int x = (turfchosen->x - player.cam_x) + VIEW_WIDTH / 2;
-        int y = (turfchosen->y - player.cam_y) + (VIEW_HEIGHT-16) / 2;
+        int y = (turfchosen->y - player.cam_y) + (VIEW_HEIGHT-(UI_BOTTOM_DIV-(VIEW_HEIGHT/2))) / 2;
 
-        if(y > 54)       // do not draw anything on the bottom 16 cells
+        if(y > UI_BOTTOM_DIV)       // do not draw anything on the bottom 16 cells
             continue;
 
         // Draw the turf
@@ -274,8 +274,9 @@ void Game::GameLoop() {
 
     // Handle user input:
     TCOD_key_t key = {TCODK_NONE,0};
-    key = TCODConsole::checkForKeypress(TCOD_KEY_PRESSED);
-    HandleKeys(key);
+    TCOD_mouse_t mouse;
+    TCODSystem::checkForEvent((TCOD_event_t)(TCOD_EVENT_KEY_PRESS|TCOD_EVENT_MOUSE),&key,&mouse);
+    ProcessInput(key, mouse);
 
     // Release unnecessary gui pointers
     if(_inventoryConsole != NULL && !player.viewinginventory) {
@@ -309,7 +310,7 @@ void Game::UpdateLogic(float time) {
         Mob* mob = AllMobs[i];
 
         /* If entity is a mob and set to skip update; then skip this mob! */
-        if( mob->flags & mfb(m_skipupdate))
+        if(Helper::Find(mob->groups, std::string("nologic")))
             continue;
 
         mob->tenergy += mob->speed; // add some energy
@@ -370,32 +371,37 @@ void Game::ConstructPrototypes() {
 
         const char* resource = _resources[i].c_str();
 
-        std::cout << resource << std::endl;
-
         // Found MOB_DATA; initiate mob parsing
         if(strcmp(resource, CategoryStrs[MOB_DATA]) == 0) {
             parse_flags = 0;
             parse_flags |= MOB_PARSE;
+            std::cout << resource << std::endl;
             continue;
         // Found ITEM_DATA; initiate item parsing
         } else if(strcmp(resource, CategoryStrs[ITEM_DATA]) == 0) {
             parse_flags = 0;
             parse_flags |= ITEM_PARSE;
+            std::cout << resource << std::endl;
             continue;
         // Found TURF_DATA; initiate turf parsing
         } else if(strcmp(resource, CategoryStrs[TURF_DATA]) == 0) {
             parse_flags = 0;
             parse_flags |= TURF_PARSE;
+            std::cout << resource << std::endl;
             continue;
         // Found EFFECT_DATA; initiate effect parsing
         } else if(strcmp(resource, CategoryStrs[EFFECT_DATA]) == 0) {
             parse_flags = 0;
             parse_flags |= EFFECT_PARSE;
+            std::cout << resource << std::endl;
             continue;
         }
 
+        std::cout << resource << " ";
+
         std::vector< std::map<std::string, std::string> > data = Helper::SimpleXMLParse(resource, parse_flags);
-        std::cout << data.size() << std::endl;
+
+        std::cout << "(" << data.size() << " entities located)" << std::endl;
 
         for(int j = 0; j < data.size(); j++) {
             std::map<std::string, std::string> datum = data[j];
@@ -430,7 +436,8 @@ void Game::ConstructPrototypes() {
                 // Assemble the Mob prototype and push it to the global associative container
                 Mob mob_make;
                 mob_make.init_vals(name, id, symbol, color, Max_HP, Max_Ether, speed, desc, groups, hostile, friendly, aggrofield);
-                Mobs[mob_make.id] = mob_make;
+                setMob(mob_make.id, mob_make);
+                setEntity(mob_make.id, mob_make);
             }
 
             /* Parsing items */
@@ -451,11 +458,12 @@ void Game::ConstructPrototypes() {
 
                 Item item_make;
                 item_make.init_vals(name, id, symbol, color, modifier, quantity, weight, volume, value, rarity, blunt, cut, pierce, pliancy, 1, capacity, desc, groups);
-                Items[item_make.id] = item_make;
+                setItem(item_make.id, item_make);
+                setEntity(item_make.id, item_make);
             }
         }
     }
 
-    std::cout << "[RESOURCES LOADED]" << std::endl;
+    std::cout << "[RESOURCES LOADED (Total resources: " << _entities.size() << ")" << std::endl << std::endl;
 }
 

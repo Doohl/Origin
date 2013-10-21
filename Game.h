@@ -11,8 +11,10 @@ enum GameState {
 };
 
 // Main console:
-#define VIEW_WIDTH      90  // number of Libtcod cells wide
-#define VIEW_HEIGHT     70  //         ...       cells high
+#define VIEW_WIDTH              90  // number of Libtcod cells wide
+#define VIEW_HEIGHT             80  //         ...       cells high
+#define UI_BOTTOM_DIV           60
+#define MAX_MESSAGE_HEIGHT      52
 
 // Inventory console:
 #define INV_WIDTH       60
@@ -66,18 +68,30 @@ class Game {
         /* Debug Members: */
         std::string Test;
 
-    /** Resource Containers: **/
+    /** Resource Members: **/
 
-        // Entity prototype data (associative containers: [ID] = ENTITY)
-        std::map< std::string, Entity > Entities;   // master container
-        std::map< std::string, Mob > Mobs;          // MOB_DATA container
-        std::map< std::string, Item > Items;        // ITEM_DATA container
-        std::map< std::string, Turf > Turfs;        // TURF_DATA container
+        /* Returns an entity from _entities */
+        Entity getEntity(std::string index) { return _entities[index]; }
+        /* Returns a mob from _mobs */
+        Mob getMob(std::string index)       { return _mobs[index]; }
+        /* Returns an item from _items */
+        Item getItem(std::string index)     { return _items[index]; }
+        /* Returns a turf from _turfs */
+        Turf getTurf(std::string index)     { return _turfs[index]; }
+
+        /* Sets the entity at _entities[string] */
+        void setEntity(std::string index, Entity new_val)   { _entities[index] = new_val; }
+        /* Sets the mob at _mobs[string] */
+        void setMob(std::string index, Mob new_val)         { _mobs[index] = new_val; }
+        /* Sets the item at _items[string] */
+        void setItem(std::string index, Item new_val)       { _items[index] = new_val; }
+        /* Sets the turf at _turfs[string] */
+        void setTurf(std::string index, Turf new_val)       { _turfs[index] = new_val; }
 
     /** Player Members: **/             // see: Player.cpp and Controls.cpp
 
-        /* Responds to keypresses */
-        void HandleKeys(TCOD_key_t& key);
+        /* Processes all TCOD Key and TCOD Mouse events */
+        void ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse);
 
         Player player; // the player object
 
@@ -116,6 +130,12 @@ class Game {
         // Loaded resource locations
         std::vector<std::string> _resources;
             // contains both paths and categories, categories dictated by ! delimiter
+
+        // Entity prototype data (associative containers: [ID] = ENTITY)
+        std::map< std::string, Entity > _entities;   // master container
+        std::map< std::string, Mob > _mobs;          // MOB_DATA container
+        std::map< std::string, Item > _items;        // ITEM_DATA container
+        std::map< std::string, Turf > _turfs;        // TURF_DATA container
 
     /** Miscellaneous Members: **/
 

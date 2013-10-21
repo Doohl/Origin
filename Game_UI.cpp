@@ -19,8 +19,8 @@ void Game::DrawHud(bool update) {
         int screen_pos = 0; // actual position to print to
         int position = 0; // the "position" to start looping through in the message buffer
 
-        if(player.msgbuff.size() >= 15) // offset the position if the msgbuff is larger than the "window"
-            position = player.msgbuff.size() - 15;
+        if(player.msgbuff.size() >= MAX_MESSAGE_HEIGHT-33) // offset the position if the msgbuff is larger than the "window"
+            position = player.msgbuff.size() - (MAX_MESSAGE_HEIGHT-33);
 
         // Display the last 15 messages
         int maxdisplay = player.msgbuff.size();
@@ -31,7 +31,7 @@ void Game::DrawHud(bool update) {
 
                 TCODConsole::root->setDefaultBackground(selectedmsg->bgcolor);
                 TCODConsole::root->setDefaultForeground(selectedmsg->fcolor);
-                TCODConsole::root->print(0, 55 + screen_pos, selectedmsg->message.c_str());
+                TCODConsole::root->print(0, UI_BOTTOM_DIV+1 + screen_pos, selectedmsg->message.c_str());
                 screen_pos++;
             }
         }
@@ -39,14 +39,14 @@ void Game::DrawHud(bool update) {
        /* Update the character stats */
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
         TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor::white,TCODColor::black);
-        TCODConsole::root->print(52, 56, "Health: %c %i   /   %i %c", TCOD_COLCTRL_1, player.HP, player.Max_HP, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(52, UI_BOTTOM_DIV+2, "Health: %c %i   /   %i %c", TCOD_COLCTRL_1, player.HP, player.Max_HP, TCOD_COLCTRL_STOP);
         TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor(50, 150, 50),TCODColor::black);
-        TCODConsole::root->print(58, 58, "Str: %c%i%c", TCOD_COLCTRL_1, player.strength, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(58, 59, "Int: %c%i%c", TCOD_COLCTRL_1, player.intelligence, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(58, 60, "Dex: %c%i%c", TCOD_COLCTRL_1, player.dexterity, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(73, 58, "Per: %c%i%c", TCOD_COLCTRL_1, player.perception, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(73, 59, "Con: %c%i%c", TCOD_COLCTRL_1, player.constitution, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(73, 60, "Spr: %c%i%c", TCOD_COLCTRL_1, player.spirit, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(58, UI_BOTTOM_DIV+4, "Str: %c%i%c", TCOD_COLCTRL_1, player.strength, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(58, UI_BOTTOM_DIV+5, "Int: %c%i%c", TCOD_COLCTRL_1, player.intelligence, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(58, UI_BOTTOM_DIV+6, "Dex: %c%i%c", TCOD_COLCTRL_1, player.dexterity, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(73, UI_BOTTOM_DIV+4, "Per: %c%i%c", TCOD_COLCTRL_1, player.perception, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(73, UI_BOTTOM_DIV+5, "Con: %c%i%c", TCOD_COLCTRL_1, player.constitution, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(73, UI_BOTTOM_DIV+6, "Spr: %c%i%c", TCOD_COLCTRL_1, player.spirit, TCOD_COLCTRL_STOP);
 
 
        /* Print items held in hands */
@@ -54,9 +54,9 @@ void Game::DrawHud(bool update) {
         if(!player.rhandselected) { // selected
             TCODConsole::root->setDefaultForeground(TCODColor::white);
         }
-        TCODConsole::root->print(52, 63, "L hand:");
+        TCODConsole::root->print(52, UI_BOTTOM_DIV+9, "L hand:");
         if(player.lefthand != NULL)
-            TCODConsole::root->print(60, 63, player.lefthand->name.c_str());
+            TCODConsole::root->print(60, UI_BOTTOM_DIV+9, player.lefthand->name.c_str());
 
         // Right hand:
         if(!player.rhandselected) { // not selected
@@ -65,13 +65,13 @@ void Game::DrawHud(bool update) {
         else { // selected
             TCODConsole::root->setDefaultForeground(TCODColor::white);
         }
-        TCODConsole::root->print(52, 64, "R hand:");
+        TCODConsole::root->print(52, UI_BOTTOM_DIV+10, "R hand:");
         if(player.righthand != NULL)
-            TCODConsole::root->print(60, 64, player.righthand->name.c_str());
+            TCODConsole::root->print(60, UI_BOTTOM_DIV+10, player.righthand->name.c_str());
 
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
         TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor(51, 255, 153),TCODColor::black);
-        TCODConsole::root->print(52, 67, "Ether: %c %i / %i %c", TCOD_COLCTRL_1, player.Ether, player.Max_Ether, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(52, UI_BOTTOM_DIV+13, "Ether: %c %i / %i %c", TCOD_COLCTRL_1, player.Ether, player.Max_Ether, TCOD_COLCTRL_STOP);
 
 
     /* Draw all the other hud accessories like frames */
@@ -80,29 +80,29 @@ void Game::DrawHud(bool update) {
        /* The messages frame */
         // Draw the main screen frame:
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
-        TCODConsole::root->printFrame(0, 0, VIEW_WIDTH, 55, false, TCOD_BKGND_NONE, NULL);
+        TCODConsole::root->printFrame(0, 0, VIEW_WIDTH, UI_BOTTOM_DIV+1, false, TCOD_BKGND_NONE, NULL);
 
         // Draw the messages frame
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
-        TCODConsole::root->putChar(24, 54, 205);
-        TCODConsole::root->putChar(15, 54, 205);
+        TCODConsole::root->putChar(24, UI_BOTTOM_DIV, 205);
+        TCODConsole::root->putChar(15, UI_BOTTOM_DIV, 205);
         TCODConsole::root->setDefaultBackground(TCODColor(70, 70, 70));
         TCODConsole::root->setDefaultForeground(TCODColor(200, 200, 200));
         TCODConsole::root->setAlignment(TCOD_LEFT);
-        TCODConsole::root->print(16, 54, "Messages");
+        TCODConsole::root->print(16, UI_BOTTOM_DIV, "Messages");
 
         // Draw the separator between output and character stats
         TCODConsole::root->setDefaultBackground(TCODColor(0, 0, 0));
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
-        TCODConsole::root->vline(50, 56, 13);
+        TCODConsole::root->vline(50, UI_BOTTOM_DIV+4, 13);
 
        /* The character frame */
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
-        TCODConsole::root->putChar(73, 54, 205);
-        TCODConsole::root->putChar(63, 54, 205);
+        TCODConsole::root->putChar(73, UI_BOTTOM_DIV, 205);
+        TCODConsole::root->putChar(63, UI_BOTTOM_DIV, 205);
         TCODConsole::root->setDefaultBackground(TCODColor(70, 70, 70));
         TCODConsole::root->setDefaultForeground(TCODColor(200, 200, 200));
-        TCODConsole::root->print(64, 54, "Character");
+        TCODConsole::root->print(64, UI_BOTTOM_DIV, "Character");
     }
     // Reset the colors back to normal
     TCODConsole::root->setDefaultBackground(TCODColor(0, 0, 0));
@@ -138,19 +138,11 @@ void Game::DrawInv() {
         _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
         _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
 
-        int offset = 0;
-        if(player.righthand) {
-            offset++;
-        }
-        if(player.lefthand) {
-            offset++;
-        }
+        int offset = 1;
+
         for(unsigned int i = 0; i < player.inventory.size(); i++) {
             Item* item = player.inventory[i];
 
-            if(item == player.lefthand || item == player.righthand) { // we will draw these later
-                continue;
-            }
             // Draw the item name in a special color if it is selected
             if(player.selecteditem == item) {
                 _inventoryConsole->setDefaultBackground(TCODColor(155, 155, 155));
@@ -164,12 +156,17 @@ void Game::DrawInv() {
             _inventoryConsole->print(2, i + offset, std::string(1, item->index).c_str());
             _inventoryConsole->print(5, i + offset, item->name.c_str());
             std::string slotstr=""; // for stuff like "(WORN)", "(R HAND)", etc
-            if(Helper::Find(player.Worn, item))
+            if(Helper::Find(player.Worn, item)) {
                 slotstr += "{WORN}";
+            } else if(item == player.lefthand) {
+                slotstr += "{L HAND}";
+            } else if(item == player.righthand) {
+                slotstr += "{R HAND}";
+            }
 
             if(slotstr != "") {
                 TCODConsole::root->setAlignment(TCOD_RIGHT);
-                _inventoryConsole->print(INV_WIDTH-2, i + offset, slotstr.c_str());
+                _inventoryConsole->print(INV_WIDTH-slotstr.size()-1, i + offset, slotstr.c_str());
                 TCODConsole::root->setAlignment(TCOD_LEFT);
             }
 
@@ -181,51 +178,6 @@ void Game::DrawInv() {
         }
         _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
         _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
-
-        // Now we draw the left and right hand items
-        int posy = 0;
-        if(player.righthand) {
-            posy++;
-            if(player.selecteditem == player.righthand) {
-                _inventoryConsole->setDefaultBackground(TCODColor(155, 155, 155));
-                _inventoryConsole->setDefaultForeground(TCODColor::white);
-            }
-            _inventoryConsole->setAlignment(TCOD_LEFT);
-            _inventoryConsole->print(1, posy, "[");
-            _inventoryConsole->print(3, posy, "] ");
-            _inventoryConsole->print(2, posy, std::string(1, player.righthand->index).c_str());
-            _inventoryConsole->print(5, posy, player.righthand->name.c_str());
-            std::string slotstr="{R HAND}"; // for stuff like "(WORN)", "(R HAND)", etc
-            _inventoryConsole->setAlignment(TCOD_RIGHT);
-            _inventoryConsole->print(INV_WIDTH-2, posy, slotstr.c_str());
-            _inventoryConsole->setAlignment(TCOD_LEFT);
-
-            if(player.selecteditem == player.righthand) {
-                _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
-                _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
-            }
-        }
-        if(player.lefthand) {
-            posy++;
-            if(player.selecteditem == player.lefthand) {
-                _inventoryConsole->setDefaultBackground(TCODColor(155, 155, 155));
-                _inventoryConsole->setDefaultForeground(TCODColor::white);
-            }
-            _inventoryConsole->setAlignment(TCOD_LEFT);
-            _inventoryConsole->print(1, posy, "[");
-            _inventoryConsole->print(3, posy, "] ");
-            _inventoryConsole->print(2, posy, std::string(1, player.lefthand->index).c_str());
-            _inventoryConsole->print(5, posy, player.lefthand->name.c_str());
-            std::string slotstr="{L HAND}"; // for stuff like "(WORN)", "(R HAND)", etc
-            _inventoryConsole->setAlignment(TCOD_RIGHT);
-            _inventoryConsole->print(INV_WIDTH-2, posy, slotstr.c_str());
-            _inventoryConsole->setAlignment(TCOD_LEFT);
-
-            if(player.selecteditem == player.lefthand) {
-                _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
-                _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
-            }
-        }
 
 
         // Blit the inventory console onto the main console, roughly the center of the screen

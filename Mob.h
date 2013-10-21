@@ -2,7 +2,6 @@
 #define MOB_H_INCLUDED
 
 #include "Entity.h"
-#include "MobData.h"
 #include <vector>
 
 class Turf; // "Turf.h"
@@ -10,10 +9,8 @@ class Turf; // "Turf.h"
 #define HOSTILE_FLAG std::string("all_not_self")
 
 /*
-    IMPORTANT! Please read:
-
-    If a new variable is added or changed, be sure to initialize it in the constructor(s) if appropriate.
-    Be sure to update the == overloader and Mob::CopyTo(), or things will break.
+    If a new variable is added or changed, be sure to initialize it in the constructor(s), initializers
+    and copiers if appropriate.
 */
 
 class Mob : public Entity {
@@ -24,6 +21,9 @@ class Mob : public Entity {
         /* Initializes all starting / null values */
         virtual void init();
 
+        /* Copies all this mob's relevant variables to another mob */
+        void CopyTo(Mob* m);
+
         /* Assigns all the values to this mob */
         void init_vals(std::string pname, std::string pid, char psymbol, TCODColor pcolor, int pMax_HP, int pMax_Ether, float pspeed,
                        std::string pdesc, std::string pgroups, std::string hostiles, std::string friendlies,
@@ -31,9 +31,6 @@ class Mob : public Entity {
 
         /* The code executed when mob has enough energy to "move" */
         virtual void DoLogic(Game* game);
-
-        /* Copies the mob's variables onto another mob */
-        void CopyTo(Mob* m);
 
         /* Handles placement to another block, takes obstacles into account */
         virtual void Move(int newx, int newy);
@@ -82,9 +79,5 @@ class Mob : public Entity {
     private:
         void Deinitialize();     // De-initializes everything
 };
-
-extern Mob moblist[num_m_type];
-
-void InitMobs();
 
 #endif // MOB_H_INCLUDED

@@ -7,7 +7,7 @@
 #include <vector>
 #include <iostream>
 
-void Game::HandleKeys(TCOD_key_t& key) {
+void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
 
     /* Inventory screen */
     if(player.viewinginventory) {
@@ -180,13 +180,13 @@ void Game::HandleKeys(TCOD_key_t& key) {
             std::vector<Turf*> SpawnTurfs = GameMap.TurfRange(player.x, player.y, 1);
 
             for(unsigned int i = 0; i < SpawnTurfs.size(); i++) {
-                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, Mobs["m_goat"]);
+                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, getMob("m_goat"));
             }
         } else if(key.c == 's') { // spawn skeletons
             std::vector<Turf*> SpawnTurfs = GameMap.TurfRange(player.x, player.y, 1);
 
             for(unsigned int i = 0; i < SpawnTurfs.size(); i++) {
-                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, Mobs["m_skeleton"]);
+                GameMap.SpawnMob(SpawnTurfs[i]->x, SpawnTurfs[i]->y, getMob("m_skeleton"));
             }
 
         }
