@@ -135,47 +135,76 @@ void Game::DrawInv() {
         _inventoryConsole->print(INV_WIDTH / 2, 0, "Inventory");
 
         // Begin drawing the inventory items
-        _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
-        _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
-
         int offset = 1;
 
-        for(unsigned int i = 0; i < player.inventory.size(); i++) {
-            Item* item = player.inventory[i];
+        const char* categories[] = {
+            "equipped", "weapons", "tools", "munitions", "apparel", "food", "medicine", "misc"
+        };
 
-            // Draw the item name in a special color if it is selected
-            if(player.selecteditem == item) {
-                _inventoryConsole->setDefaultBackground(TCODColor(155, 155, 155));
-                _inventoryConsole->setDefaultForeground(TCODColor::white);
+        for(int index = 0; index < 7; index++) {
+
+            std::vector<Item*> category;
+            if(index == 0) {
+                category = player.Worn;
+                category.push_back(player.righthand);    category.push_back(player.lefthand);
             }
-
-            // Print the name and character index
+            else {
+                category = player.inventory_categories[ std::string(categories[index]) ];
+            }
             _inventoryConsole->setAlignment(TCOD_LEFT);
-            _inventoryConsole->print(1, i + offset, "[");
-            _inventoryConsole->print(3, i + offset, "] ");
-            _inventoryConsole->print(2, i + offset, std::string(1, item->index).c_str());
-            _inventoryConsole->print(5, i + offset, item->name.c_str());
-            std::string slotstr=""; // for stuff like "(WORN)", "(R HAND)", etc
-            if(Helper::Find(player.Worn, item)) {
-                slotstr += "{WORN}";
-            } else if(item == player.lefthand) {
-                slotstr += "{L HAND}";
-            } else if(item == player.righthand) {
-                slotstr += "{R HAND}";
-            }
+            std::string cat_string = "+" + std::string(categories[index]) + "+";
+            Helper::toUpper(cat_string);
 
-            if(slotstr != "") {
-                TCODConsole::root->setAlignment(TCOD_RIGHT);
-                _inventoryConsole->print(INV_WIDTH-slotstr.size()-1, i + offset, slotstr.c_str());
-                TCODConsole::root->setAlignment(TCOD_LEFT);
-            }
+            _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
+            _inventoryConsole->setDefaultForeground(TCODColor(250, 250, 250));
+            _inventoryConsole->print(1, offset, cat_string.c_str());
+            offset++;
 
-            // Reset the colors
-            if(player.selecteditem == item) {
-                _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
-                _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
+            for(int i = 0; i < category.size(); i++) {
+                Item* item = category[i];
+
+                if(item == NULL) continue;
+
+                // These are to be displayed in categories[0]
+                if(index != 0) {
+                    if(Helper::Find(player.Worn, item)) continue;
+                    if(item == player.lefthand || item == player.righthand) continue;
+                }
+
+                // Draw the item name in a special color if it is selected
+                if(player.selecteditem == item) {
+                    _inventoryConsole->setDefaultBackground(TCODColor(155, 155, 155));
+                    _inventoryConsole->setDefaultForeground(TCODColor::white);
+                } else {
+                    _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
+                    _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
+                }
+
+                // Print the name and character index
+                _inventoryConsole->setAlignment(TCOD_LEFT);
+                _inventoryConsole->print(1, offset, "[");
+                _inventoryConsole->print(3, offset, "] ");
+                _inventoryConsole->print(2, offset, std::string(1, item->index).c_str());
+                _inventoryConsole->print(5, offset, item->name.c_str());
+                std::string slotstr=""; // for stuff like "(WORN)", "(R HAND)", etc
+                if(Helper::Find(player.Worn, item)) {
+                    slotstr += "{WORN}";
+                } else if(item == player.lefthand) {
+                    slotstr += "{L HAND}";
+                } else if(item == player.righthand) {
+                    slotstr += "{R HAND}";
+                }
+
+                if(slotstr != "") {
+                    TCODConsole::root->setAlignment(TCOD_RIGHT);
+                    _inventoryConsole->print(INV_WIDTH-slotstr.size()-1, offset, slotstr.c_str());
+                    TCODConsole::root->setAlignment(TCOD_LEFT);
+                }
+                offset++;
             }
+            offset++;
         }
+
         _inventoryConsole->setDefaultBackground(TCODColor(104, 104, 104));
         _inventoryConsole->setDefaultForeground(TCODColor(200, 200, 200));
 

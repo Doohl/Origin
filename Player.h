@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "Item.h"
 #include <vector>
+#include <map>
 
 // Message class: stored in Player::msgbuff
 class Msg {
@@ -44,9 +45,6 @@ class Player : public Mob {
         /* Add an item to the inventory */
         void InventoryAdd(Item* item);
 
-        /* Re-sorts inventory indexes */
-        void ResortInventory();
-
         /* Removes an item from the inventory vector */
         void InventoryRemove(Item* item, bool dodel);
 
@@ -59,6 +57,12 @@ class Player : public Mob {
         /* Wield an item in the player's inventory to selected hand */
         void Wield(Item* item);
 
+        /* Take all items worn and calculate the maximum volume of the player */
+        int CalcMaxVolume();
+
+        /* Take all non-worn items and calculate the current volume the player is carrying */
+        int CalcCarryVolume();
+
         Game* game;
 
         bool cam_follow;        // true if camera is centered on the player whenever he moves
@@ -66,6 +70,7 @@ class Player : public Mob {
         int cam_y;              // location of the player's camera
 
         std::vector<Item*> inventory; // player's inventory (includes all items)
+        std::map<std::string, std::vector<Item*> > inventory_categories;  // the player's inventory sorted into categories
         bool viewinginventory;  // if the player is looking at the inventory
         bool selectingwear;     // if the next item the player selects in the inventory will be worn
         bool selectingwield;

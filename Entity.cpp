@@ -3,6 +3,7 @@
 
 Entity::Entity() {
     c_symbol = 0;
+    deleting = false;
 }
 
 void Entity::init() {

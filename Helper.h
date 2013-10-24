@@ -44,6 +44,9 @@ class Helper {
         /* Returns a list of valid characters */
         static std::vector<char>GetCharacters();
 
+        /* Makes the string uppercase */
+        static void toUpper(std::string& str);
+
         /* Replaces all instances of 'from' with 'to' in 'str' */
         static void replace_all(std::string& str, std::string from, std::string to);
 
@@ -58,6 +61,9 @@ class Helper {
 
         /* Merge two vectors */
         template <class T> static std::vector<T> MergeVector(std::vector<T> VectorA, std::vector<T> VectorB);
+
+        /* Remove instance from vector */
+        template <class T> static void Remove(std::vector<T> &Vector, T entry);
 
        /** IO / File functions */
 
@@ -115,6 +121,14 @@ template <class T> std::vector<T> Helper::MergeVector(std::vector<T> VectorA, st
     returnvector.insert( returnvector.end(), VectorA.begin(), VectorA.end() );
     returnvector.insert( returnvector.end(), VectorB.begin(), VectorB.end() );
     return returnvector;
+}
+
+template <class T> void Remove(std::vector<T> &Vector, T entry) {
+    for(int i = 0; i < Vector.size(); i++) {
+        T index = Vector[i];
+        if(index == entry)
+            Vector.erase(Vector.begin()+i);
+    }
 }
 
 

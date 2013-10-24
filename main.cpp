@@ -1,6 +1,5 @@
 #include "libtcod.hpp"
 #include "Game.h"
-#include "tinyxml.h"
 #include <iostream>
 
 int main() {

@@ -113,10 +113,8 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
 
                 if(player.rhandselected) {
                     player.righthand = t->items[0];
-                    t->items[0]->index = 'a';
                 }else {
                     player.lefthand = t->items[0];
-                    t->items[0]->index = 'b';
                 }
 
 
@@ -165,6 +163,32 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
             player.viewinginventory = true; // toggle viewing inventory
             player.selectingwield = true; // toggle selecting an item to wear
             player.selecteditem = NULL;
+
+        } else if(key.c == 'p') { // put away item
+            Item* item = NULL;
+            if(player.rhandselected && player.righthand != NULL) {
+                item = player.righthand;
+            } if(!player.rhandselected && player.lefthand != NULL) {
+                item = player.lefthand;
+            }
+            if(item) {
+                if(item->volume <= player.CalcMaxVolume()-player.CalcCarryVolume()) {
+
+                    if(player.rhandselected) {
+                        player.righthand = NULL;
+                    } if(!player.rhandselected) {
+                        player.lefthand = NULL;
+                    }
+                    // Display message:
+                    std::string msg = "You put away ";
+                    if(!Helper::proper(item->name)) { // if not a proper noun, apply correct grammar
+                        msg += "the ";
+                    }
+                    player.Message(msg + item->name + ".", TCODColor::white, TCODColor::black);
+                } else {
+                    player.Message("You don't have space for that.", TCODColor::white, TCODColor::black);
+                }
+            }
 
         } else if(key.vk == TCODK_TAB) { // toggle the player's selected hand
             player.rhandselected = !player.rhandselected;

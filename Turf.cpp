@@ -15,6 +15,7 @@ Turf::Turf() {
     mobs.resize(0);
     items.resize(0);
     layer = 1;
+    deleting = false;
 }
 
 Turf::Turf(std::string n, unsigned int f, char s, TCODColor c) {
@@ -33,6 +34,7 @@ Turf::Turf(std::string n, unsigned int f, char s, TCODColor c) {
 }
 
 Turf::~Turf() { // contents contains pointers; gotta deallocate that memory!
+    deleting = true;
     for(int i = 0; i < contents.size(); i++) {
         delete contents[i]; // release pointer
     }

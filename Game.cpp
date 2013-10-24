@@ -159,6 +159,7 @@ void Game::Start() {
     Test = "Lol!";
 
     // Initialize TCOD
+    //TCODConsole::setCustomFont("terminal12x12.png", TCOD_FONT_LAYOUT_ASCII_INROW);
     TCODConsole::initRoot(VIEW_WIDTH, VIEW_HEIGHT, "Origin: Tales of Anarchy", false);
     TCODSystem::setFps(15);
     TCODConsole::setKeyboardRepeat(30, 5);

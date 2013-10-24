@@ -59,10 +59,12 @@ Mob::~Mob() {
 }
 
 void Mob::Deinitialize() {
-    if(turf != NULL && turf->map != NULL && turf->map->Field != NULL) {
-        turf->RemoveContents(this, false);
-        turf->RemoveMobs(this, false);
-        turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
+    if(turf != NULL) {
+        if(!turf->deleting && turf->map != NULL && turf->map->Field != NULL) {
+            turf->RemoveContents(this, false);
+            turf->RemoveMobs(this, false);
+            turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
+        }
         turf = NULL;
     }
     groups.push_back("nologic"); // stop this from updating

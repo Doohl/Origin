@@ -1,6 +1,7 @@
 #include "Helper.h"
-#include "tinyxml.h"
+#include "depend/tinyxml2/tinyxml.h"
 #include <iostream>
+#include <algorithm>
 
 std::vector<std::string> Helper::Explode(char separator, std::string str) {
 
@@ -53,7 +54,7 @@ bool Helper::proper(std::string name) {
 
 std::vector<char> Helper::GetCharacters() {
     std::vector<char> ReturnVec;
-    char specialchars[21] = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', ';', '"', ',', '.', '\\', '|'};
+    char specialchars[21] = {'!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '=', '_', '+', ';', '"', ',', '.', '\\', '|'};
 
     for(char x = 'a'; x <= 'z'; x++) { // a and b reserved for hand slots
         ReturnVec.push_back(x);
@@ -68,6 +69,10 @@ std::vector<char> Helper::GetCharacters() {
         ReturnVec.push_back(specialchars[i]);
     }
     return ReturnVec;
+}
+
+void Helper::toUpper(std::string& str) {
+    std::transform(str.begin(), str.end(),str.begin(), ::toupper);
 }
 
 void Helper::replace_all(std::string& str, const std::string from, const std::string to) {

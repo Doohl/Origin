@@ -14,6 +14,7 @@ void Item::init() {
     name = "NULL";
     id = "NULL";
     desc = "NULL";
+    index = '~';
     layer = 2;
     modifier = 0;
     quantity = 0;

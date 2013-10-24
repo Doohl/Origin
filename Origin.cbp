@@ -5,7 +5,7 @@
 		<Option title="Origin" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Entities\;Entities\Mobs\;Entities\Turfs\;Entities\Items\;" />
+		<Option virtualFolders="Entities\;Entities\Mobs\;Entities\Turfs\;Entities\Items\;Libraries\;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/OriginToA.exe" prefix_auto="1" extension_auto="0" />
@@ -90,8 +90,11 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
-		<Unit filename="tinyxml.cpp" />
+		<Unit filename="tinyxml.cpp">
+			<Option virtualFolder="Libraries/" />
+		</Unit>
 		<Unit filename="tinyxml.h">
+			<Option virtualFolder="Libraries/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Extensions>

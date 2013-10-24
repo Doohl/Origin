@@ -44,6 +44,14 @@ Player::Player() {
     selecteditem = NULL;
     lefthand = NULL;
     righthand = NULL;
+
+    inventory_categories["weapons"] = std::vector<Item*>();
+    inventory_categories["tools"] = std::vector<Item*>();
+    inventory_categories["apparel"] = std::vector<Item*>();
+    inventory_categories["food"] = std::vector<Item*>();
+    inventory_categories["medicine"] = std::vector<Item*>();
+    inventory_categories["munitions"] = std::vector<Item*>();
+    inventory_categories["misc"] = std::vector<Item*>();
 }
 
 Player::~Player() {
@@ -163,6 +171,7 @@ char Player::InvNextChar() {
 
     for(int i = 0; i < inventory.size(); i++) {
         UnavailableSlots.push_back( inventory[i]->index );
+        std::cout << inventory[i]->index << std::endl;
     }
 
     for(int i = 0; i < AvailableSlots.size(); i++) {
@@ -176,30 +185,51 @@ char Player::InvNextChar() {
 
 void Player::InventoryAdd(Item* item) {
     inventory.push_back(item);
-    ResortInventory();
-}
-
-void Player::ResortInventory() {
-    std::vector<char> AvailableSlots = Helper::GetCharacters(); // generate available slots (a to z, A to Z and 0 to 9)
-
-    // Loop through all inventory slots and assign them AvailableSlots[0] while removing said index from the vector.
-    std::cout << inventory.size() << std::endl;
-
-    for(int i = 0; i < inventory.size(); i++) {
-
-        if(AvailableSlots.size() == 0) {
-            break;
-        }
-
-        char nextchar = AvailableSlots[0];
-        inventory[i]->index = nextchar;
-        std::cout << inventory[i]->index << std::endl;
-        AvailableSlots.erase(AvailableSlots.begin());
-
+    item->index = InvNextChar();
+    if(Helper::Find(item->groups, std::string("weapon"))) {
+        inventory_categories["weapons"].push_back(item);
+    } else if(Helper::Find(item->groups, std::string("wearable"))) {
+        inventory_categories["apparel"].push_back(item);
+    } else if(Helper::Find(item->groups, std::string("tool"))) {
+        inventory_categories["tools"].push_back(item);
+    } else {
+        inventory_categories["misc"].push_back(item);
     }
 }
 
+/*
+std::vector<Item*> Player::SortInventory() {
+    std::vector<Item*> returnvect;
+
+    returnvect.push_back(lefthand); returnvect.push_back(righthand);
+
+    std::map<std::string, std::vector<Item*>::const_iterator it;
+    for( it = inventory_categories.begin(); it != inventory_categories.end(); ++it ) {
+        std::string category = (*it).first;
+
+        for(int i = 0; i < inventory.size(); i++) {
+
+}
+*/
+
 void Player::InventoryRemove(Item* item, bool dodel) {
+    std::vector<Item*> *category;
+    if(Helper::Find(item->groups, std::string("weapon"))) {
+        category = &inventory_categories["weapons"];
+    } else if(Helper::Find(item->groups, std::string("wearable"))) {
+        category = &inventory_categories["apparel"];
+    } else if(Helper::Find(item->groups, std::string("tool"))) {
+        category = &inventory_categories["tools"];
+    } else {
+        category = &inventory_categories["misc"];
+    }
+    for(int i = 0; i < category->size(); i++) {
+        Item* index = (*category)[i];
+        if(index == item)
+            category->erase(category->begin() + i);
+    }
+    item->index = '~'; // revert the index to one that is never used
+
     for(int i = 0; i < inventory.size(); i++) {
         if(inventory[i] == item) {
             if(dodel) {
@@ -209,7 +239,7 @@ void Player::InventoryRemove(Item* item, bool dodel) {
             break;
         }
     }
-    ResortInventory(); // restructure indexes
+
 }
 
 void Player::WornRemove(Item* item, bool dodel) {
@@ -222,7 +252,6 @@ void Player::WornRemove(Item* item, bool dodel) {
             break;
         }
     }
-    ResortInventory(); // restructure indexes
 }
 
 void Player::Wear(Item* item) {
@@ -247,8 +276,6 @@ void Player::Wear(Item* item) {
         wearmsg += "the ";
     }
     Message(wearmsg + item->name + ".", TCODColor::white, TCODColor::black);
-
-    ResortInventory();
 }
 
 void Player::Wield(Item* item) {
@@ -277,9 +304,27 @@ void Player::Wield(Item* item) {
         wearmsg += "the ";
     }
     Message(wearmsg + item->name + ".", TCODColor::white, TCODColor::black);
-
-    ResortInventory();
 }
+
+int Player::CalcMaxVolume() {
+    int returnvolume = 0;
+    for(int i = 0; i < Worn.size(); i++) {
+        Item* item = Worn[i];
+        returnvolume += item->max_volume;
+    }
+    return returnvolume;
+}
+
+int Player::CalcCarryVolume() {
+    int returnvolume = 0;
+    for(int i = 0; i < inventory.size(); i++) {
+        Item* item = inventory[i];
+        if(!Helper::Find(Worn, item) && righthand != item && lefthand != item)
+            returnvolume += item->max_volume;
+    }
+    return returnvolume;
+}
+
 
 
 
