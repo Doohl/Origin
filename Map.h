@@ -30,6 +30,9 @@ class Map {
         /* Get all turfs in view of a coordinate */
         std::vector<Turf*> View(int x, int y, int range);
 
+        /* Get the turf at coordinate */
+        Turf* At(int x, int y);
+
         /* Insert an entity into a grid at x, y */ // (NOT COPY)
         void InsertEntity(int x, int y, Entity* entity);
 
@@ -56,14 +59,19 @@ class Map {
         std::vector<Mob*> FilterMobs(std::vector<Turf*> turfs);
 
 
-
-        std::vector<std::vector<Turf> > grid;   // 2D Vector grid representing the grid of turfs
         TCODMap* Field; // for libtcod calculations; used for FoV and A*
 
         Game* game; // the memory address of the game this map belongs to
 
         int width;  // width in cells
         int height; // height in cells
+
+        int x;      // the map's x location
+        int y;      // the map's y location
+
+    private:
+
+        std::vector<std::vector<Turf> > grid;   // 2D Vector grid representing the grid of turfs
 };
 
 

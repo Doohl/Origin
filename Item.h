@@ -23,6 +23,12 @@ class Item : public Entity {
         /* Initializes all starting / null values */
         virtual void init();
 
+        /* Save the item's variables into a tokenized string */
+        virtual std::string SaveEntity(Game* g);
+
+        /* Reload the item's variables from a tokenized string */
+        virtual void LoadEntity(std::string tokenized_data, Game* g);
+
         /* Copies all this item's relevant variables to another item */
         void CopyTo(Item* m);
 

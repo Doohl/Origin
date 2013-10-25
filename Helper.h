@@ -10,6 +10,10 @@
 #include <map>
 #include <ctype.h> // char functions
 
+#include "boost/shared_ptr.hpp"
+#include "depend/AMEFProtocol/AMEFDecoder.h"
+#include "depend/AMEFProtocol/AMEFEncoder.h"
+
 #define TURF_PARSE long(1 << (0))
 #define ITEM_PARSE long(1 << (1))
 #define MOB_PARSE long(1 << (2))
@@ -23,6 +27,9 @@ class Helper {
        /** Type conversion functions */
         /* Split a string into vectors using a separator (or, string->vector) */
         static std::vector<std::string> Explode(char separator, std::string str);
+
+        /* Implode a vector into a string using a separator (vector->string) */
+        static std::string Implode(char separator, std::vector<std::string> vect);
 
         /* Turns an integer variable into a string */
         static std::string int2str(int i);
@@ -72,6 +79,18 @@ class Helper {
 
         /* Parses a TXT file and returns a string vector of the file broken down by \n tokens */
         static std::vector<std::string> SimpleParse(const char* file);
+
+        /* Parses a file and returns a solid string of the contents */
+        static std::string SingleParse(const char* file);
+
+        /* Outputs/overwrites a file of this path */
+        static void ofstream_put(std::string path, std::string data);
+
+        /* Makes a directory in Unix and Windows */
+        static void Smart_MKDir(std::string path);
+
+        /* Checks to see if this file exists */
+        static bool fexists(std::string path);
 };
 
 

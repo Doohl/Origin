@@ -146,6 +146,8 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
                 dropitem->container = t;
                 t->contents.push_back(dropitem);
                 t->items.push_back(dropitem);
+                dropitem->x = t->x;
+                dropitem->y = t->y;
                 t->LayerContents();
 
             }

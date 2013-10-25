@@ -45,6 +45,9 @@ class Player : public Mob {
         /* Add an item to the inventory */
         void InventoryAdd(Item* item);
 
+        /* Add an item to the inventory without setting its index */
+        void InventoryLoad(Item* item);
+
         /* Removes an item from the inventory vector */
         void InventoryRemove(Item* item, bool dodel);
 

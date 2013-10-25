@@ -167,9 +167,12 @@ void Game::Start() {
     DrawHud(true);
 
     std::cout << "Game Started" << std::endl << std::endl;
+    LoadGame();
+
     while(!IsExiting()) {
         GameLoop();
     }
+    SaveGame();
 }
 
 bool Game::IsExiting() {
@@ -234,30 +237,31 @@ void Game::GameLoop() {
                 TCODConsole::root->putChar(x, y, turfchosen->symbol);
             }
 
-        }
-
-        // Draw all visible entities
-
-        for(int j = 0; j < turfchosen->contents.size(); j++) {
-            Entity* entity = turfchosen->contents[j];
-            if(entity->symbol != ' ' && (GameMap.Field->isInFov(entity->x, entity->y) )) {
 
 
-                if(fade != 1.0f) {
-                    TCODConsole::root->setDefaultForeground(TCODColor::lerp(TCODColor::darkGrey, entity->color, fade));
-                }
-                else {
-                    TCODConsole::root->setDefaultForeground(entity->color);
-                }
+            // Draw all visible entities
 
-                if((x >= 0 && y >= 0) && (x < VIEW_WIDTH && y < VIEW_HEIGHT)) {
+            for(int j = 0; j < turfchosen->contents.size(); j++) {
+                Entity* entity = turfchosen->contents[j];
+                if(entity->symbol != ' ') {
+
+
+                    if(fade != 1.0f) {
+                        TCODConsole::root->setDefaultForeground(TCODColor::lerp(TCODColor::darkGrey, entity->color, fade));
+                    }
+                    else {
+                        TCODConsole::root->setDefaultForeground(entity->color);
+                    }
+
                     if(entity->c_symbol > 0) {
                         TCODConsole::root->putChar(x, y, entity->c_symbol);
                     } else {
                         TCODConsole::root->putChar(x, y, entity->symbol);
                     }
+
                 }
             }
+
         }
     }
 
@@ -326,6 +330,91 @@ void Game::UpdateLogic(float time) {
     if(DeleteBuff.size() >= 200) {
         delete(DeleteBuff[0]);
         DeleteBuff.erase( DeleteBuff.begin() );
+    }
+}
+
+void Game::SaveGame() {
+    AMEFObject player_save;
+    player_save.addPacket(player.x, "x");
+    player_save.addPacket(player.y, "y");
+    player_save.addPacket(player.Max_HP, "max_hp");
+    player_save.addPacket(player.HP, "hp");
+    player_save.addPacket(player.Max_Ether, "max_ether");
+    player_save.addPacket(player.Ether, "ether");
+
+    for(int i = 0; i < player.inventory.size(); i++) {
+        Item* item = player.inventory[i];
+        if(player.lefthand == item) {
+            player_save.addPacket( item->SaveEntity(this), "lhand" );
+        } else if(player.righthand == item) {
+            player_save.addPacket( item->SaveEntity(this), "rhand" );
+        } else if(Helper::Find(player.Worn, item)) {
+            player_save.addPacket( item->SaveEntity(this), "worn" );
+        } else {
+            player_save.addPacket( item->SaveEntity(this), "inv" );
+        }
+    }
+
+    player_save.addPacket("fin", "closing");
+
+    AMEFEncoder encoder;
+    std::string serialized_data = encoder.encodeWL(&player_save, false);
+    std::string directory = std::string(SAVE_DIR) + "/" + player.name + ".sav";
+
+    // Save the player savefile into disk:
+    Helper::Smart_MKDir(std::string(SAVE_DIR));
+    Helper::ofstream_put(directory, serialized_data);
+}
+
+void Game::LoadGame() {
+    std::string directory = std::string(SAVE_DIR) + "/" + player.name + ".sav";
+    if(Helper::fexists(directory)) {
+
+        std::cout << "Loaded game (" << directory << ")" << std::endl;
+
+        std::string serialized_data = Helper::SingleParse(directory.c_str());
+        AMEFDecoder decoder;
+        AMEFObject* unserialized_object = decoder.decodeBWL(serialized_data, false);
+        std::vector<AMEFObject*> packets = unserialized_object->getPackets();
+
+        int newx = 0;
+        int newy = 0;
+        for(int i = 0; i < packets.size(); i++) {
+            AMEFObject* packet_datum = packets[i];
+
+            if(packet_datum->getNameStr() == "inv" || packet_datum->getNameStr() == "worn" || packet_datum->getNameStr() == "lhand" || packet_datum->getNameStr() == "rhand") {
+                Item* i = new Item();
+                i->LoadEntity( packet_datum->getValueStr(), this );
+                player.InventoryLoad(i);
+
+                if(packet_datum->getNameStr() == "worn") {
+                    player.Worn.push_back(i);
+                }
+                if(packet_datum->getNameStr() == "lhand") {
+                    player.lefthand = i;
+                }
+                if(packet_datum->getNameStr() == "rhand") {
+                    player.righthand = i;
+                }
+
+            } else if(packet_datum->getNameStr() == "x") {
+                newx = packet_datum->getIntValue();
+            } else if(packet_datum->getNameStr() == "y") {
+                newy = packet_datum->getIntValue();
+            } else if(packet_datum->getNameStr() == "max_hp") {
+                player.Max_HP = packet_datum->getIntValue();
+            } else if(packet_datum->getNameStr() == "hp") {
+                player.HP = packet_datum->getIntValue();
+            } else if(packet_datum->getNameStr() == "max_ether") {
+                player.Max_Ether = packet_datum->getIntValue();
+            } else if(packet_datum->getNameStr() == "ether") {
+                player.Ether = packet_datum->getIntValue();
+            }
+        }
+
+        player.Move(newx, newy);
+
+        delete unserialized_object;
     }
 }
 

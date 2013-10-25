@@ -2,6 +2,7 @@
 #include "depend/tinyxml2/tinyxml.h"
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
 
 std::vector<std::string> Helper::Explode(char separator, std::string str) {
 
@@ -21,6 +22,17 @@ std::vector<std::string> Helper::Explode(char separator, std::string str) {
         }
     }
     return ReturnVector;
+}
+
+std::string Helper::Implode(char separator, std::vector<std::string> vect) {
+
+    std::string returnstring;
+
+    for(int i = 0; i < vect.size(); i++) {
+        returnstring += vect[i];
+        if(i != vect.size()-1) returnstring += separator;
+    }
+    return returnstring;
 }
 
 std::string Helper::int2str(int i) {
@@ -214,4 +226,36 @@ std::vector<std::string> Helper::SimpleParse(const char* file) {
     }
 
     return returnvect;
+}
+
+std::string Helper::SingleParse(const char* file) {
+    std::ifstream t(file);
+    std::stringstream buffer;
+    buffer << t.rdbuf();
+    return buffer.str();
+}
+
+void Helper::ofstream_put(std::string path, std::string data) {
+    std::ofstream file;
+    file.open(path.c_str());
+    file << data;
+    file.close();
+}
+
+void Helper::Smart_MKDir(std::string path) {
+    #if defined(_WIN32)
+        // Default Win32 MS DOS mkdir command
+        std::string win32cmd = "mkdir " + path;
+        system(win32cmd.c_str());
+    #else
+        // I do not use any Unix-based operating system, so someone else is going to have to fill this in for me:
+        // It should work, by all means, though.
+        std::string win32cmd = "mkdir " + path;
+        system(win32cmd.c_str());
+    #endif
+}
+
+bool Helper::fexists(std::string path) {
+    ifstream ifile(path.c_str());
+    return ifile;
 }

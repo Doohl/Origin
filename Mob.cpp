@@ -89,7 +89,7 @@ void Mob::Move(int newx, int newy) {
             turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
 
             // Assign the mob a new turf
-            turf = &(turf->map->grid[x][y]);
+            turf = turf->map->At(x, y);
             turf->contents.push_back(this);
             turf->mobs.push_back(this);
             turf->LayerContents(); // sort layers
@@ -149,7 +149,7 @@ void Mob::DoLogic(Game* game) {
                 // First, set the cell undense so that we can path to it */
                 bool prevdense = turf->map->Field->isWalkable(t_x, t_y);
                 bool prevvis = turf->map->Field->isTransparent(t_x, t_y);
-                turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->map->grid[t_x][t_y].flags & mfb(t_transparent))), true );
+                turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->map->At(t_x, t_y)->flags & mfb(t_transparent))), true );
 
                 // Then calculate a path to it
                 TCODPath* Path = new TCODPath(turf->map->Field);

@@ -14,3 +14,10 @@ Entity::~Entity() {
 
 void Entity::DoLogic(Game* game) {
 }
+
+std::string Entity::SaveEntity(Game* g) {
+    return ";";
+}
+
+void Entity::LoadEntity(std::string tokenized_data, Game* g) {
+}

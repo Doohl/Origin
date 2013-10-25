@@ -118,6 +118,10 @@ std::vector<Turf*> Map::View(int x, int y, int range) {
     return ViewTurfs;
 }
 
+Turf* Map::At(int x, int y) {
+    return &grid[x][y];
+}
+
 void Map::InsertEntity(int x, int y, Entity* entity) {
 
     if(x >= 0 && y >= 0) {

@@ -29,6 +29,9 @@ enum GameState {
 // The parent directory to search for resources
 #define PARENT_RESOURCE "data/raw/"
 
+// The location which to create savefiles at
+#define SAVE_DIR "save"
+
 #include "Map.h"
 #include "libtcod.hpp"
 #include "Player.h"
@@ -57,6 +60,12 @@ class Game {
         /* Makes time go by: 100.0f = 1 second */
         void ApplyTime(float time);
 
+        /* Saves the game entirely */
+        void SaveGame();
+
+        /* Loads the game */
+        void LoadGame();
+
         Map GameMap;            // The game map being used (Map.h)
         TCODRandom* RandomGen;  // The random-number generator (libtcod.hpp)
         unsigned int Turns;      // The # of turns that have gone by
@@ -79,6 +88,7 @@ class Game {
         /* Returns a turf from _turfs */
         Turf getTurf(std::string index)     { return _turfs[index]; }
 
+
         /* Sets the entity at _entities[string] */
         void setEntity(std::string index, Entity new_val)   { _entities[index] = new_val; }
         /* Sets the mob at _mobs[string] */
@@ -87,6 +97,12 @@ class Game {
         void setItem(std::string index, Item new_val)       { _items[index] = new_val; }
         /* Sets the turf at _turfs[string] */
         void setTurf(std::string index, Turf new_val)       { _turfs[index] = new_val; }
+
+        /* Locate associative indexes for the respective entity resource containers */
+        bool findEntity(std::string index)                  { return (_entities.find(index) != _entities.end()); }
+        bool findMob(std::string index)                     { return (_mobs.find(index) != _mobs.end()); }
+        bool findItem(std::string index)                    { return (_items.find(index) != _items.end()); }
+        bool findTurf(std::string index)                    { return (_turfs.find(index) != _turfs.end()); }
 
     /** Player Members: **/             // see: Player.cpp and Controls.cpp
 

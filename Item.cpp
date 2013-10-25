@@ -14,6 +14,8 @@ void Item::init() {
     name = "NULL";
     id = "NULL";
     desc = "NULL";
+    symbol = ' ';
+    c_symbol = 0;
     index = '~';
     layer = 2;
     modifier = 0;
@@ -29,6 +31,8 @@ void Item::init() {
     stack = 0;
     max_volume = 0;
     container = NULL;
+    x = 0;
+    y = 0;
 
 }
 
@@ -60,6 +64,53 @@ void Item::init_vals(std::string pname, std::string pid, char psymbol, TCODColor
 }
 
 Item::~Item() {
+}
+
+std::string Item::SaveEntity(Game* g) {
+    std::string str;
+    str += name + ";";
+    str += id + ";";
+    str += std::string(1, symbol) + ";";
+    str += Helper::int2str(static_cast<int>(color.r)) + ";";
+    str += Helper::int2str(static_cast<int>(color.g)) + ";";
+    str += Helper::int2str(static_cast<int>(color.b)) + ";";
+    str += desc + ";";
+    str += Helper::Implode('&', groups) + ";";
+    str += Helper::int2str(modifier) + ";";
+    str += Helper::int2str(quantity) + ";";
+    str += Helper::int2str(weight) + ";";
+    str += Helper::int2str(volume) + ";";
+    str += Helper::int2str(rarity) + ";";
+    str += Helper::int2str(blunt_damage) + ";";
+    str += Helper::int2str(cut_damage) + ";";
+    str += Helper::int2str(pierce_damage) + ";";
+    str += Helper::int2str(pliancy) + ";";
+    str += Helper::int2str(stack) + ";";
+    str += Helper::int2str(max_volume) + ";";
+    str += std::string(1, index) + ";";
+    return str;
+}
+
+void Item::LoadEntity(std::string tokenized_data, Game* g) {
+    std::vector<std::string> data = Helper::Explode(';', tokenized_data);
+    name = data[0];
+    id = data[1];
+    symbol = Helper::str2char(data[2]);
+    color = TCODColor( Helper::str2int(data[3]), Helper::str2int(data[4]), Helper::str2int(data[5]));
+    desc = data[6];
+    groups = Helper::Explode('&', data[7]);
+    modifier = Helper::str2int(data[8]);
+    quantity = Helper::str2int(data[9]);
+    weight = Helper::str2int(data[10]);
+    volume = Helper::str2int(data[11]);
+    rarity = Helper::str2int(data[12]);
+    blunt_damage = Helper::str2int(data[13]);
+    cut_damage = Helper::str2int(data[14]);
+    pierce_damage = Helper::str2int(data[15]);
+    pliancy = Helper::str2int(data[16]);
+    stack = Helper::str2int(data[17]);
+    max_volume = Helper::str2int(data[18]);
+    index = Helper::str2char(data[19]);
 }
 
 void Item::CopyTo(Item* i) {

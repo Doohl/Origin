@@ -51,7 +51,7 @@ void Mob::StepTo(Entity* targ, bool attack, Game* game) {
         // Set the target's location to undense, for now.
         bool prevdense = turf->map->Field->isWalkable(t_x, t_y);
         bool prevvis = turf->map->Field->isTransparent(t_x, t_y);
-        turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->map->grid[t_x][t_y].flags & mfb(t_transparent))), true );
+        turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->map->At(t_x, t_y)->flags & mfb(t_transparent))), true );
 
         TCODPath* Path = new TCODPath(turf->map->Field);
         Path->compute(x, y, t_x, t_y);

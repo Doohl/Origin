@@ -3,6 +3,9 @@
 
 #include "EntityData.h"
 #include "libtcod.hpp"
+#include "Helper.h"
+#include "depend/AMEFProtocol/AMEFDecoder.h"
+#include "depend/AMEFProtocol/AMEFEncoder.h"
 #include <string>
 #include <vector>
 
@@ -21,6 +24,12 @@ class Entity {
 
         /* Initialize all the variables */
         virtual void init();
+
+        /* Save the entity's variables into a tokenized string */
+        virtual std::string SaveEntity(Game* g);
+
+        /* Reload the entity's variables from a tokenized string */
+        virtual void LoadEntity(std::string tokenized_data, Game* g);
 
         std::string name;   // The name of the entity
         std::string desc;   // The description of this entity

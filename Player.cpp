@@ -130,7 +130,7 @@ void Player::Move(int newx, int newy) {
         turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
 
         // Assign the mob a new turf
-        turf = &(turf->map->grid[x][y]);
+        turf = turf->map->At(x, y);
         turf->contents.push_back(this);
         turf->mobs.push_back(this);
         turf->LayerContents();
@@ -196,6 +196,20 @@ void Player::InventoryAdd(Item* item) {
         inventory_categories["misc"].push_back(item);
     }
 }
+
+void Player::InventoryLoad(Item* item) {
+    inventory.push_back(item);
+    if(Helper::Find(item->groups, std::string("weapon"))) {
+        inventory_categories["weapons"].push_back(item);
+    } else if(Helper::Find(item->groups, std::string("wearable"))) {
+        inventory_categories["apparel"].push_back(item);
+    } else if(Helper::Find(item->groups, std::string("tool"))) {
+        inventory_categories["tools"].push_back(item);
+    } else {
+        inventory_categories["misc"].push_back(item);
+    }
+}
+
 
 /*
 std::vector<Item*> Player::SortInventory() {
