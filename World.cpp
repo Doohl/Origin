@@ -1,8 +1,5 @@
 #include "World.h"
 
-#include "depend/AMEFProtocol/AMEFDecoder.h"
-#include "depend/AMEFProtocol/AMEFEncoder.h"
-
 World::World() {
 }
 

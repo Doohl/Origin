@@ -7,8 +7,6 @@
 #include <vector>
 #include <iostream>
 
-#include "depend/AMEFProtocol/AMEFDecoder.h"
-#include "depend/AMEFProtocol/AMEFEncoder.h"
 #include "depend/tinyxml2/tinyxml.h"
 
 Game::Game() {

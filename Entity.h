@@ -4,8 +4,6 @@
 #include "EntityData.h"
 #include "libtcod.hpp"
 #include "Helper.h"
-#include "depend/AMEFProtocol/AMEFDecoder.h"
-#include "depend/AMEFProtocol/AMEFEncoder.h"
 #include "boost/any.hpp"
 #include "depend/tinyxml2/tinyxml.h"
 
