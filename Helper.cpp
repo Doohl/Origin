@@ -55,6 +55,26 @@ float Helper::str2float(std::string str) {
     return returnfloat;
 }
 
+bool Helper::strIsInt(std::string str) {
+   std::stringstream out(str);
+   int dummy_int;
+   if(!(out >> dummy_int)) {
+        return false;
+   } else {
+        return true;
+   }
+}
+
+bool Helper::strIsFloat(std::string str) {
+   std::stringstream out(str);
+   float dummy_float;
+   if(!(out >> dummy_float)) {
+        return false;
+   } else {
+        return true;
+   }
+}
+
 char Helper::str2char(std::string str) {
     return str[0];
 }
@@ -98,114 +118,36 @@ void Helper::replace_all(std::string& str, const std::string from, const std::st
 }
 
 /* Simple XML parser function */
-std::vector< std::map< std::string, std::string > > Helper::SimpleXMLParse(const char* file, unsigned int parse_flags) {
+std::vector< std::map< std::string, std::string > > Helper::SimpleXMLParse(const char* file) {
     std::vector< std::map< std::string, std::string > > returnvect;
 
     tinyxml2::XMLDocument doc;
     doc.LoadFile(file);
-    tinyxml2::XMLElement* elem = doc.FirstChildElement();
 
-    while(elem) {
+    for(tinyxml2::XMLElement* elem = doc.FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
         std::map<std::string, std::string> entity;
 
-        tinyxml2::XMLElement* child_elem = NULL;
+        tinyxml2::XMLAttribute* id_attribute = elem->FindAttribute("id");
+        if(id_attribute)
+            entity["id"] = std::string(id_attribute->Value());
 
-       /* Generic entity properties: */
-        child_elem = elem->FirstChildElement("id");
-        if(child_elem)
-            entity["id"] = child_elem->GetText();
-        child_elem = elem->FirstChildElement("name");
-        if(child_elem)
-            entity["name"] = child_elem->GetText();
-        child_elem = elem->FirstChildElement("desc");
-        if(child_elem)
-            entity["desc"] = child_elem->GetText();
-        child_elem = elem->FirstChildElement("groups");
-        if(child_elem)
-            entity["groups"] = child_elem->GetText();
-        child_elem = elem->FirstChildElement("symbol");
-        if(child_elem)
-            entity["symbol"] = child_elem->GetText();
-        child_elem = elem->FirstChildElement("color");
-        if(child_elem)
-            entity["color"] = child_elem->GetText();
+        for(tinyxml2::XMLElement* sub_elem = elem->FirstChildElement(); sub_elem != NULL; sub_elem = sub_elem->NextSiblingElement()) {
 
-       /* Item properties (Item.h): */
-        if(parse_flags & ITEM_PARSE) {
-            child_elem = elem->FirstChildElement("rarity");
-            if(child_elem)
-                entity["rarity"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("weight");
-            if(child_elem)
-                entity["weight"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("volume");
-            if(child_elem)
-                entity["volume"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("value");
-            if(child_elem)
-                entity["value"] = child_elem->GetText();
+            if(std::string(sub_elem->Name()) == "damage" || std::string(sub_elem->Name()) == "defence") {
 
-            // Weapon-related
-            child_elem = elem->FirstChildElement("pliancy");
-            if(child_elem)
-                entity["pliancy"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("speed");
-            if(child_elem)
-                entity["speed"] = child_elem->GetText();
-
-            // Wearable-related
-            child_elem = elem->FirstChildElement("capacity");
-            if(child_elem)
-                entity["capacity"] = child_elem->GetText();
-        }
-        if(parse_flags & (ITEM_PARSE | MOB_PARSE)) {
-
-            tinyxml2::XMLElement* damage_parent = elem->FirstChildElement("damage");
-
-            // Damage numbers
-            if(damage_parent) {
-                child_elem = damage_parent->FirstChildElement("blunt");
+                tinyxml2::XMLElement* child_elem = sub_elem->FirstChildElement("blunt");
                 if(child_elem)
-                    entity["blunt"] = child_elem->GetText();
-                child_elem = damage_parent->FirstChildElement("cut");
+                    entity["blunt_"+std::string(sub_elem->Name())] = child_elem->GetText();
+                child_elem = sub_elem->FirstChildElement("cut");
                 if(child_elem)
-                    entity["cut"] = child_elem->GetText();
-                child_elem = damage_parent->FirstChildElement("pierce");
+                    entity["cut_"+std::string(sub_elem->Name())] = child_elem->GetText();
+                child_elem = sub_elem->FirstChildElement("pierce");
                 if(child_elem)
-                    entity["pierce"] = child_elem->GetText();
+                    entity["pierce_"+std::string(sub_elem->Name())] = child_elem->GetText();
+
+            } else {
+                entity[std::string(sub_elem->Name())] = std::string(sub_elem->GetText());
             }
-        }
-
-       /* Mob properties (Mob.h): */
-        if(parse_flags & MOB_PARSE) {
-
-            child_elem = elem->FirstChildElement("hp");
-            if(child_elem)
-                entity["hp"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("speed");
-            if(child_elem)
-                entity["speed"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("friendlies");
-            if(child_elem)
-                entity["friendlies"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("hostile");
-            if(child_elem)
-                entity["hostile"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("seerange");
-            if(child_elem)
-                entity["seerange"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("attacktext");
-            if(child_elem)
-                entity["attacktext"] = child_elem->GetText();
-            child_elem = elem->FirstChildElement("attackspeed");
-            if(child_elem)
-                entity["attackspeed"] = child_elem->GetText();
-        }
-
-        if(elem == doc.LastChild()) {
-            elem = NULL;
-        } else {
-            elem = elem->NextSiblingElement();
         }
         returnvect.push_back(entity);
     }
@@ -245,17 +187,17 @@ void Helper::ofstream_put(std::string path, std::string data) {
 void Helper::Smart_MKDir(std::string path) {
     #if defined(_WIN32)
         // Default Win32 MS DOS mkdir command
+        Helper::replace_all(path, "/", "\\"); // replace all forward slashes with backslash; MS DOS does not use forward slashes
         std::string win32cmd = "mkdir " + path;
         system(win32cmd.c_str());
     #else
-        // I do not use any Unix-based operating system, so someone else is going to have to fill this in for me:
-        // It should work, by all means, though.
-        std::string win32cmd = "mkdir " + path;
+        // Default Unix-based mkdir command with -p option
+        std::string win32cmd = "mkdir -p " + path;
         system(win32cmd.c_str());
     #endif
 }
 
 bool Helper::fexists(std::string path) {
-    ifstream ifile(path.c_str());
+    std::ifstream ifile(path.c_str());
     return ifile;
 }

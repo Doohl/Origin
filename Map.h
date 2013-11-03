@@ -7,6 +7,7 @@
 #include <vector>
 
 class Game;
+class World;
 
 class Map {
 
@@ -58,16 +59,21 @@ class Map {
         /* Get the mobs in a list of turfs */
         std::vector<Mob*> FilterMobs(std::vector<Turf*> turfs);
 
+        /* Generates the map randomly */
+        void Generate();
+
 
         TCODMap* Field; // for libtcod calculations; used for FoV and A*
 
         Game* game; // the memory address of the game this map belongs to
+        World* world; // the world this map belongs to
 
         int width;  // width in cells
         int height; // height in cells
-
         int x;      // the map's x location
         int y;      // the map's y location
+        int z;      // the map's z, or height location
+        // origin: 0,0,1 (<1 : underground, >1: above ground)
 
     private:
 

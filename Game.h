@@ -29,7 +29,7 @@ enum GameState {
 // The parent directory to search for resources
 #define PARENT_RESOURCE "data/raw/"
 
-// The location which to create savefiles at
+// The location which to create the player and general savefile information
 #define SAVE_DIR "save"
 
 #include "Map.h"
@@ -122,6 +122,23 @@ class Game {
         /* Draws inventory examination info */
         void InvInfo();
 
+    /** Static constants: **/
+
+        // Directional bitwise constants:
+        static const unsigned int NORTH = 1;
+        static const unsigned int SOUTH = 2;
+        static const unsigned int EAST = 4;
+        static const unsigned int WEST = 8;
+        static const unsigned int NORTHEAST = 16;     // (NORTH | EAST)
+        static const unsigned int SOUTHWEST = 32;     // (SOUTH | WEST)
+        static const unsigned int NORTHWEST = 64;     // (NORTH | WEST)
+        static const unsigned int SOUTHEAST = 128;    // (SOUTH | EAST)
+
+    /** Serialization functions */
+
+        /* Player serialization and deserialization */
+        void SavePlayer();
+        void LoadPlayer();
 
     private:
 

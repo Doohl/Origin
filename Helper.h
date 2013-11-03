@@ -10,21 +10,23 @@
 #include <map>
 #include <ctype.h> // char functions
 
-#include "boost/shared_ptr.hpp"
-#include "depend/AMEFProtocol/AMEFDecoder.h"
-#include "depend/AMEFProtocol/AMEFEncoder.h"
+#include <boost/lexical_cast.hpp>
 
-#define TURF_PARSE long(1 << (0))
-#define ITEM_PARSE long(1 << (1))
-#define MOB_PARSE long(1 << (2))
-#define AREA_PARSE long(1 << (3))
-#define EFFECT_PARSE long(1 << (4))
+
+
+enum parse_flags {
+    TURF_PARSE,
+    ITEM_PARSE,
+    MOB_PARSE,
+    AREA_PARSE,
+    EFFECT_PARSE
+};
 
 class Helper {
 
     public:
 
-       /** Type conversion functions */
+    /** Type conversion functions */
         /* Split a string into vectors using a separator (or, string->vector) */
         static std::vector<std::string> Explode(char separator, std::string str);
 
@@ -43,7 +45,11 @@ class Helper {
         /* Returns the first char of input string */
         static char str2char(std::string str);
 
-       /** Miscellaneous functions */
+        /* Check if a string is of any type */
+        static bool strIsFloat(std::string str);
+        static bool strIsInt(std::string str);
+
+    /** Miscellaneous functions */
 
         /* Determines if the string is a proper name (first letter is capital) */
         static bool proper(std::string name);
@@ -72,10 +78,10 @@ class Helper {
         /* Remove instance from vector */
         template <class T> static void Remove(std::vector<T> &Vector, T entry);
 
-       /** IO / File functions */
+    /** IO / File functions */
 
         /* Parses an XML file and returns a vector of maps representing deserialized values for different entities */
-        static std::vector< std::map< std::string, std::string > > SimpleXMLParse(const char* file, unsigned int parse_flags);
+        static std::vector< std::map< std::string, std::string > > SimpleXMLParse(const char* file);
 
         /* Parses a TXT file and returns a string vector of the file broken down by \n tokens */
         static std::vector<std::string> SimpleParse(const char* file);
@@ -91,10 +97,8 @@ class Helper {
 
         /* Checks to see if this file exists */
         static bool fexists(std::string path);
+
 };
-
-
-// These functions cannot be implemented in the compiled file for whatever arcane reason. FUKKEN C++!!!
 
 template <class T> bool Helper::Find(std::vector<T> &Vector, T Find) {
     for(int i = 0; i < Vector.size(); i++) {

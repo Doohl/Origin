@@ -17,41 +17,41 @@ void Mob::init() {
     etype = mob;
     target = NULL;
     deleting = 0;
-    name = "NULL";
-    id = "NULL";
+    //name = "NULL";
+    //id = "NULL";
     steps = 0;
-    speed = 0.0f;
+    //speed = 0.0f;
     tenergy = 0.0f;
     flags = 0;
-    aggrofield = 0;
+    //aggrofield = 0;
     flags = 0;
     target = NULL;
     turf = NULL;
-    strength = 0;
-    intelligence = 0;
-    dexterity = 0;
-    perception = 0;
-    constitution = 0;
-    spirit = 0;
+    //strength = 0;
+    //intelligence = 0;
+    //dexterity = 0;
+    //perception = 0;
+    //constitution = 0;
+    //spirit = 0;
 }
 
 void Mob::init_vals(std::string pname, std::string pid, char psymbol, TCODColor pcolor, int pMax_HP, int pMax_Ether, float pspeed, std::string pdesc, std::string pgroups, std::string hostiles, std::string friendlies, int paggrofield) {
-    name = pname;
-    id = pid;
+    //name = pname;
+    //id = pid;
     symbol = psymbol;
     color = pcolor;
-    Max_HP = pMax_HP;
-    HP = Max_HP;
-    Max_Ether = pMax_Ether;
-    speed = pspeed;
-    desc = pdesc;
+    //Max_HP = pMax_HP;
+    //HP = Max_HP;
+    //Max_Ether = pMax_Ether;
+    //speed = pspeed;
+    //desc = pdesc;
     hostile = Helper::Explode(';', hostiles);
     friendly = Helper::Explode(';', friendlies);
-    if(!Helper::Find(friendly, id)) { // add self to friendlies
-        friendly.push_back(id);
+    if(!Helper::Find(friendly, get_property<std::string>("id"))) { // add self to friendlies
+        friendly.push_back(get_property<std::string>("id"));
     }
 
-    aggrofield = paggrofield;
+    //aggrofield = paggrofield;
 }
 
 Mob::~Mob() {
@@ -63,7 +63,7 @@ void Mob::Deinitialize() {
         if(!turf->deleting && turf->map != NULL && turf->map->Field != NULL) {
             turf->RemoveContents(this, false);
             turf->RemoveMobs(this, false);
-            turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
+            turf->map->Field->setProperties( turf->x, turf->y, !Helper::Find(turf->groups, std::string("opaque")), !Helper::Find(turf->groups, std::string("dense")));
         }
         turf = NULL;
     }
@@ -86,7 +86,8 @@ void Mob::Move(int newx, int newy) {
             turf->RemoveMobs(this, false);
 
             // Reset the old turf's cell's properties
-            turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
+            turf->map->Field->setProperties( turf->x, turf->y, !Helper::Find(turf->groups, std::string("opaque")), !Helper::Find(turf->groups, std::string("dense")));
+
 
             // Assign the mob a new turf
             turf = turf->map->At(x, y);
@@ -95,7 +96,7 @@ void Mob::Move(int newx, int newy) {
             turf->LayerContents(); // sort layers
 
             // Set the new turf's cell's properties
-            turf->map->Field->setProperties( turf->x, turf->y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->flags & mfb(t_transparent))), false );
+            turf->map->Field->setProperties( turf->x, turf->y, (!Helper::Find(groups, std::string("opaque"))) && (!Helper::Find(turf->groups, std::string("opaque"))), false);
         }
     }
 }
@@ -109,17 +110,17 @@ void Mob::Step(int stepx, int stepy) {
 }
 
 void Mob::Attack(Mob* m, Game* game) {
-    int damage = strength + game->RandomGen->get(1, 3);
+    int damage = get_property<int>("strength") + game->RandomGen->get(1, 3);
     if(m != NULL) {
-        m->HP -= damage;
+        m->delta_property("hp", -damage);
     }
     if(Player* p = dynamic_cast<Player*>(m)) {
-        p->Message("The " + name + " attacks you for " + Helper::int2str(damage) + " damage.", TCODColor(255, 0, 0), TCODColor::black);
+        p->Message("The " + get_property<std::string>("name") + " attacks you for " + Helper::int2str(damage) + " damage.", TCODColor(255, 0, 0), TCODColor::black);
     }
     else {
-        game->player.Message("The " + name + " attacked " + m->name + " for " + Helper::int2str(damage) + " damage.", TCODColor(153, 0, 102), TCODColor::black);
+        game->player.Message("The " + get_property<std::string>("name") + " attacked " + m->get_property<std::string>("name") + " for " + Helper::int2str(damage) + " damage.", TCODColor(153, 0, 102), TCODColor::black);
 
-        if(m->HP <= 0) {
+        if(m->get_property<int>("hp") <= 0) {
             game->DeleteBuff.push_back(m);
             m->Deinitialize();
         }
@@ -130,9 +131,9 @@ void Mob::Attack(Mob* m, Game* game) {
 void Mob::DoLogic(Game* game) {
     /* If the mob doesn't have a combat target, look for one! */
     if(target == NULL) {
-        if(hostile.size() > 0 && aggrofield > 0) {
+        if(hostile.size() > 0 && get_property<int>("aggro_range") > 0) {
 
-            std::vector<Turf*> SeeTurfs = turf->map->View(x, y, aggrofield);
+            std::vector<Turf*> SeeTurfs = turf->map->View(x, y, get_property<int>("aggro_range"));
             std::vector<Mob*> SeeMobs = turf->map->FilterMobs(SeeTurfs);
 
             // Find the shortest distance, select the closest mob
@@ -149,7 +150,7 @@ void Mob::DoLogic(Game* game) {
                 // First, set the cell undense so that we can path to it */
                 bool prevdense = turf->map->Field->isWalkable(t_x, t_y);
                 bool prevvis = turf->map->Field->isTransparent(t_x, t_y);
-                turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->map->At(t_x, t_y)->flags & mfb(t_transparent))), true );
+                turf->map->Field->setProperties( t_x, t_y, !Helper::Find(turf->groups, std::string("opaque")), true);
 
                 // Then calculate a path to it
                 TCODPath* Path = new TCODPath(turf->map->Field);
@@ -160,7 +161,7 @@ void Mob::DoLogic(Game* game) {
                 if(steps < leaststeps && steps != 0) {
 
                     // Check to see if the proper aggro conditions are met
-                    if( Helper::Find(hostile, target->id) || (Helper::Find(hostile, HOSTILE_FLAG)  && !Helper::Find(friendly, target->id)) ) { // if the current mob is hostile towards this mob
+                    if( Helper::Find(hostile, target->get_property<std::string>("id")) || (Helper::Find(hostile, HOSTILE_FLAG) && !Helper::Find(friendly, target->get_property<std::string>("id"))) ) { // if the current mob is hostile towards this mob
                         leaststeps = steps;
                         closestmob = target;
                     }
@@ -178,34 +179,4 @@ void Mob::DoLogic(Game* game) {
     /* Handle all the AI */
     AI(game);
 
-}
-
-void Mob::CopyTo(Mob* m) {
-    m->etype = etype;
-    m->name = name;
-    m->id = id;
-    m->symbol = symbol;
-    m->color = color;
-    m->groups = groups;
-
-    m->Max_HP = Max_HP;
-    m->HP = HP;
-    m->Ether = Ether;
-    m->Max_Ether = Max_Ether;
-
-    m->steps = steps;
-    m->speed = speed;
-    m->desc = desc;
-    m->flags = flags;
-    m->friendly = friendly;
-    m->hostile = hostile;
-    m->friendly = friendly;
-    m->aggrofield = aggrofield;
-    m->strength = strength;
-    m->intelligence = intelligence;
-    m->dexterity = dexterity;
-    m->perception = perception;
-    m->constitution = constitution;
-    m->spirit = spirit;
-    m->mob_type = mob_type;
 }

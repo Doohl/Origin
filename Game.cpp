@@ -7,6 +7,10 @@
 #include <vector>
 #include <iostream>
 
+#include "depend/AMEFProtocol/AMEFDecoder.h"
+#include "depend/AMEFProtocol/AMEFEncoder.h"
+#include "depend/tinyxml2/tinyxml.h"
+
 Game::Game() {
     _gameState = Uninitialized;
     debug_a_code = 0;
@@ -46,7 +50,7 @@ void Game::Start() {
 
     player.Message("Have a secure day!", TCODColor::green, TCODColor::black);
 
-    GameMap.Initialize(100, 100, turflist[t_wall], this);
+    GameMap.Initialize(100, 100, getTurf("t_wall"), this);
     RandomGen = new TCODRandom();
 
 
@@ -111,28 +115,28 @@ void Game::Start() {
     for (int y=0; y < 54; y++ ) {
         for (int x=0; x < 46; x++ ) {
             if ( smap[y][x] == '#' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_wall]);
+                GameMap.SpawnTurf(x, y, getTurf("t_wall"));
             }
             else if ( smap[y][x] == '~' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_water]);
+                GameMap.SpawnTurf(x, y, getTurf("t_water"));
             }
             else if ( smap[y][x] == 'g' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
                 GameMap.SpawnMob(x, y, getMob("m_goat"));
             }
             else if ( smap[y][x] == 'M' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
                 GameMap.SpawnMob(x, y, getMob("m_kelrah"));
             }
             else if ( smap[y][x] == 'S' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
                 GameMap.SpawnMob(x, y, getMob("m_skeleton"));
             }
             else if ( smap[y][x] == '+' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_window]);
+                GameMap.SpawnTurf(x, y, getTurf("t_window"));
             }
             else if ( smap[y][x] == '@' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
                 GameMap.InsertMob(x, y, &player);
                 player.x = x;
                 player.y = y;
@@ -140,19 +144,19 @@ void Game::Start() {
                 player.cam_y = player.y;
             }
             else if ( smap[y][x] == '/' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
                 GameMap.SpawnItem(x, y, getItem("i_shortsword"));
             }
             else if ( smap[y][x] == '[' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
                 GameMap.SpawnItem(x, y, getItem("i_backpack"));
             }
             else if ( smap[y][x] == '?' ) {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
                 GameMap.SpawnItem(x, y, getItem("i_flail"));
             }
             else {
-                GameMap.SpawnTurf(x, y, turflist[t_grass]);
+                GameMap.SpawnTurf(x, y, getTurf("t_grass"));
             }
         }
     }
@@ -318,7 +322,7 @@ void Game::UpdateLogic(float time) {
         if(Helper::Find(mob->groups, std::string("nologic")))
             continue;
 
-        mob->tenergy += mob->speed; // add some energy
+        mob->tenergy += mob->get_property<int>("speed"); // add some energy
 
         while(mob->tenergy >= time) {
             mob->tenergy -= 100.0f; // 100.0f would be one second I guess
@@ -334,88 +338,11 @@ void Game::UpdateLogic(float time) {
 }
 
 void Game::SaveGame() {
-    AMEFObject player_save;
-    player_save.addPacket(player.x, "x");
-    player_save.addPacket(player.y, "y");
-    player_save.addPacket(player.Max_HP, "max_hp");
-    player_save.addPacket(player.HP, "hp");
-    player_save.addPacket(player.Max_Ether, "max_ether");
-    player_save.addPacket(player.Ether, "ether");
-
-    for(int i = 0; i < player.inventory.size(); i++) {
-        Item* item = player.inventory[i];
-        if(player.lefthand == item) {
-            player_save.addPacket( item->SaveEntity(this), "lhand" );
-        } else if(player.righthand == item) {
-            player_save.addPacket( item->SaveEntity(this), "rhand" );
-        } else if(Helper::Find(player.Worn, item)) {
-            player_save.addPacket( item->SaveEntity(this), "worn" );
-        } else {
-            player_save.addPacket( item->SaveEntity(this), "inv" );
-        }
-    }
-
-    player_save.addPacket("fin", "closing");
-
-    AMEFEncoder encoder;
-    std::string serialized_data = encoder.encodeWL(&player_save, false);
-    std::string directory = std::string(SAVE_DIR) + "/" + player.name + ".sav";
-
-    // Save the player savefile into disk:
-    Helper::Smart_MKDir(std::string(SAVE_DIR));
-    Helper::ofstream_put(directory, serialized_data);
+    SavePlayer();
 }
 
 void Game::LoadGame() {
-    std::string directory = std::string(SAVE_DIR) + "/" + player.name + ".sav";
-    if(Helper::fexists(directory)) {
-
-        std::cout << "Loaded game (" << directory << ")" << std::endl;
-
-        std::string serialized_data = Helper::SingleParse(directory.c_str());
-        AMEFDecoder decoder;
-        AMEFObject* unserialized_object = decoder.decodeBWL(serialized_data, false);
-        std::vector<AMEFObject*> packets = unserialized_object->getPackets();
-
-        int newx = 0;
-        int newy = 0;
-        for(int i = 0; i < packets.size(); i++) {
-            AMEFObject* packet_datum = packets[i];
-
-            if(packet_datum->getNameStr() == "inv" || packet_datum->getNameStr() == "worn" || packet_datum->getNameStr() == "lhand" || packet_datum->getNameStr() == "rhand") {
-                Item* i = new Item();
-                i->LoadEntity( packet_datum->getValueStr(), this );
-                player.InventoryLoad(i);
-
-                if(packet_datum->getNameStr() == "worn") {
-                    player.Worn.push_back(i);
-                }
-                if(packet_datum->getNameStr() == "lhand") {
-                    player.lefthand = i;
-                }
-                if(packet_datum->getNameStr() == "rhand") {
-                    player.righthand = i;
-                }
-
-            } else if(packet_datum->getNameStr() == "x") {
-                newx = packet_datum->getIntValue();
-            } else if(packet_datum->getNameStr() == "y") {
-                newy = packet_datum->getIntValue();
-            } else if(packet_datum->getNameStr() == "max_hp") {
-                player.Max_HP = packet_datum->getIntValue();
-            } else if(packet_datum->getNameStr() == "hp") {
-                player.HP = packet_datum->getIntValue();
-            } else if(packet_datum->getNameStr() == "max_ether") {
-                player.Max_Ether = packet_datum->getIntValue();
-            } else if(packet_datum->getNameStr() == "ether") {
-                player.Ether = packet_datum->getIntValue();
-            }
-        }
-
-        player.Move(newx, newy);
-
-        delete unserialized_object;
-    }
+    LoadPlayer();
 }
 
 void Game::ConstructResources() {
@@ -454,7 +381,7 @@ void Game::ConstructPrototypes() {
         "!EFFECT_DATA"
     };
 
-    unsigned int parse_flags = 0;
+    unsigned int parse_flag = 0;
 
     std::cout << "[LOADING RESOURCES]" << std::endl;
     for(int i = 0; i < _resources.size(); i++) {
@@ -463,93 +390,99 @@ void Game::ConstructPrototypes() {
 
         // Found MOB_DATA; initiate mob parsing
         if(strcmp(resource, CategoryStrs[MOB_DATA]) == 0) {
-            parse_flags = 0;
-            parse_flags |= MOB_PARSE;
+            parse_flag = MOB_PARSE;
             std::cout << resource << std::endl;
             continue;
         // Found ITEM_DATA; initiate item parsing
         } else if(strcmp(resource, CategoryStrs[ITEM_DATA]) == 0) {
-            parse_flags = 0;
-            parse_flags |= ITEM_PARSE;
+            parse_flag = ITEM_PARSE;
             std::cout << resource << std::endl;
             continue;
         // Found TURF_DATA; initiate turf parsing
         } else if(strcmp(resource, CategoryStrs[TURF_DATA]) == 0) {
-            parse_flags = 0;
-            parse_flags |= TURF_PARSE;
+            parse_flag = TURF_PARSE;
             std::cout << resource << std::endl;
             continue;
         // Found EFFECT_DATA; initiate effect parsing
         } else if(strcmp(resource, CategoryStrs[EFFECT_DATA]) == 0) {
-            parse_flags = 0;
-            parse_flags |= EFFECT_PARSE;
+            parse_flag = EFFECT_PARSE;
             std::cout << resource << std::endl;
             continue;
         }
 
         std::cout << resource << " ";
 
-        std::vector< std::map<std::string, std::string> > data = Helper::SimpleXMLParse(resource, parse_flags);
+        std::vector< std::map<std::string, std::string> > data = Helper::SimpleXMLParse(resource);
 
         std::cout << "(" << data.size() << " entities located)" << std::endl;
 
         for(int j = 0; j < data.size(); j++) {
             std::map<std::string, std::string> datum = data[j];
+            std::map<std::string, boost::any> parsed_data;
+            char symbol;
+            TCODColor color;
+            std::vector<std::string> groups;
+            std::vector<std::string> friendlies;
+            std::vector<std::string> enemies;
 
-            /* Generic entity values */
-            std::string name = datum.find("name") != datum.end() ? datum["name"] : "NULL";
-            std::string id = datum.find("id") != datum.end() ? datum["id"] : "NULL";
-            std::string desc = datum.find("desc") != datum.end() ? datum["desc"] : "NULL";
-            std::string groups = datum.find("groups") != datum.end() ? datum["groups"] : "";
+            std::map<std::string, std::string>::iterator it;
+            for(it = datum.begin(); it != datum.end(); ++it) {
 
-            char symbol = datum.find("symbol") != datum.end() ? Helper::str2char(datum["symbol"]) : ' ';
+                std::string index = it->first;
+                std::string value = it->second;
 
-            // Color parsing
-            std::string color_str = datum.find("color") != datum.end() ? datum["color"] : "0,0,0";
-                std::vector<std::string> color_rgb = Helper::Explode(',', color_str);
-                TCODColor color = TCODColor(Helper::str2int(color_rgb[0]), Helper::str2int(color_rgb[1]), Helper::str2int(color_rgb[2]));
+                if(index == "symbol") {
+                    symbol = Helper::str2char(value);
+                } else if(index == "groups") {
+                    groups = Helper::Explode(';', value);
+                } else if(index == "friendy") {
+                    friendlies = Helper::Explode(';', value);
+                } else if(index == "hostile") {
+                    enemies = Helper::Explode(';', value);
+                } else if(index == "color") {
+                    std::vector<std::string> color_rgb = Helper::Explode(',', value);
+                    color = TCODColor(Helper::str2int(color_rgb[0]), Helper::str2int(color_rgb[1]), Helper::str2int(color_rgb[2]));
+                } else {
+                    if(Helper::strIsInt(value)) {
+                        parsed_data[index] = Helper::str2int(value);
+                    } else if(Helper::strIsFloat(value)) {
+                        parsed_data[index] = Helper::str2float(value);
+                    } else {
 
-            /* Parsing mobs */
-            if(parse_flags & MOB_PARSE) {
-                std::string hostile = datum.find("hostile") != datum.end() ? datum["hostile"] : "";
-                std::string friendly = datum.find("friendlies") != datum.end() ? datum["friendlies"] : "";
+                        if(index == "id")
+                            friendlies.push_back(value);
 
-                int Max_HP = datum.find("hp") != datum.end() ? Helper::str2int(datum["hp"]) : 0;
-                int Max_Ether = datum.find("ether") != datum.end() ? Helper::str2int(datum["ether"]) : 0;
-                int aggrofield = datum.find("seerange") != datum.end() ? Helper::str2int(datum["seerange"]) : 0;
-                int blunt = datum.find("blunt") != datum.end() ? Helper::str2int(datum["blunt"]) : 0;
-                int cut = datum.find("cut") != datum.end() ? Helper::str2int(datum["cut"]) : 0;
-                int pierce = datum.find("pierce") != datum.end() ? Helper::str2int(datum["pierce"]) : 0;
-
-                float speed = datum.find("speed") != datum.end() ? Helper::str2float(datum["speed"]) : 0;
-
-                // Assemble the Mob prototype and push it to the global associative container
-                Mob mob_make;
-                mob_make.init_vals(name, id, symbol, color, Max_HP, Max_Ether, speed, desc, groups, hostile, friendly, aggrofield);
-                setMob(mob_make.id, mob_make);
-                setEntity(mob_make.id, mob_make);
+                        parsed_data[index] = value;
+                    }
+                }
             }
 
-            /* Parsing items */
-            if(parse_flags & ITEM_PARSE) {
-                int weight = datum.find("weight") != datum.end() ? Helper::str2int(datum["weight"]) : 0;
-                int volume = datum.find("volume") != datum.end() ? Helper::str2int(datum["volume"]) : 0;
-                int rarity = datum.find("rarity") != datum.end() ? Helper::str2int(datum["rarity"]) : 0;
-                int value = datum.find("value") != datum.end() ? Helper::str2int(datum["value"]) : 0;
-                int pliancy = datum.find("pliancy") != datum.end() ? Helper::str2int(datum["pliancy"]) : 0;
-                int speed = datum.find("speed") != datum.end() ? Helper::str2int(datum["speed"]) : 0;
-                int modifier = datum.find("modifier") != datum.end() ? Helper::str2int(datum["modifier"]) : 0;
-                int quantity = datum.find("quantity") != datum.end() ? Helper::str2int(datum["quantity"]) : 0;
-                int capacity = datum.find("capacity") != datum.end() ? Helper::str2int(datum["capacity"]) : 0;
-
-                int blunt = datum.find("blunt") != datum.end() ? Helper::str2int(datum["blunt"]) : 0;
-                int cut = datum.find("cut") != datum.end() ? Helper::str2int(datum["cut"]) : 0;
-                int pierce = datum.find("pierce") != datum.end() ? Helper::str2int(datum["pierce"]) : 0;
-
+            if(parse_flag == MOB_PARSE) {
+                Mob mob_make;
+                mob_make.set_properties(parsed_data);
+                mob_make.color = color;
+                mob_make.symbol = symbol;
+                mob_make.friendly = friendlies;
+                mob_make.hostile = enemies;
+                mob_make.groups = groups;
+                setMob(mob_make.get_property<std::string>("id"), mob_make);
+                setEntity(mob_make.get_property<std::string>("id"), mob_make);
+            } else if(parse_flag == ITEM_PARSE) {
                 Item item_make;
-                item_make.init_vals(name, id, symbol, color, modifier, quantity, weight, volume, value, rarity, blunt, cut, pierce, pliancy, 1, capacity, desc, groups);
-                setItem(item_make.id, item_make);
-                setEntity(item_make.id, item_make);
+                item_make.set_properties(parsed_data);
+                item_make.color = color;
+                item_make.symbol = symbol;
+                item_make.groups = groups;
+                setItem(item_make.get_property<std::string>("id"), item_make);
+                setEntity(item_make.get_property<std::string>("id"), item_make);
+            } else if(parse_flag == TURF_PARSE) {
+                Turf turf_make;
+                turf_make.set_properties(parsed_data);
+                turf_make.color = color;
+                turf_make.symbol = symbol;
+                turf_make.groups = groups;
+                setTurf(turf_make.get_property<std::string>("id"), turf_make);
+                setEntity(turf_make.get_property<std::string>("id"), turf_make);
             }
         }
     }
@@ -557,3 +490,84 @@ void Game::ConstructPrototypes() {
     std::cout << "[RESOURCES LOADED (Total resources: " << _entities.size() << ")" << std::endl << std::endl;
 }
 
+void Game::SavePlayer() {
+    tinyxml2::XMLDocument doc;
+
+    // The main player root block
+    tinyxml2::XMLElement* player_root = doc.NewElement("player");
+    doc.LinkEndChild(player_root);
+
+    player_root->SetAttribute("x", player.x);
+    player_root->SetAttribute("y", player.y);
+    player_root->SetAttribute("max_hp", player.get_property<int>("max_hp"));
+    player_root->SetAttribute("hp", player.get_property<int>("hp"));
+    player_root->SetAttribute("max_ether", player.get_property<int>("max_ether"));
+    player_root->SetAttribute("ether", player.get_property<int>("ether"));
+
+    if(player.inventory.size() > 0) {
+        tinyxml2::XMLElement* inventory = doc.NewElement("inventory");
+        player_root->LinkEndChild(inventory);
+
+        for(int i = 0; i < player.inventory.size(); i++) {
+            Item* item = player.inventory[i];
+            tinyxml2::XMLElement* inventory_element = doc.NewElement("inv");
+            if(player.lefthand == item) {
+                inventory_element->SetName("l_hand");
+            } else if(player.righthand == item) {
+                inventory_element->SetName("r_hand");
+            } else if(Helper::Find(player.Worn, item)) {
+                inventory_element->SetName("worn");
+            } else {
+                inventory_element->SetName("inv");
+            }
+            item->SaveEntity(inventory_element);
+            inventory->LinkEndChild(inventory_element);
+        }
+    }
+    std::string directory = std::string(SAVE_DIR) + "/" + player.get_property<std::string>("name") + ".sav";
+
+    // Save the player savefile into disk:
+    Helper::Smart_MKDir(std::string(SAVE_DIR)); // make sure the directory exists first
+    doc.SaveFile(directory.c_str(), false);
+}
+
+void Game::LoadPlayer() {
+    std::string directory = std::string(SAVE_DIR) + "/" + player.get_property<std::string>("name") + ".sav";
+    if(Helper::fexists(directory)) {
+        tinyxml2::XMLDocument doc;
+        doc.LoadFile(directory.c_str());
+        tinyxml2::XMLElement* player_root = doc.FirstChildElement();
+
+        int newx = 0;
+        int newy = 0;
+        newx = player_root->FindAttribute("x")->IntValue();
+        newy = player_root->FindAttribute("y")->IntValue();
+        player.Move(newx, newy);
+
+        player.set_property("max_hp", player_root->FindAttribute("max_hp")->IntValue());
+        player.set_property("hp", player_root->FindAttribute("hp")->IntValue());
+        player.set_property("max_ether", player_root->FindAttribute("max_ether")->IntValue());
+        player.set_property("ether", player_root->FindAttribute("ether")->IntValue());
+
+        tinyxml2::XMLElement* inventory = player_root->FirstChildElement("inventory");
+        if(inventory && inventory != doc.LastChildElement()) {
+            for(tinyxml2::XMLElement* item_elem = inventory->FirstChildElement(); item_elem != NULL; item_elem = item_elem->NextSiblingElement()) {
+                Item* item = new Item();
+                item->LoadEntity(item_elem);
+                player.InventoryLoad(item);
+
+                std::string type = std::string(item_elem->Name());
+                if(type == "worn") {
+                    player.Worn.push_back(item);
+                }
+                if(type == "l_hand") {
+                    player.lefthand = item;
+                }
+                if(type == "r_hand") {
+                    player.righthand = item;
+                }
+
+            }
+        }
+    }
+}

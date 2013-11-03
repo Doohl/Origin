@@ -20,7 +20,7 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
             player.selecteditem = NULL;
         } else {
             for(int i = 0; i < player.inventory.size(); i++) {
-                if(player.inventory[i]->index == key.c) {
+                if(player.inventory[i]->get_property<std::string>("index")[0] == key.c) {
 
                     // We're expecting the player to wear the next item they select:
                     if(player.selectingwear) {
@@ -103,10 +103,10 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
 
                 // Display a pickup message:
                 std::string pickupmsg = "You pick up ";
-                if(!Helper::proper(t->items[0]->name)) // if not a proper noun, apply correct grammar
+                if(!Helper::proper(t->items[0]->get_property<std::string>("name"))) // if not a proper noun, apply correct grammar
                    pickupmsg += "the ";
 
-                player.Message(pickupmsg + t->items[0]->name + ".", TCODColor::white, TCODColor::black);
+                player.Message(pickupmsg + t->items[0]->get_property<std::string>("name") + ".", TCODColor::white, TCODColor::black);
 
                 t->items[0]->container = &player;
                 player.InventoryAdd(t->items[0]);
@@ -138,10 +138,10 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
 
                 // Display drop message:
                 std::string dropmsg = "You drop ";
-                if(!Helper::proper(dropitem->name)) { // if not a proper noun, apply correct grammar
+                if(!Helper::proper(dropitem->get_property<std::string>("name"))) { // if not a proper noun, apply correct grammar
                     dropmsg += "the ";
                 }
-                player.Message(dropmsg + dropitem->name + ".", TCODColor::white, TCODColor::black);
+                player.Message(dropmsg + dropitem->get_property<std::string>("name") + ".", TCODColor::white, TCODColor::black);
 
                 dropitem->container = t;
                 t->contents.push_back(dropitem);
@@ -174,7 +174,7 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
                 item = player.lefthand;
             }
             if(item) {
-                if(item->volume <= player.CalcMaxVolume()-player.CalcCarryVolume()) {
+                if(item->get_property<int>("volume") <= player.CalcMaxVolume()-player.CalcCarryVolume()) {
 
                     if(player.rhandselected) {
                         player.righthand = NULL;
@@ -183,10 +183,10 @@ void Game::ProcessInput(TCOD_key_t& key, TCOD_mouse_t& mouse) {
                     }
                     // Display message:
                     std::string msg = "You put away ";
-                    if(!Helper::proper(item->name)) { // if not a proper noun, apply correct grammar
+                    if(!Helper::proper(item->get_property<std::string>("name"))) { // if not a proper noun, apply correct grammar
                         msg += "the ";
                     }
-                    player.Message(msg + item->name + ".", TCODColor::white, TCODColor::black);
+                    player.Message(msg + item->get_property<std::string>("name") + ".", TCODColor::white, TCODColor::black);
                 } else {
                     player.Message("You don't have space for that.", TCODColor::white, TCODColor::black);
                 }

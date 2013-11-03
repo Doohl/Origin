@@ -2,6 +2,9 @@
 #include "Game.h"
 #include <iostream>
 
+#include "depend/AMEFProtocol/AMEFDecoder.h"
+#include "depend/AMEFProtocol/AMEFEncoder.h"
+
 int main() {
 
     Game game; // Create new game instance

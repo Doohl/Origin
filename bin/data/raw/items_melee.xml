@@ -6,8 +6,7 @@ Related groups:
 	metal - Made of metallic substances. Conducts heat, electricity, and is magnetic.
 	exoticweapon - Exotic weapons that are rarely found.
 -->
-<item>
-	<id>i_shortsword</id>
+<item id="i_shortsword">
 	<name>short sword</name>
 	<desc>A small blade great for close-quarters melee.</desc>
 	<groups>weapon;metal</groups>
@@ -25,8 +24,7 @@ Related groups:
 		<pierce>0</pierce>
 	</damage>
 </item>
-<item>
-	<id>i_flail</id>
+<item id="i_flail">
 	<name>flail</name>
 	<desc>A large, spiked metal sphere attached by chain to a long wooden stick.</desc>
 	<groups>weapon;metal</groups>

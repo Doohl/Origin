@@ -12,8 +12,7 @@ Related groups:
 	leather - objects made of leather
 	plastic - objects made of plastic
 -->
-<item>
-	<id>i_shirt</id>
+<item id="i_shirt">
 	<name>shirt</name>
 	<desc>A simple shirt made of light and flexible fabric.</desc>
 	<groups>wearable;clothing;cotton</groups>
@@ -30,8 +29,7 @@ Related groups:
 		<pierce>1</pierce>
 	</defence>		
 </item>
-<item>
-	<id>i_pants</id>
+<item id="i_pants">
 	<name>pants</name>
 	<desc>Some simple pants that cover your legs.</desc>
 	<groups>wearable;clothing;cotton</groups>
@@ -48,8 +46,7 @@ Related groups:
 		<pierce>0</pierce>
 	</defence>		
 </item>
-<item>
-	<id>i_shoes</id>
+<item id="i_shoes">
 	<name>shoes</name>
 	<desc>A pair of basic, tight-fitting shoes that protect your feet a bit.</desc>
 	<groups>wearable;clothing;leather;cotton</groups>
@@ -66,8 +63,7 @@ Related groups:
 		<pierce>0</pierce>
 	</defence>		
 </item>
-<item>
-	<id>i_backpack</id>
+<item id="i_backpack">
 	<name>backpack</name>
 	<desc>A basic container that goes on your back. It can be used to store a lot of things.</desc>
 	<groups>wearable;clothing;cotton;leather</groups>

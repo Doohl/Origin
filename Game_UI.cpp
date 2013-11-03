@@ -39,14 +39,14 @@ void Game::DrawHud(bool update) {
        /* Update the character stats */
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
         TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor::white,TCODColor::black);
-        TCODConsole::root->print(52, UI_BOTTOM_DIV+2, "Health: %c %i   /   %i %c", TCOD_COLCTRL_1, player.HP, player.Max_HP, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(52, UI_BOTTOM_DIV+2, "Health: %c %i   /   %i %c", TCOD_COLCTRL_1, player.get_property<int>("hp"), player.get_property<int>("max_hp"), TCOD_COLCTRL_STOP);
         TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor(50, 150, 50),TCODColor::black);
-        TCODConsole::root->print(58, UI_BOTTOM_DIV+4, "Str: %c%i%c", TCOD_COLCTRL_1, player.strength, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(58, UI_BOTTOM_DIV+5, "Int: %c%i%c", TCOD_COLCTRL_1, player.intelligence, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(58, UI_BOTTOM_DIV+6, "Dex: %c%i%c", TCOD_COLCTRL_1, player.dexterity, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(73, UI_BOTTOM_DIV+4, "Per: %c%i%c", TCOD_COLCTRL_1, player.perception, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(73, UI_BOTTOM_DIV+5, "Con: %c%i%c", TCOD_COLCTRL_1, player.constitution, TCOD_COLCTRL_STOP);
-        TCODConsole::root->print(73, UI_BOTTOM_DIV+6, "Spr: %c%i%c", TCOD_COLCTRL_1, player.spirit, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(58, UI_BOTTOM_DIV+4, "Str: %c%i%c", TCOD_COLCTRL_1, player.get_property<int>("strength"), TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(58, UI_BOTTOM_DIV+5, "Int: %c%i%c", TCOD_COLCTRL_1, player.get_property<int>("intelligence"), TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(58, UI_BOTTOM_DIV+6, "Dex: %c%i%c", TCOD_COLCTRL_1, player.get_property<int>("dexterity"), TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(73, UI_BOTTOM_DIV+4, "Per: %c%i%c", TCOD_COLCTRL_1, player.get_property<int>("perception"), TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(73, UI_BOTTOM_DIV+5, "Con: %c%i%c", TCOD_COLCTRL_1, player.get_property<int>("constitution"), TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(73, UI_BOTTOM_DIV+6, "Spr: %c%i%c", TCOD_COLCTRL_1, player.get_property<int>("spirit"), TCOD_COLCTRL_STOP);
 
 
        /* Print items held in hands */
@@ -56,7 +56,7 @@ void Game::DrawHud(bool update) {
         }
         TCODConsole::root->print(52, UI_BOTTOM_DIV+9, "L hand:");
         if(player.lefthand != NULL)
-            TCODConsole::root->print(60, UI_BOTTOM_DIV+9, player.lefthand->name.c_str());
+            TCODConsole::root->print(60, UI_BOTTOM_DIV+9, player.lefthand->get_property<std::string>("name").c_str());
 
         // Right hand:
         if(!player.rhandselected) { // not selected
@@ -67,11 +67,11 @@ void Game::DrawHud(bool update) {
         }
         TCODConsole::root->print(52, UI_BOTTOM_DIV+10, "R hand:");
         if(player.righthand != NULL)
-            TCODConsole::root->print(60, UI_BOTTOM_DIV+10, player.righthand->name.c_str());
+            TCODConsole::root->print(60, UI_BOTTOM_DIV+10, player.righthand->get_property<std::string>("name").c_str());
 
         TCODConsole::root->setDefaultForeground(TCODColor(100, 100, 100));
         TCODConsole::setColorControl(TCOD_COLCTRL_1,TCODColor(51, 255, 153),TCODColor::black);
-        TCODConsole::root->print(52, UI_BOTTOM_DIV+13, "Ether: %c %i / %i %c", TCOD_COLCTRL_1, player.Ether, player.Max_Ether, TCOD_COLCTRL_STOP);
+        TCODConsole::root->print(52, UI_BOTTOM_DIV+13, "Ether: %c %i / %i %c", TCOD_COLCTRL_1, player.get_property<int>("ether"), player.get_property<int>("max_ether"), TCOD_COLCTRL_STOP);
 
 
     /* Draw all the other hud accessories like frames */
@@ -184,8 +184,8 @@ void Game::DrawInv() {
                 _inventoryConsole->setAlignment(TCOD_LEFT);
                 _inventoryConsole->print(1, offset, "[");
                 _inventoryConsole->print(3, offset, "] ");
-                _inventoryConsole->print(2, offset, std::string(1, item->index).c_str());
-                _inventoryConsole->print(5, offset, item->name.c_str());
+                _inventoryConsole->print(2, offset, item->get_property<std::string>("index").c_str());
+                _inventoryConsole->print(5, offset, item->get_property<std::string>("name").c_str());
                 std::string slotstr=""; // for stuff like "(WORN)", "(R HAND)", etc
                 if(Helper::Find(player.Worn, item)) {
                     slotstr += "{WORN}";
@@ -250,7 +250,7 @@ void Game::InvInfo() {
         _inventoryInfo->setDefaultBackground(TCODColor(148, 148, 148));
         _inventoryInfo->setDefaultForeground(TCODColor::white);
         _inventoryInfo->setAlignment(TCOD_CENTER);
-        _inventoryInfo->print(INV_I_WIDTH / 2, 0, player.selecteditem->name.c_str());
+        _inventoryInfo->print(INV_I_WIDTH / 2, 0, player.selecteditem->get_property<std::string>("name").c_str());
 
         // Begin drawing the the information
         _inventoryInfo->setDefaultBackground(TCODColor(114, 114, 114));
@@ -259,9 +259,9 @@ void Game::InvInfo() {
         int line = 1;
         // Weight and Volume:
         _inventoryInfo->setAlignment(TCOD_LEFT);
-        _inventoryInfo->print(1, line, "Weight: %i",  player.selecteditem->weight);
+        _inventoryInfo->print(1, line, "Weight: %i",  player.selecteditem->get_property<int>("weight"));
         line++;
-        _inventoryInfo->print(1, line, "Volume: %i",  player.selecteditem->volume);
+        _inventoryInfo->print(1, line, "Volume: %i",  player.selecteditem->get_property<int>("volume"));
         line++;
         // Apply item-specific info to console, add appropriate number of lines
         line = player.selecteditem->GetDescAdd(_inventoryInfo, line);
@@ -269,7 +269,7 @@ void Game::InvInfo() {
         // Description:
         _inventoryInfo->hline(2, line, 41);
         line+=2;
-        _inventoryInfo->printRect(1, line, INV_I_WIDTH-2, INV_I_HEIGHT-2, player.selecteditem->desc.c_str());
+        _inventoryInfo->printRect(1, line, INV_I_WIDTH-2, INV_I_HEIGHT-2, player.selecteditem->get_property<std::string>("desc").c_str());
 
         // Blit the info console onto the main console, on top of the inventory console
         TCODConsole::blit(_inventoryInfo, 0, 0, INV_I_WIDTH, INV_I_HEIGHT, TCODConsole::root, 43, 5, 1, 0.9);

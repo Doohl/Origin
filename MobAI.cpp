@@ -6,39 +6,33 @@
 
 void Mob::AI(Game* game) {
 
-    /* Any special AI behaviors defined here: */
-    if(id == "nope") {
-    }
-
     /* Generic mob behavior: wander around, if target, attack them! */
-    else {
-        if(target != NULL) {
+    if(target != NULL) {
 
-            if(!(target->deleting)) {
+        if(!(target->deleting)) {
 
-                /* Make sure the target is still in view */
-                std::vector<Turf*> SeeTurfs = turf->map->View(x, y, aggrofield);
-                std::vector<Mob*> SeeMobs = turf->map->FilterMobs(SeeTurfs);
+            /* Make sure the target is still in view */
+            std::vector<Turf*> SeeTurfs = turf->map->View(x, y, get_property<int>("aggro_range"));
+            std::vector<Mob*> SeeMobs = turf->map->FilterMobs(SeeTurfs);
 
-                /* If in view, path towards it */
-                if(Helper::Find(SeeMobs, target)) {
-                    StepTo(target, true, game);
+            /* If in view, path towards it */
+            if(Helper::Find(SeeMobs, target)) {
+                StepTo(target, true, game);
 
-                /* Can't see the target. Just ignore it. */
-                } else {
-                    target = NULL;
-                    Step(game->RandomGen->get(-1,1), game->RandomGen->get(-1,1));
-                }
-
-            // the target is being deleted:
+            /* Can't see the target. Just ignore it. */
             } else {
                 target = NULL;
                 Step(game->RandomGen->get(-1,1), game->RandomGen->get(-1,1));
             }
 
+        // the target is being deleted:
         } else {
+            target = NULL;
             Step(game->RandomGen->get(-1,1), game->RandomGen->get(-1,1));
         }
+
+    } else {
+        Step(game->RandomGen->get(-1,1), game->RandomGen->get(-1,1));
     }
 }
 
@@ -51,13 +45,13 @@ void Mob::StepTo(Entity* targ, bool attack, Game* game) {
         // Set the target's location to undense, for now.
         bool prevdense = turf->map->Field->isWalkable(t_x, t_y);
         bool prevvis = turf->map->Field->isTransparent(t_x, t_y);
-        turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (turf->map->At(t_x, t_y)->flags & mfb(t_transparent))), true );
+        turf->map->Field->setProperties( t_x, t_y, (!(Helper::Find(groups, std::string("opaque"))) && (!Helper::Find(turf->map->At(t_x, t_y)->groups, std::string("opaque")))), true );
 
         TCODPath* Path = new TCODPath(turf->map->Field);
         Path->compute(x, y, t_x, t_y);
 
         /* We can path to the target, so take a step */
-        if((Path->size() <= aggrofield) && (Path->size() > 1)) {
+        if((Path->size() <= get_property<int>("aggro_range")) && (Path->size() > 1)) {
             int newx, newy;
             Path->get(0, &newx, &newy);
             if(newx >= 0 && newy >= 0 && newx <= turf->map->width && newy <= turf->map->height)

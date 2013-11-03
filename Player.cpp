@@ -19,21 +19,20 @@ Player::Player() {
     steps = 0;
     speed = 100.0f;
     deleting = 0;
-    name = "Player";
-    id = "player";
     symbol = '@';
     color = TCODColor::white;
-    Max_HP = 100;
-    HP = 100;
-    Ether = 0;
-    Max_Ether = 0;
+    set_property("name", std::string("player"));
+    set_property("max_hp", 100);
+    set_property("hp", 100);
+    set_property("ether", 0);
+    set_property("max_ether", 0);
 
-    strength = 1;
-    intelligence = 1;
-    dexterity = 1;
-    perception = 1;
-    constitution = 1;
-    spirit = 0;
+    set_property("strength", 1);
+    set_property("intelligence", 1);
+    set_property("dexterity", 1);
+    set_property("perception" ,1);
+    set_property("constitution", 1);
+    set_property("spirit", 0);
 
     viewinginventory = false;
     selectingwear = false;
@@ -76,13 +75,13 @@ void Player::DoLogic(Game* game) {
 
 void Player::Attack(Mob* m, Game* game) {
 
-    int damage = strength + game->RandomGen->get(1, 3);
+    int damage = get_property<int>("strength") + game->RandomGen->get(1, 3);
     if(m != NULL) {
-        m->HP -= damage;
+        m->delta_property("hp", -damage);
     }
-    Message("You attack the " + m->name + " for " + Helper::int2str(damage) + " damage.", TCODColor(255, 0, 0), TCODColor::black);
-    if(m->HP <= 0) {
-        Message("The " + m->name + " dies!", TCODColor(220, 0, 0), TCODColor::black);
+    Message("You attack the " + m->get_property<std::string>("name") + " for " + Helper::int2str(damage) + " damage.", TCODColor(255, 0, 0), TCODColor::black);
+    if(m->get_property<int>("hp") <= 0) {
+        Message("The " + m->get_property<std::string>("name") + " dies!", TCODColor(220, 0, 0), TCODColor::black);
         delete m;
     }
 }
@@ -127,7 +126,7 @@ void Player::Move(int newx, int newy) {
         turf->RemoveMobs(this, false);
 
         // Reset the old turf's cell's properties
-        turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), (turf->flags & mfb(t_walkable)) );
+        turf->map->Field->setProperties( turf->x, turf->y, !Helper::Find(turf->groups, std::string("opaque")), !Helper::Find(turf->groups, std::string("dense")));
 
         // Assign the mob a new turf
         turf = turf->map->At(x, y);
@@ -136,7 +135,7 @@ void Player::Move(int newx, int newy) {
         turf->LayerContents();
 
         // Set the new turf's cell's properties
-        turf->map->Field->setProperties( turf->x, turf->y, (turf->flags & mfb(t_transparent)), false);
+        turf->map->Field->setProperties( turf->x, turf->y, (!Helper::Find(groups, std::string("opaque"))) && (!Helper::Find(turf->groups, std::string("opaque"))), false);
 
         cam_x = newx;
         cam_y = newy;
@@ -160,7 +159,6 @@ void Player::Step(int stepx, int stepy, Game* g) {
     } else {
         Move(step_x, step_y); // move the mob to the new location
         steps++; // add another step
-        //Message("You take a step.", TCODColor::white, TCODColor::black);
     }
 }
 
@@ -170,8 +168,7 @@ char Player::InvNextChar() {
     char Returnchar = '~';
 
     for(int i = 0; i < inventory.size(); i++) {
-        UnavailableSlots.push_back( inventory[i]->index );
-        std::cout << inventory[i]->index << std::endl;
+        UnavailableSlots.push_back( inventory[i]->get_property<std::string>("index")[0] );
     }
 
     for(int i = 0; i < AvailableSlots.size(); i++) {
@@ -185,7 +182,8 @@ char Player::InvNextChar() {
 
 void Player::InventoryAdd(Item* item) {
     inventory.push_back(item);
-    item->index = InvNextChar();
+    item->set_property("index", std::string(1, InvNextChar()));
+    std::cout << item->get_property<std::string>("index") << std::endl;
     if(Helper::Find(item->groups, std::string("weapon"))) {
         inventory_categories["weapons"].push_back(item);
     } else if(Helper::Find(item->groups, std::string("wearable"))) {
@@ -210,22 +208,6 @@ void Player::InventoryLoad(Item* item) {
     }
 }
 
-
-/*
-std::vector<Item*> Player::SortInventory() {
-    std::vector<Item*> returnvect;
-
-    returnvect.push_back(lefthand); returnvect.push_back(righthand);
-
-    std::map<std::string, std::vector<Item*>::const_iterator it;
-    for( it = inventory_categories.begin(); it != inventory_categories.end(); ++it ) {
-        std::string category = (*it).first;
-
-        for(int i = 0; i < inventory.size(); i++) {
-
-}
-*/
-
 void Player::InventoryRemove(Item* item, bool dodel) {
     std::vector<Item*> *category;
     if(Helper::Find(item->groups, std::string("weapon"))) {
@@ -242,7 +224,7 @@ void Player::InventoryRemove(Item* item, bool dodel) {
         if(index == item)
             category->erase(category->begin() + i);
     }
-    item->index = '~'; // revert the index to one that is never used
+    item->set_property("index", std::string("~")); // revert the index to one that is never used
 
     for(int i = 0; i < inventory.size(); i++) {
         if(inventory[i] == item) {
@@ -286,10 +268,10 @@ void Player::Wear(Item* item) {
     }
 
     std::string wearmsg = "You wear ";
-    if(!Helper::proper(item->name)) { // if not a proper noun, apply correct grammar
+    if(!Helper::proper(item->get_property<std::string>("name"))) { // if not a proper noun, apply correct grammar
         wearmsg += "the ";
     }
-    Message(wearmsg + item->name + ".", TCODColor::white, TCODColor::black);
+    Message(wearmsg + item->get_property<std::string>("name") + ".", TCODColor::white, TCODColor::black);
 }
 
 void Player::Wield(Item* item) {
@@ -314,17 +296,17 @@ void Player::Wield(Item* item) {
     WornRemove(item, false); // remove it from the worn list if it's there
 
     std::string wearmsg = "You wield ";
-    if(!Helper::proper(item->name)) { // if not a proper noun, apply correct grammar
+    if(!Helper::proper(item->get_property<std::string>("name"))) { // if not a proper noun, apply correct grammar
         wearmsg += "the ";
     }
-    Message(wearmsg + item->name + ".", TCODColor::white, TCODColor::black);
+    Message(wearmsg + item->get_property<std::string>("name") + ".", TCODColor::white, TCODColor::black);
 }
 
 int Player::CalcMaxVolume() {
     int returnvolume = 0;
     for(int i = 0; i < Worn.size(); i++) {
         Item* item = Worn[i];
-        returnvolume += item->max_volume;
+        returnvolume += item->get_property<int>("max_volume");
     }
     return returnvolume;
 }
@@ -334,7 +316,7 @@ int Player::CalcCarryVolume() {
     for(int i = 0; i < inventory.size(); i++) {
         Item* item = inventory[i];
         if(!Helper::Find(Worn, item) && righthand != item && lefthand != item)
-            returnvolume += item->max_volume;
+            returnvolume += item->get_property<int>("max_volume");
     }
     return returnvolume;
 }

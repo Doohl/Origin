@@ -48,20 +48,5 @@ class Turf : public Entity {
 };
 
 
-/* Array of prototyped turfs */
-const Turf turflist[num_t_type] = {
-    Turf("nothing",     mfb(t_transparent), ' ', TCODColor::black),       // t_null
-    Turf("grass",       mfb(t_transparent)|mfb(t_walkable), '.',          // t_grass
-         TCODColor(38, 102, 0)),
-    Turf("floor",       mfb(t_transparent)|mfb(t_walkable), '+',          // t_floor
-         TCODColor::grey),
-    Turf("wood_floor",  mfb(t_transparent)|mfb(t_walkable), '+',          // t_wood_floor
-         TCODColor::darkOrange),
-    Turf("wall",        0               , '#', TCODColor::grey),          // t_wall
-    Turf("window",      mfb(t_transparent), '#', TCODColor::sky),         // t_window
-    Turf("water",       mfb(t_transparent), '~', TCODColor::lightBlue),   // t_water
-};
-
-
 #endif // TURF_H_INCLUDED
 

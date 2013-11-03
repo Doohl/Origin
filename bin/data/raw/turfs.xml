@@ -1,0 +1,51 @@
+<!--
+This file contains all of the turfs / tiles.
+Turfs are defined as the basic underlying square in a tile.
+
+Related groups:
+	dense - Mobs cannot travel through this turf.
+	opaque - Mobs cannot see through this turf.
+	
+	natural - This is a natural turf.
+	water - You can swim over this!
+	flammable - This turn can burn.
+	grass_symbol - Is given a special random grass-like symbol every time it's placed in a map.
+-->
+
+<!-- Natural Turfs -->
+<turf id="t_grass">
+	<name>grass</name>
+	<desc>It's just grass.</desc>
+	<groups>natural;flammable;grass_symbol</groups>
+	<symbol>.</symbol>
+	<color>38,102,0</color>
+</turf>
+<turf id="t_water">
+	<name>water</name>
+	<desc>Splish splash. Water.</desc>
+	<groups>dense;water</groups>
+	<symbol>~</symbol>
+	<color>51,102,204</color>
+</turf>
+
+<!-- Constructed/Artificial Turfs -->
+<turf id="t_wall">
+	<name>wall</name>
+	<desc>As generic of a wall as you'll ever see.</desc>
+	<groups>dense;opaque</groups>
+	<symbol>#</symbol>
+	<color>155,155,155</color>
+</turf>
+<turf id="t_window">
+	<name>window</name>
+	<desc>A neat glass window you can see through.</desc>
+	<groups>dense</groups>
+	<symbol>#</symbol>
+	<color>51,204,204</color>
+</turf>
+<turf id="t_floor">
+	<name>floor</name>
+	<desc>Generic, boring floor.</desc>
+	<symbol>+</symbol>
+	<color>155,155,155</color>
+</turf>

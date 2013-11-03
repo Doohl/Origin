@@ -21,7 +21,7 @@ Turf::Turf() {
 Turf::Turf(std::string n, unsigned int f, char s, TCODColor c) {
     etype = turf;
 
-    name = n;
+    //name = n;
     flags = f;
     symbol = s;
     color = c;

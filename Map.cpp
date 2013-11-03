@@ -151,15 +151,17 @@ void Map::SpawnTurf(int x, int y, Turf t) {
     if(x >= 0 && y >= 0) {
         if(x <= width && y <= height) {
 
-            if(t.name == "grass") { // random grass tiles
-                t.c_symbol = special_chars[game->RandomGen->get(0,3)];
-            }
-            t.map = this;
-            t.x = x;
-            t.y = y;
-            grid[x][y] = t;
-            Field->setProperties( x, y, (t.flags & mfb(t_transparent)), (t.flags & mfb(t_walkable)) );
+            Turf* placeturf = new Turf();
+            t.copy_props(placeturf, true);
+            placeturf->x = x;
+            placeturf->y = y;
 
+            if(placeturf->get_property<std::string>("name") == "grass") { // random grass tiles
+                placeturf->c_symbol = special_chars[game->RandomGen->get(0,3)];
+            }
+            placeturf->map = this;
+            grid[x][y] = *placeturf;
+            Field->setProperties( x, y, !Helper::Find(placeturf->groups, std::string("opaque")), !Helper::Find(placeturf->groups, std::string("dense")));
         }
     }
 }
@@ -169,9 +171,11 @@ void Map::SpawnMob(int x, int y, Mob m) {
         if(x <= width && y <= height) {
             Turf* t = &(grid[x][y]);
             Mob* placemob = new Mob();
-            m.CopyTo(placemob);
+            m.copy_props(placemob, true);
             placemob->x = x;
             placemob->y = y;
+            placemob->friendly = m.friendly;
+            placemob->hostile = m.hostile;
 
             placemob->turf = t;
 
@@ -189,7 +193,7 @@ void Map::SpawnItem(int x, int y, Item i) {
         if(x <= width && y <= height) {
             Turf* t = &(grid[x][y]);
             Item* placeitem = new Item();
-            i.CopyTo(placeitem);
+            i.copy_props(placeitem, true);
             placeitem->x = x;
             placeitem->y = y;
 
@@ -255,7 +259,9 @@ std::vector<Mob*> Map::FilterMobs(std::vector<Turf*> turfs) {
     return ReturnMobs;
 }
 
-
+void Map::Generate() {
+    if(!game) return;
+}
 
 
 
