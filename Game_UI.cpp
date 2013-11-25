@@ -273,6 +273,6 @@ void Game::InvInfo() {
 
         // Blit the info console onto the main console, on top of the inventory console
         TCODConsole::blit(_inventoryInfo, 0, 0, INV_I_WIDTH, INV_I_HEIGHT, TCODConsole::root, 43, 5, 1, 0.9);
-
+        _inventoryInfo->clear();
     }
 }

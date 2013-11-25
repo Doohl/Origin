@@ -39,7 +39,7 @@ class Item : public Entity {
         Entity* container; // the entity that is containing this item
 
         /* Weapon-specific members */
-        virtual bool isWeapon() { return (get_property<int>("blunt_damage") > 0 || get_property<int>("cut_damage") > 0 || get_property<int>("pierce_damage") > 0 || Helper::Find(groups, std::string("weapon"))); }
+        virtual bool isWeapon() { return ((get_property<int>("blunt_damage") > 0) || (get_property<int>("cut_damage") > 0) || (get_property<int>("pierce_damage") > 0) || Helper::Find(groups, std::string("weapon"))); }
 
         /* Wearable-specific members */
         virtual bool isWearable() { return Helper::Find(groups, std::string("wearable")); }

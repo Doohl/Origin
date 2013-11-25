@@ -26,6 +26,12 @@ class Helper {
 
     public:
 
+    /** Typedef aliases */
+        // A map depicting string-only text data.
+        typedef std::map< std::string, std::string > entity_data_t;
+        // A vector containing many entity_data_t entries
+        typedef std::vector<entity_data_t> entity_list_t;
+
     /** Type conversion functions */
         /* Split a string into vectors using a separator (or, string->vector) */
         static std::vector<std::string> Explode(char separator, std::string str);
@@ -80,8 +86,8 @@ class Helper {
 
     /** IO / File functions */
 
-        /* Parses an XML file and returns a vector of maps representing deserialized values for different entities */
-        static std::vector< std::map< std::string, std::string > > SimpleXMLParse(const char* file);
+        /* Parses an XML file and returns an entity_list_t value */
+        static entity_list_t SimpleXMLParse(const char* file);
 
         /* Parses a TXT file and returns a string vector of the file broken down by \n tokens */
         static std::vector<std::string> SimpleParse(const char* file);

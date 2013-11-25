@@ -33,7 +33,7 @@ void World::PopulateNeighbors() {
 
 void World::GenMaps(int range, Turf fill) {
     if(!cur_map) return;
-
+    /*
     for(int x = -range; x <= range; x++) {
         for(int y = -range; y <= range; y++) {
             if(x == 0 && y == 0) continue; // 0,0 is our origin
@@ -65,6 +65,7 @@ void World::GenMaps(int range, Turf fill) {
             }
         }
     }
+    */
 }
 
 void World::SaveMap(Map* map, std::string path) {
@@ -72,7 +73,7 @@ void World::SaveMap(Map* map, std::string path) {
 
 void World::SaveMap(Map* map) {
 }
-
+/*
 HeightLevel* World::getHeightLevel(int level) {
     for(int i = 0; i < _levels.size(); i++) {
         HeightLevel* h_level = _levels[i];
@@ -80,4 +81,5 @@ HeightLevel* World::getHeightLevel(int level) {
     }
     return NULL;
 }
+*/
 

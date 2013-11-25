@@ -118,14 +118,14 @@ void Helper::replace_all(std::string& str, const std::string from, const std::st
 }
 
 /* Simple XML parser function */
-std::vector< std::map< std::string, std::string > > Helper::SimpleXMLParse(const char* file) {
-    std::vector< std::map< std::string, std::string > > returnvect;
+Helper::entity_list_t Helper::SimpleXMLParse(const char* file) {
+    entity_list_t returnvect;
 
     tinyxml2::XMLDocument doc;
     doc.LoadFile(file);
 
     for(tinyxml2::XMLElement* elem = doc.FirstChildElement(); elem != NULL; elem = elem->NextSiblingElement()) {
-        std::map<std::string, std::string> entity;
+        entity_data_t entity;
 
         tinyxml2::XMLAttribute* id_attribute = elem->FindAttribute("id");
         if(id_attribute)

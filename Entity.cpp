@@ -35,6 +35,7 @@ void Entity::SaveEntity(tinyxml2::XMLElement* element) {
 
     element->SetAttribute("symbol", std::string(1, symbol).c_str());
     element->SetAttribute("color", color_str.c_str());
+    element->SetAttribute("groups", Helper::Implode(';', groups).c_str());
 }
 
 void Entity::LoadEntity(tinyxml2::XMLElement* element) {
@@ -46,9 +47,13 @@ void Entity::LoadEntity(tinyxml2::XMLElement* element) {
         } else if(index == "color") {
             std::vector<std::string> color_rgb = Helper::Explode(',', std::string(attribute->Value()));
             color = TCODColor(Helper::str2int(color_rgb[0]), Helper::str2int(color_rgb[1]), Helper::str2int(color_rgb[2]));
+        } else if(index == "groups") {
+            groups = Helper::Explode(';', std::string(attribute->Value()));
         }
         else {
-            if(attribute->IntValue() != 0) {
+            int int_test = 1;
+
+            if(attribute->QueryIntValue(&int_test) == tinyxml2::XML_NO_ERROR) {
                 set_property(index, attribute->IntValue());
             } else {
                 std::string value = std::string(attribute->Value());

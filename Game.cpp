@@ -239,8 +239,6 @@ void Game::GameLoop() {
                 TCODConsole::root->putChar(x, y, turfchosen->symbol);
             }
 
-
-
             // Draw all visible entities
 
             for(int j = 0; j < turfchosen->contents.size(); j++) {
@@ -410,12 +408,12 @@ void Game::ConstructPrototypes() {
 
         std::cout << resource << " ";
 
-        std::vector< std::map<std::string, std::string> > data = Helper::SimpleXMLParse(resource);
+        Helper::entity_list_t data = Helper::SimpleXMLParse(resource);
 
         std::cout << "(" << data.size() << " entities located)" << std::endl;
 
         for(int j = 0; j < data.size(); j++) {
-            std::map<std::string, std::string> datum = data[j];
+            Helper::entity_data_t datum = data[j];
             std::map<std::string, boost::any> parsed_data;
             char symbol;
             TCODColor color;
@@ -423,7 +421,7 @@ void Game::ConstructPrototypes() {
             std::vector<std::string> friendlies;
             std::vector<std::string> enemies;
 
-            std::map<std::string, std::string>::iterator it;
+            Helper::entity_data_t::iterator it;
             for(it = datum.begin(); it != datum.end(); ++it) {
 
                 std::string index = it->first;
@@ -525,7 +523,9 @@ void Game::SavePlayer() {
     std::string directory = std::string(SAVE_DIR) + "/" + player.get_property<std::string>("name") + ".sav";
 
     // Save the player savefile into disk:
-    Helper::Smart_MKDir(std::string(SAVE_DIR)); // make sure the directory exists first
+    if(!Helper::fexists(directory)) {
+        Helper::Smart_MKDir(std::string(SAVE_DIR)); // make sure the directory exists first
+    }
     doc.SaveFile(directory.c_str(), false);
 }
 

@@ -11,9 +11,10 @@
 				<Option output="bin/OriginToA.exe" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="bin/" />
 				<Option object_output="obj/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-Os" />
 					<Add option="-g" />
 					<Add directory="depend/libtcod/include" />
 				</Compiler>
@@ -94,14 +95,6 @@
 		<Unit filename="World.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="depend/AMEFProtocol/AMEFDecoder.cpp" />
-		<Unit filename="depend/AMEFProtocol/AMEFDecoder.h" />
-		<Unit filename="depend/AMEFProtocol/AMEFEncoder.cpp" />
-		<Unit filename="depend/AMEFProtocol/AMEFEncoder.h" />
-		<Unit filename="depend/AMEFProtocol/AMEFObject.cpp" />
-		<Unit filename="depend/AMEFProtocol/AMEFObject.h" />
-		<Unit filename="depend/AMEFProtocol/AMEFResources.cpp" />
-		<Unit filename="depend/AMEFProtocol/AMEFResources.h" />
 		<Unit filename="depend/tinyxml2/tinyxml.cpp" />
 		<Unit filename="depend/tinyxml2/tinyxml.h" />
 		<Unit filename="main.cpp" />
