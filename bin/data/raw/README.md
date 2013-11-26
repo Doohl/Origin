@@ -13,12 +13,12 @@ color				- Either a string or container which enumerates via index map "r;g;b" t
 
 ### Item Data Types
 <pre>
-rarity			- How rare this item is.
-weight			- The weight of the item.
-volume			- The volume of the item.
-value			- The value or worth of the item.
+rarity			  - How rare this item is.
+weight			  - The weight of the item.
+volume			  - The volume of the item.
+value			  - The value or worth of the item.
 
-capacity		- How much volume this item can carry.
+capacity	  	- How much volume this item can carry.
 </pre>
 
 
