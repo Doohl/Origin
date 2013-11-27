@@ -22,6 +22,10 @@ Procedurally-Generated World - The game world is procedurally-generated, with di
 
 Insanity - Origin is not a very logical, and consequently safe place. Events in Origin are very much random, confusing, and potentially catastrophic in nature. The player will not be able to reliably predict what will happen, but they should be able to adapt and be prepared to deal with it. For example, the game might decide to animate the furniture in your shack for a brief moment, sending them hurtling toward you and busting holes in your walls that you have to repair. Or you might be attacked by a swarm of fairies casting magic at you, while the trees turn into slime and the sky begins raining hallucinogenic drugs.
 
+Plot - Probably one of the more ambitious gameplay aspects of Origin; the game will have a plot and a story to tell admist the gameplay. The plot will be entirely optional, however; if the player does not choose to indulge in it they do not have to. It will serve as a way to guide new players as well as giving them stuff to do at first, but will eventually branch off into its own involved story with the players' actions molding the narrative as it happens.
+
+
+
 ## Contact Information
 You may use the following to contact me:
 
