@@ -18,7 +18,8 @@ Combat - Combat in Origin shall be relatively simple and yet more complex than h
 
 Crafting - The player will be able to use the strange alien environment to learn what things do and how to put them together. They can craft useful apparatus, tools, and items to assist them in their quest for survival. They can also attempt to find items from crash sites and craft conventional human items such as projectile weaponry or electronics.
 
-Plot - TBA.
+Procedurally-Generated Worlds - 
+Insanity - Origin is not a very logical, and consequently safe place. Events in Origin are very much
 
 ## Contact Information
 You may use the following to contact me:
