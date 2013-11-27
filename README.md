@@ -18,8 +18,9 @@ Combat - Combat in Origin shall be relatively simple and yet more complex than h
 
 Crafting - The player will be able to use the strange alien environment to learn what things do and how to put them together. They can craft useful apparatus, tools, and items to assist them in their quest for survival. They can also attempt to find items from crash sites and craft conventional human items such as projectile weaponry or electronics.
 
-Procedurally-Generated Worlds - 
-Insanity - Origin is not a very logical, and consequently safe place. Events in Origin are very much
+Procedurally-Generated World - The game world is procedurally-generated, with different geographic areas adding some variety and challenge to the different areas the player can visit. Possibly, the player will be able to choose their starting position on the worldmap, which is where they crash into. Another possibility is also the world wrapping into itself so there are no seams at the edges. Alternatively the world can be generated as it is needed, allowing for an infinitely-large map.
+
+Insanity - Origin is not a very logical, and consequently safe place. Events in Origin are very much random, confusing, and potentially catastrophic in nature. The player will not be able to reliably predict what will happen, but they should be able to adapt and be prepared to deal with it. For example, the game might decide to animate the furniture in your shack for a brief moment, sending them hurtling toward you and busting holes in your walls that you have to repair. Or you might be attacked by a swarm of fairies casting magic at you, while the trees turn into slime and the sky begins raining hallucinogenic drugs.
 
 ## Contact Information
 You may use the following to contact me:
