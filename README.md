@@ -4,7 +4,7 @@ A single-player 2D ASCII roguelike created by Doohl, all rights reserved. The ri
 
 ## Origin Game Synopsis
 
-Origin will be a turn-based survival/action 2D ASCII roguelike with a heavy emphasis on the player's ability to adapt and thrive in constantly-challening environments. The game's lore is heavily inspired by Space Station 13, and indeed, somewhat loosely based off of it.
+Origin will be a turn-based survival/action 2D ASCII roguelike with a heavy emphasis on the player's ability to adapt and thrive in constantly-challening environments.
 
 The game is set in the very distant future (2700s) in a planet known informally as Origin. The most modern, conventional method of interstellar and intergalactic travel is known as Bluespace, a parallel reality where time and space are only loosely correlated to the primary reality. The mechanics of Bluespace operate in such a foreign and unintuitive way, defying all known principles of modern physics. As such, even in the mid-2500s, extensive research was performed on this dimension. It was established that the Bluespace realm expands outward similar to the primary universe, but from a specific point of Origin.
 
