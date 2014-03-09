@@ -11,10 +11,11 @@
 				<Option output="bin/OriginToA.exe" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="bin/" />
 				<Option object_output="obj/" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
-					<Add option="-Os" />
+					<Add option="-O2" />
 					<Add option="-g" />
 					<Add directory="depend/libtcod/include" />
 				</Compiler>
@@ -95,6 +96,7 @@
 		<Unit filename="World.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="depend/picojson/picojson.h" />
 		<Unit filename="depend/tinyxml2/tinyxml.cpp" />
 		<Unit filename="depend/tinyxml2/tinyxml.h" />
 		<Unit filename="main.cpp" />

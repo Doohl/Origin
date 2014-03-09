@@ -26,6 +26,7 @@ Player::Player() {
     set_property("hp", 100);
     set_property("ether", 0);
     set_property("max_ether", 0);
+    set_property("aggro_range", VIEW_WIDTH);
 
     set_property("strength", 1);
     set_property("intelligence", 1);
@@ -139,6 +140,9 @@ void Player::Move(int newx, int newy) {
 
         cam_x = newx;
         cam_y = newy;
+
+        // Compute the new FoV
+        turf->map->Field->computeFov(x, y, VIEW_WIDTH, true, FOV_DIAMOND);
     }
 
 }

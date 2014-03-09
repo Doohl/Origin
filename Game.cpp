@@ -196,7 +196,7 @@ void Game::GameLoop() {
     // Game is going: handle all rendering! Listens for player input to update game.
 
     // Compute the FoV
-    GameMap.Field->computeFov(player.x, player.y, 0, true, FOV_DIAMOND); // basic FoV
+    GameMap.Field->computeFov(player.x, player.y, VIEW_WIDTH, true, FOV_DIAMOND); // basic FoV
 
     // Loop through all turfs and draw them
     std::vector<Turf*> Turfs = GameMap.TurfRange(player.cam_x, player.cam_y, 44);
