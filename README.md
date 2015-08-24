@@ -2,6 +2,8 @@
   <img src="https://dl.dropboxusercontent.com/u/10657252/Art/OriginBanner.png" alt="Logo"/>
 </p>
 
+WARNING: this project has been discontinued now for several years. Beware ye who entereth.
+
 Origin
 ======
 A single-player 2D ASCII roguelike created by Doohl, all rights reserved. The rights are so reserved they just do not have time for your shit today.
